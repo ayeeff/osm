@@ -80,6 +80,8 @@ jobs:
       EXTRACT: ${{ matrix.city.extract }}
       # osmium -b takes minLat,minLon,maxLat,maxLon
       BBOX: ${{ join(matrix.city.bbox, ',') }}
+      # matrix.city.bbox is [minLng, minLat, maxLng, maxLat], which is exactly
+      # what `osmium extract -b` wants (LONG1,LAT1,LONG2,LAT2) — pass it through.
       PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == false && 'false' || 'true' }}
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -115,17 +117,12 @@ jobs:
             --query 'ContentLength' --output text)
           printf 'source=%s (%s bytes)\n' "$SOURCE_KEY" "$SIZE"
 
-          MINLON=$(jq -n --arg b "$BBOX" '$b | split(",")[0] | tonumber')
-          MINLAT=$(jq -n --arg b "$BBOX" '$b | split(",")[1] | tonumber')
-          MAXLON=$(jq -n --arg b "$BBOX" '$b | split(",")[2] | tonumber')
-          MAXLAT=$(jq -n --arg b "$BBOX" '$b | split(",")[3] | tonumber')
-          printf 'bbox=%s,%s,%s,%s\n' "$MINLAT" "$MINLON" "$MAXLAT" "$MAXLON"
-
           PURL=$(aws s3 presign "s3://geo-datalake/${SOURCE_KEY}" --expires-in 21600)
+          printf 'bbox(long1,lat1,long2,lat2)=%s\n' "$BBOX"
           curl -fsSL --retry 5 --retry-delay 5 --keepalive-time 30 --keepalive \
             --speed-limit 1 --speed-time 300 --connect-timeout 60 --max-time 21600 \
             -A "ayeeff-osm-city-2d/1.0" "$PURL" \
-            | osmium extract -b "$MINLAT,$MINLON,$MAXLAT,$MAXLON" -F pbf -O -o work/city.osm.pbf -
+            | osmium extract -b "$BBOX" -F pbf -O -o work/city.osm.pbf -
           osmium fileinfo -e work/city.osm.pbf | tee work/city-info.txt
 
       - name: Export areas (districts + POIs) and ways (streets)
