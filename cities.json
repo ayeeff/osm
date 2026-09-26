@@ -1,0 +1,23 @@
+{
+  "$comment": "Target registry. bbox is [minLng, minLat, maxLng, maxLat] and is copied from layer/anchor-pmtiles-manifest.json in ayeeff/astrogl. extract is the geofabrik per-country slug under sources/osm/ in the geo-datalake bucket; omit it when no extract covers the city (that city then keeps using the Overpass fallback in atlas-2d-worker).",
+  "cities": [
+    {
+      "slug": "beijing",
+      "label": "Beijing",
+      "extract": "china",
+      "bbox": [115.80088, 39.47844, 116.9757, 40.37934]
+    },
+    {
+      "slug": "melbourne",
+      "label": "Melbourne",
+      "extract": "australia",
+      "bbox": [144.40478, -38.27048, 145.54525, -37.36958]
+    },
+    {
+      "slug": "berlin",
+      "label": "Berlin",
+      "extract": "germany",
+      "bbox": [12.66124, 52.07137, 14.14186, 52.97227]
+    }
+  ]
+}

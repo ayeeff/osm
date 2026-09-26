@@ -1,0 +1,211 @@
+name: OSM city 2D map data
+
+# Builds places.json + demand-streets.json for the 2D dark city map style
+# (ayeeff/astrogl → template/map-style-2d.md) from the per-country OSM extracts
+# already staged in R2. No Overpass: one streamed country extract per city,
+# scanned locally by osmium in the runner.
+#
+# Output lands in BOTH buckets:
+#   geo-datalake/sources/osm/places/<slug>/   durable copy
+#   globe/data/<slug>-2d/                     what the site Worker serves
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "City slug; empty processes every city in cities.json"
+        required: false
+        default: ""
+      publish:
+        description: Publish to the live globe/data prefix
+        type: boolean
+        required: false
+        default: true
+  schedule:
+    # Weekly, alongside the geofabrik extract refresh.
+    - cron: "41 4 * * 2"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: osm-city-2d-data
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      cities: ${{ steps.plan.outputs.cities }}
+    env:
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      AWS_DEFAULT_REGION: auto
+      AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+      REQUESTED_SLUG: ${{ inputs.slug }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve the city matrix
+        id: plan
+        run: |
+          set -euo pipefail
+          # Only cities that name a geofabrik extract can be built here; the rest
+          # keep using the atlas-2d-worker Overpass fallback.
+          ALL=$(jq -c '[.cities[] | select(.extract != null and .extract != "")]' cities.json)
+          if [ -n "$REQUESTED_SLUG" ]; then
+            PICK=$(jq -c --arg s "$REQUESTED_SLUG" '[.[] | select(.slug == $s)]' <<<"$ALL")
+            if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
+              echo "::error::slug '$REQUESTED_SLUG' has no 'extract' in cities.json (or is unknown) — it would fall back to Overpass"
+              exit 1
+            fi
+            ALL="$PICK"
+          fi
+          echo "cities=$ALL" >> "$GITHUB_OUTPUT"
+          jq -r '.[] | "  \(.slug) -> \(.extract)"' <<<"$ALL"
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        city: ${{ fromJSON(needs.plan.outputs.cities) }}
+    env:
+      SLUG: ${{ matrix.city.slug }}
+      LABEL: ${{ matrix.city.label }}
+      EXTRACT: ${{ matrix.city.extract }}
+      # osmium -b takes minLat,minLon,maxLat,maxLon
+      BBOX: ${{ join(matrix.city.bbox, ',') }}
+      PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == false && 'false' || 'true' }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      AWS_DEFAULT_REGION: auto
+      AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install osmium
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y osmium-tool
+
+      - name: Configure R2
+        run: |
+          set -euo pipefail
+          aws configure set aws_access_key_id "$R2_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$R2_SECRET_ACCESS_KEY"
+
+      - name: Extract the city from the country extract
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          SOURCE_KEY="sources/osm/${EXTRACT}-latest.osm.pbf"
+          aws s3api head-object --bucket geo-datalake --key "$SOURCE_KEY" >/dev/null
+          SIZE=$(aws s3api head-object --bucket geo-datalake --key "$SOURCE_KEY" \
+            --query 'ContentLength' --output text)
+          printf 'source=%s (%s bytes)\n' "$SOURCE_KEY" "$SIZE"
+
+          MINLON=$(jq -n --arg b "$BBOX" '$b | split(",")[0] | tonumber')
+          MINLAT=$(jq -n --arg b "$BBOX" '$b | split(",")[1] | tonumber')
+          MAXLON=$(jq -n --arg b "$BBOX" '$b | split(",")[2] | tonumber')
+          MAXLAT=$(jq -n --arg b "$BBOX" '$b | split(",")[3] | tonumber')
+          printf 'bbox=%s,%s,%s,%s\n' "$MINLAT" "$MINLON" "$MAXLAT" "$MAXLON"
+
+          PURL=$(aws s3 presign "s3://geo-datalake/${SOURCE_KEY}" --expires-in 21600)
+          curl -fsSL --retry 5 --retry-delay 5 --keepalive-time 30 --keepalive \
+            --speed-limit 1 --speed-time 300 --connect-timeout 60 --max-time 21600 \
+            -A "ayeeff-osm-city-2d/1.0" "$PURL" \
+            | osmium extract -b "$MINLAT,$MINLON,$MAXLAT,$MAXLON" -F pbf -O -o work/city.osm.pbf -
+          osmium fileinfo -e work/city.osm.pbf | tee work/city-info.txt
+
+      - name: Export areas (districts + POIs) and ways (streets)
+        run: |
+          set -euo pipefail
+          # -R keeps referenced members so ways keep their geometry.
+          osmium tags-filter -R -F pbf -O -o work/pois.osm.pbf work/city.osm.pbf \
+            "nwr/boundary=administrative" \
+            "nwr/aeroway=aerodrome" \
+            "nwr/station=airport" \
+            "nwr/tourism=museum,attraction,artwork,viewpoint,gallery,theme_park,zoo,aquarium" \
+            "nwr/historic=*" \
+            "nwr/man_made=tower,lighthouse,bridge,obelisk,statue" \
+            "nwr/leisure=stadium,arena,park" \
+            "nwr/office=*" \
+            "nwr/building=office" \
+            "nwr/amenity=bank,stock_exchange,courthouse,townhall,school,college,university,kindergarten,library,hospital,clinic,doctors,pharmacy,restaurant,bar,pub,cafe,fast_food,nightclub,wine_bar" \
+            "nwr/healthcare=*" \
+            "nwr/shop=*"
+
+          # Deliberately the same three classes atlas-2d-worker uses
+          # (streets:arterial / :residential / :service). footway, path and
+          # cycleway are excluded on both sides: they dominate the way count and
+          # carry no demand signal.
+          osmium tags-filter -R -F pbf -O -o work/streets.osm.pbf work/city.osm.pbf \
+            "nwr/highway=motorway,trunk,primary,secondary,tertiary,residential,unclassified,living_street,service,pedestrian,track"
+
+          cat > work/areas-export.json <<'JSON'
+          {
+            "attributes": { "id": true, "type": true, "version": false, "changeset": false,
+                            "timestamp": false, "uid": false, "user": false, "way_nodes": false },
+            "linear_tags": false,
+            "centroid": true,
+            "area_tags": [ "*" ],
+            "include_tags": [ "name", "name:*", "boundary", "admin_level", "aeroway", "station",
+                              "tourism", "historic", "man_made", "leisure", "office", "building",
+                              "amenity", "healthcare", "shop" ]
+          }
+          JSON
+          cat > work/ways-export.json <<'JSON'
+          {
+            "attributes": { "id": true, "type": true, "version": false, "changeset": false,
+                            "timestamp": false, "uid": false, "user": false, "way_nodes": false },
+            "linear_tags": false,
+            "area_tags": [ "highway=*" ],
+            "include_tags": [ "highway", "name" ]
+          }
+          JSON
+          osmium export -O -f geojsonseq -x print_record_separator=false \
+            -c work/areas-export.json -o work/places.geojsonseq work/pois.osm.pbf
+          osmium export -O -f geojsonseq -x print_record_separator=false \
+            -c work/ways-export.json -o work/streets.geojsonseq work/streets.osm.pbf
+          wc -l work/places.geojsonseq work/streets.geojsonseq
+
+      - name: Score places and street demand
+        run: |
+          set -euo pipefail
+          python scripts/extract_city_2d_data.py \
+            --slug "$SLUG" --extract "$EXTRACT" \
+            --places work/places.geojsonseq --streets work/streets.geojsonseq \
+            --out-dir "work/out/${SLUG}"
+
+      - name: Upload
+        run: |
+          set -euo pipefail
+          aws s3 sync "work/out/${SLUG}/" "s3://geo-datalake/sources/osm/places/${SLUG}/" \
+            --exclude "*" --include "*.json"
+          if [ "$PUBLISH" = "true" ]; then
+            aws s3 cp "work/out/${SLUG}/places.json" \
+              "s3://globe/data/${SLUG}-2d/places.json" --content-type application/json
+            aws s3 cp "work/out/${SLUG}/demand-streets.json" \
+              "s3://globe/data/${SLUG}-2d/demand-streets.json" --content-type application/json
+          else
+            echo "staged only (publish=false)"
+          fi
+          aws s3 cp "work/out/${SLUG}/_manifest.json" \
+            "s3://geo-datalake/sources/osm/places/${SLUG}/_manifest.json"
+          rm -rf work/city.osm.pbf work/pois.osm.pbf work/streets.osm.pbf \
+            work/places.geojsonseq work/streets.geojsonseq
+
+      - name: Summary
+        if: always()
+        run: cat "work/out/${SLUG}/_manifest.json" 2>/dev/null || echo "no manifest"
