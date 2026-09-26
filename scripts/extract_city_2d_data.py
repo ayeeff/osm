@@ -192,16 +192,65 @@ def classify(props):
     return None
 
 
+def representative_point(feature):
+    """
+    A single lon/lat for an area feature.
+
+    `osmium export` only emits a "centroid" property when the config asks for
+    it, and it is not emitted for every geometry type, so never rely on it —
+    fall back to the geometry itself. Getting this wrong silently yields an
+    empty places.json, which is exactly what happened on the first CI run.
+    """
+    centroid = feature.get("centroid")
+    if isinstance(centroid, (list, tuple)) and len(centroid) >= 2:
+        return float(centroid[0]), float(centroid[1])
+
+    geometry = feature.get("geometry") or {}
+    gtype = geometry.get("type")
+    coords = geometry.get("coordinates")
+
+    if gtype == "Point" and coords:
+        return float(coords[0]), float(coords[1])
+    if gtype == "LineString" and coords:
+        mid = coords[len(coords) // 2]
+        return float(mid[0]), float(mid[1])
+    if gtype in ("Polygon", "MultiPolygon") and coords:
+        # Polygon -> coords[0] is the outer ring; MultiPolygon -> coords[0][0] is it.
+        ring = coords[0] if gtype == "Polygon" else coords[0][0]
+        if ring and isinstance(ring[0], (list, tuple)):
+            # Area centroid of the outer ring (shoelace), falling back to the
+            # vertex mean for degenerate rings.
+            area2 = 0.0
+            cx = 0.0
+            cy = 0.0
+            for i in range(len(ring) - 1):
+                x0, y0 = ring[i][0], ring[i][1]
+                x1, y1 = ring[i + 1][0], ring[i + 1][1]
+                cross = x0 * y1 - x1 * y0
+                area2 += cross
+                cx += (x0 + x1) * cross
+                cy += (y0 + y1) * cross
+            if area2 != 0:
+                return cx / (3.0 * area2), cy / (3.0 * area2)
+            return (
+                sum(p[0] for p in ring) / len(ring),
+                sum(p[1] for p in ring) / len(ring),
+            )
+    return None
+
+
 def build_places(path):
     """Read the area export and return (features, kind_counts)."""
     by_kind = defaultdict(list)
+    skipped = 0
 
     for feature in iter_geojsonseq(path):
         props = feature.get("properties") or {}
-        centroid = feature.get("centroid")
-        if not centroid or len(centroid) < 2:
+        point = representative_point(feature)
+        if point is None:
+            skipped += 1
             continue
-        lon, lat = float(centroid[0]), float(centroid[1])
+        lon, lat = point
 
         kind = classify(props)
         if kind is None:
@@ -217,6 +266,9 @@ def build_places(path):
         else:
             group = next(g for g in POI_GROUPS if g["kind"] == kind)
             by_kind[kind].append((name, lon, lat, group["rank"]))
+
+    if skipped:
+        print(f"note: {skipped} area features had no usable geometry", file=sys.stderr)
 
     features = []
     counts = {}

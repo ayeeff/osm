@@ -174,16 +174,21 @@ jobs:
           {
             "attributes": { "id": true, "type": true, "version": false, "changeset": false,
                             "timestamp": false, "uid": false, "user": false, "way_nodes": false },
-            "linear_tags": false,
+            "linear_tags": true,
             "area_tags": [ "highway=*" ],
             "include_tags": [ "highway", "name" ]
           }
           JSON
+          # `linear_tags` MUST be true here: osmium export is tag-driven, so with
+          # only area_tags the open highway ways are not exported at all and the
+          # file comes out with a couple of roundabouts in it.
           osmium export -O -f geojsonseq -x print_record_separator=false \
             -c work/areas-export.json -o work/places.geojsonseq work/pois.osm.pbf
           osmium export -O -f geojsonseq -x print_record_separator=false \
             -c work/ways-export.json -o work/streets.geojsonseq work/streets.osm.pbf
           wc -l work/places.geojsonseq work/streets.geojsonseq
+          echo "--- sample area ---"; head -c 400 work/places.geojsonseq; echo
+          echo "--- sample way ---"; head -c 400 work/streets.geojsonseq; echo
 
       - name: Score places and street demand
         run: |
