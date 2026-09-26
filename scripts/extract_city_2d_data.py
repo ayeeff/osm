@@ -24,6 +24,7 @@ import math
 import os
 import sys
 from collections import defaultdict
+from datetime import datetime, timezone
 
 import osmium
 from osmium.osm import Node, Relation, Way
@@ -438,6 +439,10 @@ def main():
     manifest = {
         "slug": args.slug,
         "extract": args.extract,
+        # atlas-2d-worker compares this against the R2 upload time of the copy it
+        # published, to decide whether the pipeline output is newer than what the
+        # site is serving. Without it the comparison is a no-op.
+        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "places": len(places),
         "byKind": counts,
         "streetWaysScanned": collector.ways_seen,
