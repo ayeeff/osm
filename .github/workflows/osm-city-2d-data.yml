@@ -137,7 +137,9 @@ jobs:
         run: |
           set -euo pipefail
           # -R keeps referenced members so ways keep their geometry.
-          osmium tags-filter -R -F pbf -O -o work/pois.osm.pbf work/city.osm.pbf \
+          # NOTE the argument order: osmium tags-filter is
+          #   tags-filter [options] EXPRESSION... INFILE... -o OUTFILE
+          osmium tags-filter -R -F pbf \
             "nwr/boundary=administrative" \
             "nwr/place=city,town,borough,suburb,quarter,neighbourhood,district" \
             "nwr/aeroway=aerodrome" \
@@ -150,14 +152,15 @@ jobs:
             "nwr/building=office" \
             "nwr/amenity=bank,stock_exchange,courthouse,townhall,school,college,university,kindergarten,library,hospital,clinic,doctors,pharmacy,restaurant,bar,pub,cafe,fast_food,nightclub,wine_bar" \
             "nwr/healthcare=*" \
-            "nwr/shop=*"
+            "nwr/shop=*" \
+            work/city.osm.pbf -o work/pois.osm.pbf 2>&1
 
-          # Deliberately the same three classes atlas-2d-worker uses
-          # (streets:arterial / :residential / :service). footway, path and
-          # cycleway are excluded on both sides: they dominate the way count and
-          # carry no demand signal.
-          osmium tags-filter -R -F pbf -O -o work/streets.osm.pbf work/city.osm.pbf \
-            "nwr/highway=motorway,trunk,primary,secondary,tertiary,residential,unclassified,living_street,service,pedestrian,track"
+          osmium tags-filter -R -F pbf \
+            "nwr/highway=motorway,trunk,primary,secondary,tertiary,residential,unclassified,living_street,service,pedestrian,track" \
+            work/city.osm.pbf -o work/streets.osm.pbf 2>&1
+
+          echo "--- pois.osm.pbf ---"; osmium fileinfo -e work/pois.osm.pbf 2>&1 | grep -E "number of|file size"
+          echo "--- streets.osm.pbf ---"; osmium fileinfo -e work/streets.osm.pbf 2>&1 | grep -E "number of|file size"
 
           cat > work/areas-export.json <<'JSON'
           {
