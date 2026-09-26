@@ -107,23 +107,31 @@ jobs:
           aws configure set aws_access_key_id "$R2_ACCESS_KEY_ID"
           aws configure set aws_secret_access_key "$R2_SECRET_ACCESS_KEY"
 
-      - name: Extract the city from the country extract
+      - name: Fetch the country extract
         run: |
           set -euo pipefail
           mkdir -p work
           SOURCE_KEY="sources/osm/${EXTRACT}-latest.osm.pbf"
-          aws s3api head-object --bucket geo-datalake --key "$SOURCE_KEY" >/dev/null
           SIZE=$(aws s3api head-object --bucket geo-datalake --key "$SOURCE_KEY" \
             --query 'ContentLength' --output text)
           printf 'source=%s (%s bytes)\n' "$SOURCE_KEY" "$SIZE"
+          # This is runner disk inside GitHub Actions, not the operator's home
+          # link — a 1.5 GB country extract is nothing here, and having the file
+          # on disk makes the osmium steps debuggable and re-runnable.
+          aws s3 cp "s3://geo-datalake/${SOURCE_KEY}" work/source.osm.pbf \
+            --no-progress --only-show-errors
+          ls -l work/source.osm.pbf
+          osmium fileinfo work/source.osm.pbf | head -n 4
 
-          PURL=$(aws s3 presign "s3://geo-datalake/${SOURCE_KEY}" --expires-in 21600)
+      - name: Extract the city bbox
+        run: |
+          set -euo pipefail
+          # matrix.city.bbox is [minLng, minLat, maxLng, maxLat], which is exactly
+          # what `osmium extract -b` wants (LONG1,LAT1,LONG2,LAT2).
           printf 'bbox(long1,lat1,long2,lat2)=%s\n' "$BBOX"
-          curl -fsSL --retry 5 --retry-delay 5 --keepalive-time 30 --keepalive \
-            --speed-limit 1 --speed-time 300 --connect-timeout 60 --max-time 21600 \
-            -A "ayeeff-osm-city-2d/1.0" "$PURL" \
-            | osmium extract -b "$BBOX" -F pbf -O -o work/city.osm.pbf -
-          osmium fileinfo -e work/city.osm.pbf | tee work/city-info.txt
+          osmium extract -b "$BBOX" -F pbf -o work/city.osm.pbf work/source.osm.pbf 2>&1
+          osmium fileinfo -e work/city.osm.pbf 2>&1 | head -n 20
+          rm -f work/source.osm.pbf
 
       - name: Export areas (districts + POIs) and ways (streets)
         run: |
