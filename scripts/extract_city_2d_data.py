@@ -72,7 +72,24 @@ POI_GROUPS = [
     },
 ]
 
-DISTRICT_RANK = {8: 4, 9: 5, 10: 6}
+DISTRICT_RANK = {6: 4, 7: 4, 8: 4, 9: 5, 10: 6, 11: 6, 12: 6}
+
+# `place=*` is a better district source than admin boundaries in much of the
+# world — China's OSM coverage of admin_level 8-10 is thin, while place nodes
+# and place areas are well mapped. rank 4 keeps them eligible for the
+# `rank >= 4` district-label filter in the style.
+# village/hamlet are deliberately absent: they would render with district
+# styling (large teal dots) at a rank below the `rank >= 4` label threshold, so
+# they add a dot and no label. Drop them.
+PLACE_KINDS = {
+    "city": 6,
+    "town": 5,
+    "borough": 5,
+    "suburb": 5,
+    "quarter": 4,
+    "neighbourhood": 4,
+    "district": 5,
+}
 
 # --------------------------------------------------------------------------
 # Demand scoring constants — identical to assemble.js
@@ -143,8 +160,13 @@ def classify(props):
     """Map OSM tags to one of our kinds, or None."""
     if props.get("boundary") == "administrative":
         level = props.get("admin_level")
-        if level and level.isdigit() and int(level) in DISTRICT_RANK:
+        if level and str(level).isdigit() and int(level) in DISTRICT_RANK:
             return "district"
+
+    # A named place node/area is a district for our purposes.
+    place = props.get("place")
+    if place in PLACE_KINDS and name_of(props):
+        return "place"
 
     if props.get("aeroway") == "aerodrome":
         return "air"
@@ -243,9 +265,13 @@ def build_places(path):
     """Read the area export and return (features, kind_counts)."""
     by_kind = defaultdict(list)
     skipped = 0
+    keys_seen = defaultdict(int)
 
     for feature in iter_geojsonseq(path):
         props = feature.get("properties") or {}
+        for key in ("boundary", "admin_level", "place", "tourism", "amenity", "shop", "office"):
+            if key in props:
+                keys_seen[key] += 1
         point = representative_point(feature)
         if point is None:
             skipped += 1
@@ -261,14 +287,17 @@ def build_places(path):
 
         if kind == "district":
             level = props.get("admin_level")
-            rank = DISTRICT_RANK.get(int(level), 5) if level and level.isdigit() else 5
+            rank = DISTRICT_RANK.get(int(level), 5) if level and str(level).isdigit() else 5
             by_kind["district"].append((name, lon, lat, rank))
+        elif kind == "place":
+            by_kind["district"].append((name, lon, lat, PLACE_KINDS[props["place"]]))
         else:
             group = next(g for g in POI_GROUPS if g["kind"] == kind)
             by_kind[kind].append((name, lon, lat, group["rank"]))
 
     if skipped:
         print(f"note: {skipped} area features had no usable geometry", file=sys.stderr)
+    print("tag coverage: " + json.dumps(dict(sorted(keys_seen.items()))), file=sys.stderr)
 
     features = []
     counts = {}

@@ -139,6 +139,7 @@ jobs:
           # -R keeps referenced members so ways keep their geometry.
           osmium tags-filter -R -F pbf -O -o work/pois.osm.pbf work/city.osm.pbf \
             "nwr/boundary=administrative" \
+            "nwr/place=city,town,borough,suburb,quarter,neighbourhood,district" \
             "nwr/aeroway=aerodrome" \
             "nwr/station=airport" \
             "nwr/tourism=museum,attraction,artwork,viewpoint,gallery,theme_park,zoo,aquarium" \
@@ -165,7 +166,7 @@ jobs:
             "linear_tags": false,
             "centroid": true,
             "area_tags": [ "*" ],
-            "include_tags": [ "name", "name:*", "boundary", "admin_level", "aeroway", "station",
+            "include_tags": [ "name", "name:*", "boundary", "admin_level", "place", "aeroway", "station",
                               "tourism", "historic", "man_made", "leisure", "office", "building",
                               "amenity", "healthcare", "shop" ]
           }
@@ -174,14 +175,15 @@ jobs:
           {
             "attributes": { "id": true, "type": true, "version": false, "changeset": false,
                             "timestamp": false, "uid": false, "user": false, "way_nodes": false },
-            "linear_tags": true,
+            "linear_tags": [ "highway=*" ],
             "area_tags": [ "highway=*" ],
             "include_tags": [ "highway", "name" ]
           }
           JSON
-          # `linear_tags` MUST be true here: osmium export is tag-driven, so with
-          # only area_tags the open highway ways are not exported at all and the
-          # file comes out with a couple of roundabouts in it.
+          # linear_tags / area_tags are LISTS of tag filters, not booleans, and
+          # osmium export is tag-driven: a highway way that matches neither list
+          # is not exported at all. Declaring them as an array is what puts the
+          # open ways (and their geometry) in the file.
           osmium export -O -f geojsonseq -x print_record_separator=false \
             -c work/areas-export.json -o work/places.geojsonseq work/pois.osm.pbf
           osmium export -O -f geojsonseq -x print_record_separator=false \
