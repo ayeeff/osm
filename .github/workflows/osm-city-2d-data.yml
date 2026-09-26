@@ -1,7 +1,7 @@
 name: OSM city 2D map data
 
 # Builds places.json + demand-streets.json for the 2D dark city map style
-# (ayeeff/astrogl → template/map-style-2d.md) from the per-country OSM extracts
+# (ayeeff/astrogl â†’ template/map-style-2d.md) from the per-country OSM extracts
 # already staged in R2. No Overpass: one streamed country extract per city,
 # scanned locally by osmium in the runner.
 #
@@ -57,7 +57,7 @@ jobs:
           if [ -n "$REQUESTED_SLUG" ]; then
             PICK=$(jq -c --arg s "$REQUESTED_SLUG" '[.[] | select(.slug == $s)]' <<<"$ALL")
             if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
-              echo "::error::slug '$REQUESTED_SLUG' has no 'extract' in cities.json (or is unknown) — it would fall back to Overpass"
+              echo "::error::slug '$REQUESTED_SLUG' has no 'extract' in cities.json (or is unknown) â€” it would fall back to Overpass"
               exit 1
             fi
             ALL="$PICK"
@@ -81,7 +81,7 @@ jobs:
       # osmium -b takes minLat,minLon,maxLat,maxLon
       BBOX: ${{ join(matrix.city.bbox, ',') }}
       # matrix.city.bbox is [minLng, minLat, maxLng, maxLat], which is exactly
-      # what `osmium extract -b` wants (LONG1,LAT1,LONG2,LAT2) — pass it through.
+      # what `osmium extract -b` wants (LONG1,LAT1,LONG2,LAT2) â€” pass it through.
       PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == false && 'false' || 'true' }}
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -95,11 +95,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install osmium
+      - name: Install osmium + pyosmium
         run: |
           set -euo pipefail
           sudo apt-get update
           sudo apt-get install -y osmium-tool
+          pip3 install --break-system-packages --quiet osmium
 
       - name: Configure R2
         run: |
@@ -116,7 +117,7 @@ jobs:
             --query 'ContentLength' --output text)
           printf 'source=%s (%s bytes)\n' "$SOURCE_KEY" "$SIZE"
           # This is runner disk inside GitHub Actions, not the operator's home
-          # link — a 1.5 GB country extract is nothing here, and having the file
+          # link â€” a 1.5 GB country extract is nothing here, and having the file
           # on disk makes the osmium steps debuggable and re-runnable.
           aws s3 cp "s3://geo-datalake/${SOURCE_KEY}" work/source.osm.pbf \
             --no-progress --only-show-errors
@@ -133,74 +134,16 @@ jobs:
           osmium fileinfo -e work/city.osm.pbf 2>&1 | head -n 20
           rm -f work/source.osm.pbf
 
-      - name: Export areas (districts + POIs) and ways (streets)
-        run: |
-          set -euo pipefail
-          # -R keeps referenced members so ways keep their geometry.
-          # NOTE the argument order: osmium tags-filter is
-          #   tags-filter [options] EXPRESSION... INFILE... -o OUTFILE
-          osmium tags-filter -R -F pbf \
-            "nwr/boundary=administrative" \
-            "nwr/place=city,town,borough,suburb,quarter,neighbourhood,district" \
-            "nwr/aeroway=aerodrome" \
-            "nwr/station=airport" \
-            "nwr/tourism=museum,attraction,artwork,viewpoint,gallery,theme_park,zoo,aquarium" \
-            "nwr/historic=*" \
-            "nwr/man_made=tower,lighthouse,bridge,obelisk,statue" \
-            "nwr/leisure=stadium,arena,park" \
-            "nwr/office=*" \
-            "nwr/building=office" \
-            "nwr/amenity=bank,stock_exchange,courthouse,townhall,school,college,university,kindergarten,library,hospital,clinic,doctors,pharmacy,restaurant,bar,pub,cafe,fast_food,nightclub,wine_bar" \
-            "nwr/healthcare=*" \
-            "nwr/shop=*" \
-            work/city.osm.pbf -o work/pois.osm.pbf 2>&1
-
-          osmium tags-filter -R -F pbf \
-            "nwr/highway=motorway,trunk,primary,secondary,tertiary,residential,unclassified,living_street,service,pedestrian,track" \
-            work/city.osm.pbf -o work/streets.osm.pbf 2>&1
-
-          echo "--- pois.osm.pbf ---"; osmium fileinfo -e work/pois.osm.pbf 2>&1 | grep -E "number of|file size"
-          echo "--- streets.osm.pbf ---"; osmium fileinfo -e work/streets.osm.pbf 2>&1 | grep -E "number of|file size"
-
-          cat > work/areas-export.json <<'JSON'
-          {
-            "attributes": { "id": true, "type": true, "version": false, "changeset": false,
-                            "timestamp": false, "uid": false, "user": false, "way_nodes": false },
-            "linear_tags": false,
-            "centroid": true,
-            "area_tags": [ "*" ],
-            "include_tags": [ "name", "name:*", "boundary", "admin_level", "place", "aeroway", "station",
-                              "tourism", "historic", "man_made", "leisure", "office", "building",
-                              "amenity", "healthcare", "shop" ]
-          }
-          JSON
-          cat > work/ways-export.json <<'JSON'
-          {
-            "attributes": { "id": true, "type": true, "version": false, "changeset": false,
-                            "timestamp": false, "uid": false, "user": false, "way_nodes": false },
-            "linear_tags": [ "highway=*" ],
-            "area_tags": [ "highway=*" ],
-            "include_tags": [ "highway", "name" ]
-          }
-          JSON
-          # linear_tags / area_tags are LISTS of tag filters, not booleans, and
-          # osmium export is tag-driven: a highway way that matches neither list
-          # is not exported at all. Declaring them as an array is what puts the
-          # open ways (and their geometry) in the file.
-          osmium export -O -f geojsonseq -x print_record_separator=false \
-            -c work/areas-export.json -o work/places.geojsonseq work/pois.osm.pbf
-          osmium export -O -f geojsonseq -x print_record_separator=false \
-            -c work/ways-export.json -o work/streets.geojsonseq work/streets.osm.pbf
-          wc -l work/places.geojsonseq work/streets.geojsonseq
-          echo "--- sample area ---"; head -c 400 work/places.geojsonseq; echo
-          echo "--- sample way ---"; head -c 400 work/streets.geojsonseq; echo
-
       - name: Score places and street demand
         run: |
           set -euo pipefail
+          # One pyosmium pass over the city PBF. Reading the PBF directly avoids
+          # osmium export, which is tag-driven and silently drops any object that
+          # matches neither linear_tags nor area_tags (that is how the open highway
+          # ways went missing). with_locations() resolves the node references.
           python scripts/extract_city_2d_data.py \
             --slug "$SLUG" --extract "$EXTRACT" \
-            --places work/places.geojsonseq --streets work/streets.geojsonseq \
+            --pbf work/city.osm.pbf \
             --out-dir "work/out/${SLUG}"
 
       - name: Upload
@@ -216,10 +159,7 @@ jobs:
           else
             echo "staged only (publish=false)"
           fi
-          aws s3 cp "work/out/${SLUG}/_manifest.json" \
-            "s3://geo-datalake/sources/osm/places/${SLUG}/_manifest.json"
-          rm -rf work/city.osm.pbf work/pois.osm.pbf work/streets.osm.pbf \
-            work/places.geojsonseq work/streets.geojsonseq
+          rm -rf work/source.osm.pbf work/city.osm.pbf
 
       - name: Summary
         if: always()

@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
 """
 Build the 2D dark city map datasets (places.json + demand-streets.json) for one
-city from osmium-exported GeoJSONSeq.
+city from its OSM PBF extract.
 
-Ported from workers/atlas-2d/src/assemble.js in ayeeff/astrogl so that the
-Overpass path and this path produce the same shape. If you change a constant
-here, change it there too.
+Reads the PBF directly with pyosmium in a single pass. An earlier version drove
+`osmium export` with a per-object-type config, which silently dropped every open
+highway way unless `linear_tags` was declared as a list of tag filters — and
+osmium export is tag-driven, so anything matching neither list is simply not
+written. Parsing the PBF ourselves removes that whole class of failure and lets
+`with_locations()` resolve the node references ways need.
 
   places.json         FeatureCollection<Point>  { name, rank, kind }
   demand-streets.json FeatureCollection<Line>   { id, demand }
 
-Input (osmium export -f geojsonseq):
-  places   area features, centroid in the "centroid" property
-  streets  way features, geometry as LineString / MultiLineString / Polygon
+Ported from workers/atlas-2d/src/assemble.js in ayeeff/astrogl so the Overpass
+path and this path produce the same shape. Change a constant in one, change it
+in both.
 """
 
 import argparse
@@ -22,65 +25,32 @@ import os
 import sys
 from collections import defaultdict
 
+import osmium
+from osmium.osm import Node, Relation, Way
+
 # --------------------------------------------------------------------------
 # Tag groups. Mirrors POI_GROUPS in assemble.js / queries.js.
 # `rank` drives label importance, `cap` bounds the per-kind feature count.
 # --------------------------------------------------------------------------
 
 POI_GROUPS = [
-    {
-        "id": "air",
-        "kind": "air",
-        "rank": 70,
-        "cap": 5,
-    },
-    {
-        "id": "landmark",
-        "kind": "landmark",
-        "rank": 5,
-        "cap": 600,
-    },
-    {
-        "id": "employment",
-        "kind": "employment",
-        "rank": 5,
-        "cap": 600,
-    },
-    {
-        "id": "shop",
-        "kind": "shop",
-        "rank": 7,
-        "cap": 500,
-    },
-    {
-        "id": "edu",
-        "kind": "edu",
-        "rank": 12,
-        "cap": 250,
-    },
-    {
-        "id": "health",
-        "kind": "health",
-        "rank": 6,
-        "cap": 250,
-    },
-    {
-        "id": "night",
-        "kind": "night",
-        "rank": 2,
-        "cap": 250,
-    },
+    {"id": "air", "kind": "air", "rank": 70, "cap": 5},
+    {"id": "landmark", "kind": "landmark", "rank": 5, "cap": 600},
+    {"id": "employment", "kind": "employment", "rank": 5, "cap": 600},
+    {"id": "shop", "kind": "shop", "rank": 7, "cap": 500},
+    {"id": "edu", "kind": "edu", "rank": 12, "cap": 250},
+    {"id": "health", "kind": "health", "rank": 6, "cap": 250},
+    {"id": "night", "kind": "night", "rank": 2, "cap": 250},
 ]
+GROUP_BY_KIND = {g["kind"]: g for g in POI_GROUPS}
 
 DISTRICT_RANK = {6: 4, 7: 4, 8: 4, 9: 5, 10: 6, 11: 6, 12: 6}
 
-# `place=*` is a better district source than admin boundaries in much of the
-# world — China's OSM coverage of admin_level 8-10 is thin, while place nodes
-# and place areas are well mapped. rank 4 keeps them eligible for the
-# `rank >= 4` district-label filter in the style.
-# village/hamlet are deliberately absent: they would render with district
-# styling (large teal dots) at a rank below the `rank >= 4` label threshold, so
-# they add a dot and no label. Drop them.
+# Named place nodes/areas make a better district source than admin boundaries in
+# much of the world — China's OSM coverage of admin_level 8-10 is thin, while
+# place tagging is dense. village/hamlet are excluded: they fall below the
+# style's rank>=4 label threshold, so they would draw a district dot with no
+# label.
 PLACE_KINDS = {
     "city": 6,
     "town": 5,
@@ -90,6 +60,17 @@ PLACE_KINDS = {
     "neighbourhood": 4,
     "district": 5,
 }
+
+# Deliberately the same three classes atlas-2d-worker uses. footway, path and
+# cycleway are excluded on both sides: they dominate the way count in any city
+# and carry no demand signal.
+STREET_CLASSES = {
+    "motorway", "trunk", "primary", "secondary", "tertiary",
+    "residential", "unclassified", "living_street",
+    "service", "pedestrian", "track",
+}
+
+NAME_KEYS = ("name", "name:en", "name:zh", "name:zh-Hans", "name:ja", "name:ko")
 
 # --------------------------------------------------------------------------
 # Demand scoring constants — identical to assemble.js
@@ -106,8 +87,6 @@ ROAD_BOOST = {
     "living_street": 0.85,
     "pedestrian": 0.7,
     "track": 0.5,
-    "cycleway": 0.45,
-    "path": 0.4,
     "service": 0.4,
 }
 
@@ -125,186 +104,242 @@ KIND_WEIGHT = {
 RADIUS_DEG = 0.0015  # ~150 m of latitude
 CELL = RADIUS_DEG * 2
 PCT = 0.985
-
-NAME_KEYS = ("name", "name:en", "name:zh", "name:zh-Hans", "name:ja", "name:ko")
+# District output is uncapped, so cap what goes into the scoring grid — enough to
+# cover any realistic city centre, and it keeps the grid build bounded.
+DISTRICT_GRID_CAP = 4000
 
 
 def round5(n):
     return round(n, 5)
 
 
-def name_of(props):
+def name_of(tags):
     for key in NAME_KEYS:
-        value = props.get(key)
+        value = tags.get(key)
         if value:
             return value
     return None
 
 
-def iter_geojsonseq(path):
-    """Yield each feature from an osmium geojsonseq export, one JSON per line."""
-    with open(path, "r", encoding="utf-8") as handle:
-        for line in handle:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                yield json.loads(line)
-            except json.JSONDecodeError:
-                # A truncated final line means the export was cut short; skip it
-                # rather than failing the whole city.
-                continue
-
-
-def classify(props):
+def classify(tags):
     """Map OSM tags to one of our kinds, or None."""
-    if props.get("boundary") == "administrative":
-        level = props.get("admin_level")
+    if tags.get("boundary") == "administrative":
+        level = tags.get("admin_level")
         if level and str(level).isdigit() and int(level) in DISTRICT_RANK:
             return "district"
-
-    # A named place node/area is a district for our purposes.
-    place = props.get("place")
-    if place in PLACE_KINDS and name_of(props):
+    place = tags.get("place")
+    if place in PLACE_KINDS and name_of(tags):
         return "place"
-
-    if props.get("aeroway") == "aerodrome":
+    if tags.get("aeroway") == "aerodrome":
         return "air"
-    if props.get("station") == "airport" and props.get("railway") == "station":
+    if tags.get("station") == "airport" and tags.get("railway") == "station":
         return "air"
 
-    tourism = props.get("tourism")
-    if tourism in {
+    if tags.get("tourism") in {
         "museum", "attraction", "artwork", "viewpoint", "gallery",
         "theme_park", "zoo", "aquarium",
     }:
         return "landmark"
-    if props.get("historic"):
+    if tags.get("historic"):
         return "landmark"
-    if props.get("man_made") in {"tower", "lighthouse", "bridge", "obelisk", "statue"}:
+    if tags.get("man_made") in {"tower", "lighthouse", "bridge", "obelisk", "statue"}:
         return "landmark"
-    if props.get("leisure") in {"stadium", "arena", "park"} and name_of(props):
+    if tags.get("leisure") in {"stadium", "arena", "park"} and name_of(tags):
         return "landmark"
 
-    if props.get("amenity") in {"bank", "stock_exchange", "courthouse", "townhall"}:
+    if tags.get("amenity") in {"bank", "stock_exchange", "courthouse", "townhall"}:
         return "employment"
-    if props.get("building") == "office" and name_of(props):
+    if tags.get("building") == "office" and name_of(tags):
         return "employment"
-    if props.get("office"):
+    if tags.get("office"):
         return "employment"
-
-    if props.get("shop"):
+    if tags.get("shop"):
         return "shop"
-
-    if props.get("amenity") in {"school", "college", "university", "kindergarten", "library"}:
+    if tags.get("amenity") in {"school", "college", "university", "kindergarten", "library"}:
         return "edu"
-
-    if props.get("healthcare"):
+    if tags.get("healthcare"):
         return "health"
-    if props.get("amenity") in {"hospital", "clinic", "doctors", "pharmacy"}:
+    if tags.get("amenity") in {"hospital", "clinic", "doctors", "pharmacy"}:
         return "health"
-
-    if props.get("amenity") in {
+    if tags.get("amenity") in {
         "restaurant", "bar", "pub", "cafe", "fast_food", "nightclub", "wine_bar",
     }:
         return "night"
-    if props.get("leisure") in {"nightclub", "bar", "pub"}:
+    if tags.get("leisure") in {"nightclub", "bar", "pub"}:
         return "night"
-
     return None
 
 
-def representative_point(feature):
-    """
-    A single lon/lat for an area feature.
+class Collector(osmium.SimpleHandler):
+    def __init__(self):
+        super().__init__()
+        self.areas = defaultdict(list)  # kind -> [(name, lon, lat, rank)]
+        self.streets = []               # (score, highway, osm_id, [[lon, lat], ...])
+        self.counts = defaultdict(int)
+        self._grid = None
+        self._nearby = None
+        self.ways_seen = 0
 
-    `osmium export` only emits a "centroid" property when the config asks for
-    it, and it is not emitted for every geometry type, so never rely on it —
-    fall back to the geometry itself. Getting this wrong silently yields an
-    empty places.json, which is exactly what happened on the first CI run.
-    """
-    centroid = feature.get("centroid")
-    if isinstance(centroid, (list, tuple)) and len(centroid) >= 2:
-        return float(centroid[0]), float(centroid[1])
+    # The POI grid is built lazily on the first way. OSM PBF is node-sorted, so
+    # every node — and therefore every POI — has already been seen by the time
+    # the first way arrives, which is what makes streaming scoring possible.
+    def _ensure_grid(self):
+        if self._grid is not None:
+            return
+        grid = defaultdict(list)
+        for kind, items in self.areas.items():
+            weight = KIND_WEIGHT.get(kind, 1)
+            # Districts are uncapped in the output, so cap the grid snapshot to
+            # keep it bounded; the per-kind caps match the final output.
+            cap = DISTRICT_GRID_CAP if kind == "district" else GROUP_BY_KIND[kind]["cap"]
+            for _name, lon, lat, _rank in items[:cap]:
+                grid[(math.floor(lon / CELL), math.floor(lat / CELL))].append((lon, lat, weight))
+        self._grid = grid
 
-    geometry = feature.get("geometry") or {}
-    gtype = geometry.get("type")
-    coords = geometry.get("coordinates")
+        r2 = RADIUS_DEG * RADIUS_DEG
+        cache = {}
 
-    if gtype == "Point" and coords:
-        return float(coords[0]), float(coords[1])
-    if gtype == "LineString" and coords:
-        mid = coords[len(coords) // 2]
-        return float(mid[0]), float(mid[1])
-    if gtype in ("Polygon", "MultiPolygon") and coords:
-        # Polygon -> coords[0] is the outer ring; MultiPolygon -> coords[0][0] is it.
-        ring = coords[0] if gtype == "Polygon" else coords[0][0]
-        if ring and isinstance(ring[0], (list, tuple)):
-            # Area centroid of the outer ring (shoelace), falling back to the
-            # vertex mean for degenerate rings.
-            area2 = 0.0
-            cx = 0.0
-            cy = 0.0
-            for i in range(len(ring) - 1):
-                x0, y0 = ring[i][0], ring[i][1]
-                x1, y1 = ring[i + 1][0], ring[i + 1][1]
-                cross = x0 * y1 - x1 * y0
-                area2 += cross
-                cx += (x0 + x1) * cross
-                cy += (y0 + y1) * cross
-            if area2 != 0:
-                return cx / (3.0 * area2), cy / (3.0 * area2)
-            return (
-                sum(p[0] for p in ring) / len(ring),
-                sum(p[1] for p in ring) / len(ring),
-            )
-    return None
+        def nearby(lon, lat):
+            # Way vertices repeat heavily along a street; memoise on a coarse key.
+            key = (round(lon, 4), round(lat, 4))
+            hit = cache.get(key)
+            if hit is not None:
+                return hit
+            total = 0
+            gx = math.floor(lon / CELL)
+            gy = math.floor(lat / CELL)
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    for px, py, weight in grid.get((gx + dx, gy + dy), ()):
+                        ddx = px - lon
+                        ddy = py - lat
+                        if ddx * ddx + ddy * ddy <= r2:
+                            total += weight
+            cache[key] = total
+            return total
 
+        self._nearby = nearby
 
-def build_places(path):
-    """Read the area export and return (features, kind_counts)."""
-    by_kind = defaultdict(list)
-    skipped = 0
-    keys_seen = defaultdict(int)
-
-    for feature in iter_geojsonseq(path):
-        props = feature.get("properties") or {}
-        for key in ("boundary", "admin_level", "place", "tourism", "amenity", "shop", "office"):
-            if key in props:
-                keys_seen[key] += 1
-        point = representative_point(feature)
-        if point is None:
-            skipped += 1
-            continue
-        lon, lat = point
-
-        kind = classify(props)
+    def _add_area(self, tags, lon, lat):
+        kind = classify(tags)
         if kind is None:
-            continue
-        name = name_of(props)
+            return
+        name = name_of(tags)
         if not name:
-            continue
-
+            return
         if kind == "district":
-            level = props.get("admin_level")
+            level = tags.get("admin_level")
             rank = DISTRICT_RANK.get(int(level), 5) if level and str(level).isdigit() else 5
-            by_kind["district"].append((name, lon, lat, rank))
+            self.areas["district"].append((name, lon, lat, rank))
         elif kind == "place":
-            by_kind["district"].append((name, lon, lat, PLACE_KINDS[props["place"]]))
+            self.areas["district"].append((name, lon, lat, PLACE_KINDS[tags["place"]]))
         else:
-            group = next(g for g in POI_GROUPS if g["kind"] == kind)
-            by_kind[kind].append((name, lon, lat, group["rank"]))
+            group = GROUP_BY_KIND[kind]
+            self.areas[kind].append((name, lon, lat, group["rank"]))
+        self.counts[kind] += 1
 
-    if skipped:
-        print(f"note: {skipped} area features had no usable geometry", file=sys.stderr)
-    print("tag coverage: " + json.dumps(dict(sorted(keys_seen.items()))), file=sys.stderr)
+    def node(self, n):
+        if not n.tags:
+            return
+        loc = n.location
+        if not loc.valid():
+            return
+        self._add_area(n.tags, round5(loc.lon), round5(loc.lat))
 
+    def way(self, w):
+        highway = w.tags.get("highway") if w.tags else None
+        wants_street = highway in STREET_CLASSES
+        wants_area = bool(w.tags) and w.tags.get("boundary") == "administrative"
+        if not wants_street and not wants_area:
+            return
+        if wants_street:
+            self.ways_seen += 1
+
+        coords = []
+        for nd in w.nodes:
+            loc = nd.location
+            if loc.valid():
+                coords.append((round5(loc.lon), round5(loc.lat)))
+
+        if wants_street and len(coords) >= 2:
+            # Score now and keep only the streets that actually have POI signal.
+            # Retaining every way in a big city exhausts runner memory; this is
+            # the same reason atlas-2d-worker scores per tile instead of in one
+            # assemble pass.
+            self._ensure_grid()
+            weight_sum = 0.0
+            for lon, lat in coords:
+                weight_sum += self._nearby(lon, lat)
+            if weight_sum > 0:
+                boost = ROAD_BOOST.get(highway, 1.0)
+                score = (weight_sum / len(coords)) * boost
+                self.streets.append((score, highway, w.id, coords))
+        if wants_area and coords:
+            self._add_area(w.tags, *centroid(coords))
+
+    def relation(self, r):
+        # Only reached with with_areas() enabled, so an administrative boundary
+        # arrives with its multipolygon already assembled. RelationMember has no
+        # .location in pyosmium, so member coordinates are not an option here.
+        if not r.tags or r.tags.get("boundary") != "administrative":
+            return
+        geometry = getattr(r, "geometry", None)
+        if geometry is None:
+            return
+        ring = exterior_ring(geometry)
+        if not ring:
+            return
+        lon, lat = centroid(ring)
+        self._add_area(r.tags, round5(lon), round5(lat))
+
+
+def exterior_ring(geometry):
+    """First exterior ring of a Polygon/Multipolygon geometry, as [(lon, lat)]."""
+    kind = geometry.type
+    if kind == "Polygon":
+        rings = list(geometry)
+    elif kind == "MultiPolygon":
+        rings = list(geometry)
+        if not rings:
+            return []
+        rings = list(rings[0])
+    else:
+        return []
+    if not rings:
+        return []
+    return [(p.lon, p.lat) for p in rings[0] if p.valid()]
+
+
+def centroid(coords):
+    """Shoelace centroid of a ring, falling back to the vertex mean."""
+    if len(coords) < 3:
+        n = len(coords) or 1
+        return (
+            sum(c[0] for c in coords) / n,
+            sum(c[1] for c in coords) / n,
+        )
+    area2 = 0.0
+    cx = 0.0
+    cy = 0.0
+    for i in range(len(coords) - 1):
+        x0, y0 = coords[i]
+        x1, y1 = coords[i + 1]
+        cross = x0 * y1 - x1 * y0
+        area2 += cross
+        cx += (x0 + x1) * cross
+        cy += (y0 + y1) * cross
+    if area2 != 0:
+        return cx / (3.0 * area2), cy / (3.0 * area2)
+    n = len(coords)
+    return sum(c[0] for c in coords) / n, sum(c[1] for c in coords) / n
+
+
+def build_places(collector):
     features = []
     counts = {}
-
-    # Districts first (no cap), matching the JS buildPlaces ordering.
     seen = set()
-    for name, lon, lat, rank in by_kind.get("district", []):
+
+    for name, lon, lat, rank in collector.areas.get("district", []):
         key = ("district", name, round5(lat), round5(lon))
         if key in seen:
             continue
@@ -316,11 +351,11 @@ def build_places(path):
                 "geometry": {"type": "Point", "coordinates": [round5(lon), round5(lat)]},
             }
         )
-    counts["district"] = len(by_kind.get("district", []))
+    counts["district"] = len(collector.areas.get("district", []))
 
     for group in POI_GROUPS:
         kind = group["kind"]
-        picked = by_kind.get(kind, [])
+        picked = collector.areas.get(kind, [])
         # Prefer specific names when the cap bites, same as normalizePois().
         picked.sort(key=lambda item: (len(item[0]), item[0]))
         kept = 0
@@ -342,93 +377,23 @@ def build_places(path):
     return features, counts
 
 
-def line_strings(geometry):
-    """Flatten any way geometry into a list of coordinate lists."""
-    if not geometry:
-        return []
-    gtype = geometry.get("type")
-    if gtype == "LineString":
-        return [geometry["coordinates"]]
-    if gtype == "MultiLineString":
-        return [c for c in geometry["coordinates"] if len(c) > 1]
-    if gtype == "Polygon":
-        ring = geometry["coordinates"][0]
-        return [ring] if len(ring) > 1 else []
-    if gtype == "MultiPolygon":
-        out = []
-        for poly in geometry["coordinates"]:
-            ring = poly[0]
-            if len(ring) > 1:
-                out.append(ring)
-        return out
-    return []
-
-
-def build_demand(path, places, max_streets):
-    """Score streets by nearby POI density and emit the top `max_streets`."""
-    grid = defaultdict(list)
-    for feature in places:
-        props = feature["properties"]
-        weight = KIND_WEIGHT.get(props["kind"], 1)
-        lon, lat = feature["geometry"]["coordinates"]
-        grid[(math.floor(lon / CELL), math.floor(lat / CELL))].append((lon, lat, weight))
-
-    def nearby_weight(lon, lat):
-        total = 0
-        gx = math.floor(lon / CELL)
-        gy = math.floor(lat / CELL)
-        r2 = RADIUS_DEG * RADIUS_DEG
-        for dx in (-1, 0, 1):
-            for dy in (-1, 0, 1):
-                for px, py, weight in grid.get((gx + dx, gy + dy), ()):
-                    ddx = px - lon
-                    ddy = py - lat
-                    if ddx * ddx + ddy * ddy <= r2:
-                        total += weight
-        return total
-
-    scored = []
-    for feature in iter_geojsonseq(path):
-        props = feature.get("properties") or {}
-        lines = line_strings(feature.get("geometry"))
-        if not lines:
-            continue
-
-        weight_sum = 0.0
-        vertex_count = 0
-        for line in lines:
-            for point in line:
-                weight_sum += nearby_weight(float(point[0]), float(point[1]))
-                vertex_count += 1
-        if weight_sum <= 0:
-            continue
-
-        boost = ROAD_BOOST.get(props.get("highway", "residential"), 1.0)
-        score = (weight_sum / max(1, len(lines))) * boost
-        osm_id = props.get("@id") or props.get("id")
-        scored.append((score, osm_id, lines))
-
-    if not scored:
+def build_demand(streets, max_streets):
+    """Normalise the already-scored streets and emit the top `max_streets`."""
+    if not streets:
         return []
 
-    positives = sorted(s[0] for s in scored)
+    positives = sorted(s[0] for s in streets)
     cutoff = positives[min(len(positives) - 1, int(len(positives) * PCT))]
 
-    scored.sort(key=lambda item: -item[0])
+    streets.sort(key=lambda item: -item[0])
     out = []
-    for score, osm_id, lines in scored[:max_streets]:
+    for score, _highway, osm_id, coords in streets[:max_streets]:
         demand = min(1.0, score / cutoff) if cutoff > 0 else 0.0
-        rounded = [[[round5(point[0]), round5(point[1])] for point in line] for line in lines]
-        geometry = (
-            {"type": "LineString", "coordinates": rounded[0]}
-            if len(rounded) == 1
-            else {"type": "MultiLineString", "coordinates": rounded}
-        )
         out.append(
             {
                 "type": "Feature",
                 "properties": {"id": osm_id, "demand": round5(demand)},
-                "geometry": geometry,
+                "geometry": {"type": "LineString", "coordinates": [list(p) for p in coords]},
             }
         )
     return out
@@ -437,8 +402,7 @@ def build_demand(path, places, max_streets):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slug", required=True)
-    parser.add_argument("--places", required=True, help="areas geojsonseq from osmium export")
-    parser.add_argument("--streets", required=True, help="ways geojsonseq from osmium export")
+    parser.add_argument("--pbf", required=True, help="city .osm.pbf from osmium extract")
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--extract", default="", help="source extract slug, for the manifest")
     parser.add_argument("--max-streets", type=int, default=4000)
@@ -446,8 +410,19 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
 
-    places, counts = build_places(args.places)
-    demand = build_demand(args.streets, places, args.max_streets)
+    collector = Collector()
+    # with_areas() assembles boundary multipolygons so relations carry geometry;
+    # with_locations() resolves the node references ways are built from.
+    for obj in osmium.FileProcessor(args.pbf).with_areas().with_locations():
+        if isinstance(obj, Node):
+            collector.node(obj)
+        elif isinstance(obj, Way):
+            collector.way(obj)
+        elif isinstance(obj, Relation):
+            collector.relation(obj)
+
+    places, counts = build_places(collector)
+    demand = build_demand(collector.streets, args.max_streets)
 
     places_doc = {"type": "FeatureCollection", "features": places}
     demand_doc = {"type": "FeatureCollection", "features": demand}
@@ -465,6 +440,8 @@ def main():
         "extract": args.extract,
         "places": len(places),
         "byKind": counts,
+        "streetWaysScanned": collector.ways_seen,
+        "streetsWithSignal": len(collector.streets),
         "streets": len(demand),
         "maxDemand": max_demand,
         "bytes": {
@@ -478,6 +455,9 @@ def main():
     print(json.dumps(manifest))
     if not places:
         print(f"warning: no places extracted for {args.slug}", file=sys.stderr)
+        return 1
+    if not demand:
+        print(f"warning: no demand streets extracted for {args.slug}", file=sys.stderr)
         return 1
     return 0
 
