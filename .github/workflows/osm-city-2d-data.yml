@@ -155,10 +155,10 @@ jobs:
           aws s3 sync "work/out/${SLUG}/" "s3://geo-datalake/sources/osm/places/${SLUG}/" \
             --exclude "*" --include "*.json"
           if [ "$PUBLISH" = "true" ]; then
-            aws s3 cp "work/out/${SLUG}/places.json" \
-              "s3://globe/data/${SLUG}-2d/places.json" --content-type application/json
-            aws s3 cp "work/out/${SLUG}/demand-streets.json" \
-              "s3://globe/data/${SLUG}-2d/demand-streets.json" --content-type application/json
+            for f in places.json demand-streets.json neighborhoods.json; do
+              aws s3 cp "work/out/${SLUG}/$f" \
+                "s3://globe/data/${SLUG}-2d/$f" --content-type application/json
+            done
           else
             echo "staged only (publish=false)"
           fi
