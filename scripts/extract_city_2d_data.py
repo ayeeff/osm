@@ -105,9 +105,18 @@ KIND_WEIGHT = {
 RADIUS_DEG = 0.0015  # ~150 m of latitude
 CELL = RADIUS_DEG * 2
 PCT = 0.985
-# District output is uncapped, so cap what goes into the scoring grid — enough to
+# Districts are uncapped in the output, so cap what goes into the scoring grid — enough to
 # cover any realistic city centre, and it keeps the grid build bounded.
 DISTRICT_GRID_CAP = 4000
+
+# Neighborhood outlines. Below NEIGHBORHOOD_RANK_MIN the polygon is smaller than
+# the map's click tolerance; below MIN_NEIGHBORHOOD_KM2 it is not worth drawing;
+# above MAX_NEIGHBORHOOD_KM2 it is a region or a coastline, not a neighborhood
+# you would click on a city map (a place=area coastline ring came through at
+# 1400 km2 before this cap).
+NEIGHBORHOOD_RANK_MIN = 4
+MIN_NEIGHBORHOOD_KM2 = 0.4
+MAX_NEIGHBORHOOD_KM2 = 400.0
 
 
 def round5(n):
@@ -176,10 +185,38 @@ class Collector(osmium.SimpleHandler):
         super().__init__()
         self.areas = defaultdict(list)  # kind -> [(name, lon, lat, rank)]
         self.streets = []               # (score, highway, osm_id, [[lon, lat], ...])
+        self.neighborhoods = []         # dicts with polygon geometry
         self.counts = defaultdict(int)
         self._grid = None
         self._nearby = None
         self.ways_seen = 0
+
+    def _add_neighborhood(self, tags, ring, source):
+        """Keep a named administrative/place polygon as a clickable neighborhood."""
+        if not tags or not ring or len(ring) < 4:
+            return
+        name = name_of(tags)
+        if not name:
+            return
+        place = tags.get("place")
+        level = tags.get("admin_level")
+        if level and str(level).isdigit() and int(level) in DISTRICT_RANK:
+            rank = DISTRICT_RANK[int(level)]
+        elif place in PLACE_KINDS:
+            rank = PLACE_KINDS[place]
+        else:
+            return
+        if not (NEIGHBORHOOD_RANK_MIN <= rank <= 9):
+            return
+        self.neighborhoods.append(
+            {
+                "name": name,
+                "rank": rank,
+                "place": place or ("boundary" if source == "relation" else "area"),
+                "wikidata": tags.get("wikidata") or tags.get("wikidata_ref") or "",
+                "ring": ring,
+            }
+        )
 
     # The POI grid is built lazily on the first way. OSM PBF is node-sorted, so
     # every node — and therefore every POI — has already been seen by the time
@@ -250,7 +287,9 @@ class Collector(osmium.SimpleHandler):
     def way(self, w):
         highway = w.tags.get("highway") if w.tags else None
         wants_street = highway in STREET_CLASSES
-        wants_area = bool(w.tags) and w.tags.get("boundary") == "administrative"
+        wants_area = bool(w.tags) and (
+            w.tags.get("boundary") == "administrative" or w.tags.get("place") in PLACE_KINDS
+        )
         if not wants_street and not wants_area:
             return
         if wants_street:
@@ -277,12 +316,18 @@ class Collector(osmium.SimpleHandler):
                 self.streets.append((score, highway, w.id, coords))
         if wants_area and coords:
             self._add_area(w.tags, *centroid(coords))
+            if w.tags.get("boundary") == "administrative" or w.tags.get("place") in PLACE_KINDS:
+                self._add_neighborhood(w.tags, coords, "way")
 
     def relation(self, r):
         # Only reached with with_areas() enabled, so an administrative boundary
         # arrives with its multipolygon already assembled. RelationMember has no
         # .location in pyosmium, so member coordinates are not an option here.
-        if not r.tags or r.tags.get("boundary") != "administrative":
+        if not r.tags:
+            return
+        is_admin = r.tags.get("boundary") == "administrative"
+        is_place = r.tags.get("place") in PLACE_KINDS
+        if not is_admin and not is_place:
             return
         geometry = getattr(r, "geometry", None)
         if geometry is None:
@@ -292,6 +337,7 @@ class Collector(osmium.SimpleHandler):
             return
         lon, lat = centroid(ring)
         self._add_area(r.tags, round5(lon), round5(lat))
+        self._add_neighborhood(r.tags, ring, "relation")
 
 
 def exterior_ring(geometry):
@@ -400,6 +446,67 @@ def build_demand(streets, max_streets):
     return out
 
 
+def ring_area_km2(ring):
+    """Planar shoelace area of a lon/lat ring, corrected for latitude."""
+    if len(ring) < 4:
+        return 0.0
+    lat0 = sum(p[1] for p in ring) / len(ring)
+    kx = 111.320 * math.cos(math.radians(lat0))
+    ky = 110.574
+    area = 0.0
+    for i in range(len(ring) - 1):
+        x0, y0 = ring[i][0] * kx, ring[i][1] * ky
+        x1, y1 = ring[i + 1][0] * kx, ring[i + 1][1] * ky
+        area += x0 * y1 - x1 * y0
+    return abs(area) / 2.0
+
+
+def build_neighborhoods(collector, max_neighborhoods):
+    """
+    Turn the collected rings into a FeatureCollection<Polygon>.
+
+    Only the largest ring of each feature is kept — the map draws an outline, and
+    a multipolygon with a hundred offshore islets would triple the payload for no
+    visual gain. Rank >= NEIGHBORHOOD_RANK_MIN keeps village-scale places out
+    (they would be dots inside their parent's polygon anyway).
+    """
+    seen = set()
+    features = []
+    for nb in sorted(collector.neighborhoods, key=lambda n: (-n["rank"], n["name"])):
+        name = nb["name"]
+        area = ring_area_km2(nb["ring"])
+        if area < MIN_NEIGHBORHOOD_KM2 or area > MAX_NEIGHBORHOOD_KM2:
+            continue
+        cx, cy = centroid(nb["ring"])
+        # Dedupe on name + rounded centroid; OSM carries the same place as both a
+        # relation and a closed way very often.
+        key = (name, round(cx, 2), round(cy, 2))
+        if key in seen:
+            continue
+        seen.add(key)
+        features.append(
+            {
+                "type": "Feature",
+                "properties": {
+                    "name": name,
+                    "rank": nb["rank"],
+                    "kind": nb["place"],
+                    "areaKm2": round(area, 2),
+                    "wikidata": nb["wikidata"],
+                    "image": "",
+                    "residents": None,
+                },
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[[round5(p[0]), round5(p[1])] for p in nb["ring"]]],
+                },
+            }
+        )
+        if len(features) >= max_neighborhoods:
+            break
+    return {"type": "FeatureCollection", "features": features}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slug", required=True)
@@ -407,6 +514,7 @@ def main():
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--extract", default="", help="source extract slug, for the manifest")
     parser.add_argument("--max-streets", type=int, default=4000)
+    parser.add_argument("--max-neighborhoods", type=int, default=1500)
     args = parser.parse_args()
 
     os.makedirs(args.out_dir, exist_ok=True)
@@ -424,16 +532,20 @@ def main():
 
     places, counts = build_places(collector)
     demand = build_demand(collector.streets, args.max_streets)
+    neighborhoods = build_neighborhoods(collector, args.max_neighborhoods)
 
     places_doc = {"type": "FeatureCollection", "features": places}
     demand_doc = {"type": "FeatureCollection", "features": demand}
 
     places_path = os.path.join(args.out_dir, "places.json")
     demand_path = os.path.join(args.out_dir, "demand-streets.json")
+    hoods_path = os.path.join(args.out_dir, "neighborhoods.json")
     with open(places_path, "w", encoding="utf-8") as handle:
         json.dump(places_doc, handle, separators=(",", ":"))
     with open(demand_path, "w", encoding="utf-8") as handle:
         json.dump(demand_doc, handle, separators=(",", ":"))
+    with open(hoods_path, "w", encoding="utf-8") as handle:
+        json.dump(neighborhoods, handle, separators=(",", ":"))
 
     max_demand = max((f["properties"]["demand"] for f in demand), default=0)
     manifest = {
@@ -448,10 +560,12 @@ def main():
         "streetWaysScanned": collector.ways_seen,
         "streetsWithSignal": len(collector.streets),
         "streets": len(demand),
+        "neighborhoods": len(neighborhoods["features"]),
         "maxDemand": max_demand,
         "bytes": {
             "places.json": os.path.getsize(places_path),
             "demand-streets.json": os.path.getsize(demand_path),
+            "neighborhoods.json": os.path.getsize(hoods_path),
         },
     }
     with open(os.path.join(args.out_dir, "_manifest.json"), "w", encoding="utf-8") as handle:

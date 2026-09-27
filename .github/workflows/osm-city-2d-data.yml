@@ -21,6 +21,11 @@ on:
         type: boolean
         required: false
         default: true
+      rebuild_site:
+        description: Trigger an astrogl Workers Build so the atlas pages are rebuilt
+        type: boolean
+        required: false
+        default: true
   schedule:
     # Weekly, alongside the geofabrik extract refresh.
     - cron: "41 4 * * 2"
@@ -164,3 +169,72 @@ jobs:
       - name: Summary
         if: always()
         run: cat "work/out/${SLUG}/_manifest.json" 2>/dev/null || echo "no manifest"
+
+  # Rebuild the astrogl site's *-city-atlas / *-expensive-suburbs pages after the
+  # data lands.
+  #
+  # The pages fetch /data/<slug>-2d/*.json at RUNTIME through the site Worker, so
+  # a data-only change is already live the moment the upload lands and this step
+  # is strictly redundant for correctness. It exists because a rebuild also
+  # re-prerenders the atlas HTML, so a newly enrolled city shows up in the page
+  # shell, the sitemap and the prerendered routes rather than only in the data.
+  #
+  # Cloudflare Workers Builds normally fires on a git push; this posts to the
+  # Builds API instead. Sequence: list triggers for the worker tag -> pick the
+  # one that includes the branch -> POST a manual build.
+  rebuild-site:
+    needs: [plan, build]
+    # Always on the weekly schedule; on a manual run unless rebuild_site=false.
+    if: needs.build.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.rebuild_site != false)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      SITE_TRIGGER_UUID: ${{ vars.SITE_TRIGGER_UUID }}
+      SITE_BRANCH: preview
+      API: https://api.cloudflare.com/client/v4
+    steps:
+      - name: Trigger a Workers Build for astrogl
+        run: |
+          set -euo pipefail
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$SITE_TRIGGER_UUID" ]; then
+            echo "::notice::CF_API_TOKEN / SITE_TRIGGER_UUID not configured — skipping the site rebuild"
+            exit 0
+          fi
+          # A file, not an inline -d string: a shell mangles the embedded quotes
+          # and the API answers 400 "Invalid request body".
+          printf '{"branch":"%s","commit_message":"ayeeff/osm 2d data published","commit_author":"ayeeff/osm"}' \
+            "$SITE_BRANCH" > body.json
+          UUID=$(curl -fsS --retry 3 -X POST \
+            -H "Authorization: Bearer $CF_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            --data-binary @body.json \
+            "$API/accounts/${{ secrets.CF_ACCOUNT_ID }}/builds/triggers/$SITE_TRIGGER_UUID/builds" \
+            | tee resp.json | jq -r '.result.build_uuid // empty')
+          if [ -z "$UUID" ]; then
+            echo "::error::could not start a build: $(cat resp.json)"
+            exit 1
+          fi
+          echo "queued build $UUID for $SITE_BRANCH"
+
+      - name: Wait for the build and report
+        run: |
+          set -euo pipefail
+          UUID=$(jq -r '.result.build_uuid' resp.json)
+          for i in $(seq 1 60); do
+            sleep 30
+            curl -fsS -H "Authorization: Bearer $CF_API_TOKEN" \
+              "$API/accounts/${{ secrets.CF_ACCOUNT_ID }}/builds/builds/$UUID" > poll.json
+            STATUS=$(jq -r '.result.status // "unknown"' poll.json)
+            OUTCOME=$(jq -r '.result.build_outcome // "-"' poll.json)
+            echo "[$i] $STATUS / $OUTCOME"
+            if [ "$STATUS" = "stopped" ] || [ "$STATUS" = "error" ]; then
+              if [ "$OUTCOME" = "success" ]; then exit 0; fi
+              echo "::error::build $UUID finished with outcome=$OUTCOME"
+              curl -fsS -H "Authorization: Bearer $CF_API_TOKEN" \
+                "$API/accounts/${{ secrets.CF_ACCOUNT_ID }}/builds/builds/$UUID/logs" \
+                | jq -r '.result.lines[-25:][]?[1]' || true
+              exit 1
+            fi
+          done
+          echo "::notice::build $UUID still running after 30 min — leaving it to finish"
