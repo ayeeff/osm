@@ -129,27 +129,25 @@ jobs:
           ls -l work/source.osm.pbf
           osmium fileinfo work/source.osm.pbf | head -n 4
 
-      - name: Extract the city bbox
+      - name: Score places, street demand and neighborhood outlines
         run: |
           set -euo pipefail
-          # matrix.city.bbox is [minLng, minLat, maxLng, maxLat], which is exactly
-          # what `osmium extract -b` wants (LONG1,LAT1,LONG2,LAT2).
-          printf 'bbox(long1,lat1,long2,lat2)=%s\n' "$BBOX"
-          osmium extract -b "$BBOX" -F pbf -o work/city.osm.pbf work/source.osm.pbf 2>&1
-          osmium fileinfo -e work/city.osm.pbf 2>&1 | head -n 20
-          rm -f work/source.osm.pbf
-
-      - name: Score places and street demand
-        run: |
-          set -euo pipefail
-          # One pyosmium pass over the city PBF. Reading the PBF directly avoids
-          # osmium export, which is tag-driven and silently drops any object that
-          # matches neither linear_tags nor area_tags (that is how the open highway
-          # ways went missing). with_locations() resolves the node references.
+          # Read the WHOLE country extract and filter by bbox in Python.
+          #
+          # Do NOT pre-cut it with `osmium extract`. Its default `simple`
+          # strategy drops the member ways of relations, and — separately — the
+          # overwhelming majority of real administrative boundaries are legacy
+          # `type=boundary` relations, which libosmium's area assembler does not
+          # build at all (it only handles `type=multipolygon`). Together those
+          # two cost us 191 of Berlin's 203 neighborhood outlines.
+          #
+          # matrix.city.bbox is [minLng, minLat, maxLng, maxLat].
+          printf 'pbf=work/source.osm.pbf bbox=%s\n' "$BBOX"
           python scripts/extract_city_2d_data.py \
             --slug "$SLUG" --extract "$EXTRACT" \
-            --pbf work/city.osm.pbf \
+            --pbf work/source.osm.pbf --bbox "$BBOX" \
             --out-dir "work/out/${SLUG}"
+          rm -f work/source.osm.pbf
 
       - name: Upload
         run: |

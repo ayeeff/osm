@@ -180,9 +180,144 @@ def classify(tags):
     return None
 
 
+def parse_bbox(value):
+    """'minLng,minLat,maxLng,maxLat' -> (min_lng, min_lat, max_lng, max_lat)."""
+    if not value:
+        return None
+    parts = [float(p) for p in value.split(",")]
+    if len(parts) != 4:
+        raise ValueError("--bbox must be minLng,minLat,maxLng,maxLat")
+    return tuple(parts)
+
+
+def ring_hits_bbox(ring, bbox):
+    if bbox is None:
+        return True
+    min_lng, min_lat, max_lng, max_lat = bbox
+    for lon, lat in ring:
+        if min_lng <= lon <= max_lng and min_lat <= lat <= max_lat:
+            return True
+    return False
+
+
+def shoelace2(ring):
+    total = 0.0
+    for i in range(len(ring) - 1):
+        x0, y0 = ring[i][0], ring[i][1]
+        x1, y1 = ring[i + 1][0], ring[i + 1][1]
+        total += x0 * y1 - x1 * y0
+    return total
+
+
+def stitch_rings(segments):
+    """
+    Join unordered way segments into closed rings and return the largest.
+
+    Needed because the overwhelming majority of real administrative boundaries
+    are legacy `type=boundary` relations, not `type=multipolygon`. libosmium's
+    area assembler only builds areas for multipolygons, so with_areas() hands
+    back an EMPTY geometry for them — which is why an earlier version of this
+    script returned 13 neighbourhoods for Berlin instead of ~190.
+    """
+    pool = [list(s) for s in segments if len(s) >= 2]
+    rings = []
+    while pool:
+        cur = pool.pop()
+        grew = True
+        while grew and cur[0] != cur[-1]:
+            grew = False
+            for i, seg in enumerate(pool):
+                if seg[0] == cur[-1]:
+                    cur.extend(seg[1:])
+                elif seg[-1] == cur[-1]:
+                    cur.extend(reversed(seg[1:]))
+                elif seg[-1] == cur[0]:
+                    cur = seg[:-1] + cur
+                elif seg[0] == cur[0]:
+                    cur = list(reversed(seg[1:])) + cur
+                else:
+                    continue
+                pool.pop(i)
+                grew = True
+                break
+        if len(cur) >= 4:
+            rings.append(cur)
+    if not rings:
+        return None
+    return max(rings, key=lambda r: abs(shoelace2(r)))
+
+
+def is_boundary_ish(tags):
+    if not tags:
+        return False
+    if tags.get("boundary") == "administrative":
+        level = tags.get("admin_level")
+        if level and str(level).isdigit() and int(level) in DISTRICT_RANK:
+            return True
+    return tags.get("place") in PLACE_KINDS
+
+
+def collect_boundaries(pbf, bbox):
+    """
+    Assemble boundary/place polygons by hand, in two passes over the PBF.
+
+    Pass 1 finds the relations and the way ids they reference. Pass 2 keeps
+    coordinates only for those ways. OSM PBF orders nodes -> ways -> relations,
+    so a single pass cannot know the wanted way ids while it is still reading the
+    ways; and a city has far too many ways to hold them all.
+    """
+    wanted = {}   # way id -> True
+    relations = []  # (tags, [way refs])
+
+    for obj in osmium.FileProcessor(pbf):
+        if not isinstance(obj, Relation):
+            continue
+        # pyosmium reuses the object buffer, so `obj.tags` is only valid inside
+        # this callback — copy it out before it is used later.
+        tags = {t.k: t.v for t in obj.tags}
+        if not is_boundary_ish(tags):
+            continue
+        refs = [m.ref for m in obj.members if m.type == "w"]
+        if not refs:
+            continue
+        relations.append((tags, refs))
+        for ref in refs:
+            wanted[ref] = True
+
+    if not relations:
+        return []
+
+    way_coords = {}
+    for obj in osmium.FileProcessor(pbf).with_locations():
+        if not isinstance(obj, Way) or obj.id not in wanted:
+            continue
+        coords = []
+        for nd in obj.nodes:
+            loc = nd.location
+            if loc.valid():
+                coords.append((loc.lon, loc.lat))
+        if len(coords) >= 2:
+            way_coords[obj.id] = coords
+
+    out = []
+    for tags, refs in relations:
+        segments = [way_coords[r] for r in refs if r in way_coords]
+        if not segments:
+            continue
+        ring = stitch_rings(segments)
+        if not ring or not ring_hits_bbox(ring, bbox):
+            continue
+        ring = [(round5(p[0]), round5(p[1])) for p in ring]
+        if ring[0] != ring[-1]:
+            ring.append(ring[0])
+        out.append((tags, ring))
+    return out
+
+
 class Collector(osmium.SimpleHandler):
-    def __init__(self):
+    def __init__(self, bbox=None):
         super().__init__()
+        self.bbox = bbox
         self.areas = defaultdict(list)  # kind -> [(name, lon, lat, rank)]
         self.streets = []               # (score, highway, osm_id, [[lon, lat], ...])
         self.neighborhoods = []         # dicts with polygon geometry
@@ -259,6 +394,10 @@ class Collector(osmium.SimpleHandler):
         self._nearby = nearby
 
     def _add_area(self, tags, lon, lat):
+        if self.bbox:
+            min_lng, min_lat, max_lng, max_lat = self.bbox
+            if not (min_lng <= lon <= max_lng and min_lat <= lat <= max_lat):
+                return
         kind = classify(tags)
         if kind is None:
             return
@@ -302,6 +441,15 @@ class Collector(osmium.SimpleHandler):
                 coords.append((round5(loc.lon), round5(loc.lat)))
 
         if wants_street and len(coords) >= 2:
+            if self.bbox:
+                min_lng, min_lat, max_lng, max_lat = self.bbox
+                if not any(
+                    min_lng <= lon <= max_lng and min_lat <= lat <= max_lat
+                    for lon, lat in coords
+                ):
+                    coords = []
+            if len(coords) < 2:
+                return
             # Score now and keep only the streets that actually have POI signal.
             # Retaining every way in a big city exhausts runner memory; this is
             # the same reason atlas-2d-worker scores per tile instead of in one
@@ -333,7 +481,7 @@ class Collector(osmium.SimpleHandler):
         if geometry is None:
             return
         ring = exterior_ring(geometry)
-        if not ring:
+        if not ring or not ring_hits_bbox(ring, self.bbox):
             return
         lon, lat = centroid(ring)
         self._add_area(r.tags, round5(lon), round5(lat))
@@ -510,7 +658,13 @@ def build_neighborhoods(collector, max_neighborhoods):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--slug", required=True)
-    parser.add_argument("--pbf", required=True, help="city .osm.pbf from osmium extract")
+    parser.add_argument("--pbf", required=True, help="OSM PBF: the country extract, or a city extract")
+    parser.add_argument(
+        "--bbox",
+        default="",
+        help="minLng,minLat,maxLng,maxLat — keep only objects intersecting it. Pass the "
+        "city bbox when reading a whole country PBF.",
+    )
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--extract", default="", help="source extract slug, for the manifest")
     parser.add_argument("--max-streets", type=int, default=4000)
@@ -519,16 +673,26 @@ def main():
 
     os.makedirs(args.out_dir, exist_ok=True)
 
-    collector = Collector()
+    collector = Collector(bbox=parse_bbox(args.bbox))
     # with_areas() assembles boundary multipolygons so relations carry geometry;
     # with_locations() resolves the node references ways are built from.
+    #
+    # Read the PBF WHOLE. Do not pre-cut it with `osmium extract`: its default
+    # `simple` strategy drops the member ways of relations, so with_areas() cannot
+    # assemble the multipolygon and every neighborhood silently vanishes. That is
+    # exactly how Berlin came back with 13 outlines instead of ~190.
     for obj in osmium.FileProcessor(args.pbf).with_areas().with_locations():
         if isinstance(obj, Node):
             collector.node(obj)
         elif isinstance(obj, Way):
             collector.way(obj)
-        elif isinstance(obj, Relation):
-            collector.relation(obj)
+
+    # Boundaries come from a separate hand-assembled pass: with_areas() cannot
+    # help with the legacy type=boundary relations that most real districts use.
+    for tags, ring in collect_boundaries(args.pbf, collector.bbox):
+        lon, lat = centroid(ring)
+        collector._add_area(tags, round5(lon), round5(lat))
+        collector._add_neighborhood(tags, ring, "relation")
 
     places, counts = build_places(collector)
     demand = build_demand(collector.streets, args.max_streets)
