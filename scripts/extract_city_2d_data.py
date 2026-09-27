@@ -117,6 +117,9 @@ DISTRICT_GRID_CAP = 4000
 NEIGHBORHOOD_RANK_MIN = 4
 MIN_NEIGHBORHOOD_KM2 = 0.4
 MAX_NEIGHBORHOOD_KM2 = 400.0
+# A / P^2 ceiling from the isoperimetric inequality (1 / 4pi = 0.0796), with a
+# little slack for the km approximation. Real boundaries measure 0.013-0.03.
+ISOPERIMETRIC_MAX = 0.075
 
 
 def round5(n):
@@ -653,12 +656,23 @@ def ring_area_km2(ring):
     return abs(area) / 2.0
 
 
+def ring_perimeter_km(ring):
+    total = 0.0
+    for i in range(len(ring) - 1):
+        x0, y0 = ring[i]
+        x1, y1 = ring[i + 1]
+        dy = (y1 - y0) * 110.574
+        dx = (x1 - x0) * 111.320 * max(0.05, math.cos(math.radians((y0 + y1) / 2.0)))
+        total += math.hypot(dx, dy)
+    return total
+
+
 def bbox_area_km2(bbox):
     """Rough planar area of the enrolled bbox, in km2."""
     minx, miny, maxx, maxy = bbox
     lat0 = (miny + maxy) / 2.0
     km_per_deg_lat = 110.574
-    km_per_deg_lon = 111.320 * max(0.05, __import__("math").cos(__import__("math").radians(lat0)))
+    km_per_deg_lon = 111.320 * max(0.05, math.cos(math.radians(lat0)))
     return max((maxx - minx) * km_per_deg_lon, 0.0) * max((maxy - miny) * km_per_deg_lat, 0.0)
 
 
@@ -686,6 +700,17 @@ def build_neighborhoods(collector, max_neighborhoods):
         if area < MIN_NEIGHBORHOOD_KM2 or area > max_km2:
             continue
         if ring_contained_frac(nb["ring"], bbox) < 0.5:
+            continue
+        # The isoperimetric inequality: no planar shape encloses more area than
+        # P^2 / 4pi, i.e. A / P^2 can never exceed 0.0796. Real district
+        # boundaries land at 0.013-0.03. China's shared-border relations (the
+        # 界 family) are lines, not areas, but their ways do join end to end, so
+        # the stitcher closes them into a degenerate loop that reported things
+        # like 7661 km2 inside a 3 km perimeter — A/P^2 of 860, four orders of
+        # magnitude over the bound. This rejects them with huge margin and
+        # cannot reject a genuine polygon.
+        perim = ring_perimeter_km(nb["ring"])
+        if perim <= 0.0 or (area / (perim * perim)) > ISOPERIMETRIC_MAX:
             continue
         # One polygon per name, keeping the LARGEST. OSM carries the same place
         # as several relations (admin_level 9 borough vs 10 sub-unit vs a
