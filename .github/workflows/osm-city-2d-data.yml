@@ -131,9 +131,11 @@ jobs:
             exit 1
           fi
           printf 'source=s3://%s/%s (%s bytes)\n' "$R2_BUCKET" "$SOURCE_KEY" "$SIZE"
-          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
-            --no-progress --only-show-errors
-          ls -l work/source.osm.pbf
+          # The QID -> population/photo cache is permanent and shared, so we ask
+          # Wikidata for each item once, ever, across all cities and all runs.
+          aws s3 cp "s3://$R2_BUCKET/sources/osm/wikidata-cache.json" work/wd-cache.json \
+            --no-progress --only-show-errors 2>/dev/null || echo '{}' > work/wd-cache.json
+          ls -l work/source.osm.pbf work/wd-cache.json
           osmium fileinfo work/source.osm.pbf | head -n 4
 
       - name: Cut the city with osmium (C++)
@@ -166,6 +168,16 @@ jobs:
             --pbf work/city.osm.pbf --bbox "$BBOX" \
             --out-dir "work/out/${SLUG}"
 
+      - name: Attach population and photos from Wikidata
+        run: |
+          set -euo pipefail
+          # OSM has a population tag on only a handful of the 721 Berlin
+          # polygons, but 622 have a wikidata= QID, so the join rate is high.
+          time python scripts/enrich_neighborhoods.py \
+            --in "work/out/${SLUG}/neighborhoods.json" \
+            --out "work/out/${SLUG}/neighborhoods.json" \
+            --cache work/wd-cache.json
+
       - name: Upload
         if: always()
         run: |
@@ -180,6 +192,10 @@ jobs:
           fi
           aws s3 sync "work/out/${SLUG}/" "s3://$R2_BUCKET/sources/osm/places/${SLUG}/" \
             --exclude "*" --include "*.json"
+          # Persist the shared QID cache back. Every future run skips these.
+          aws s3 cp work/wd-cache.json \
+            "s3://$R2_BUCKET/sources/osm/wikidata-cache.json" \
+            --content-type application/json
           if [ "$PUBLISH" = "true" ]; then
             for f in places.json demand-streets.json neighborhoods.json; do
               aws s3 cp "work/out/${SLUG}/$f" \

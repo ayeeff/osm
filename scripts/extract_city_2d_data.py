@@ -203,6 +203,25 @@ def ring_hits_bbox(ring, bbox):
     return False
 
 
+def _int_or_none(value):
+    """Parse an OSM population-ish tag, returning None rather than junk."""
+    if value is None:
+        return None
+    text = str(value).strip().replace(",", "").replace(" ", "")
+    if not text:
+        return None
+    # Tolerate "2023-01-01" style census dates and "1.234" thousands marks.
+    mult = 1
+    if text.endswith("k"):
+        mult, text = 1000, text[:-1]
+    elif text.endswith("m"):
+        mult, text = 1000000, text[:-1]
+    try:
+        return int(float(text) * mult)
+    except ValueError:
+        return None
+
+
 def shoelace2(ring):
     total = 0.0
     for i in range(len(ring) - 1):
@@ -396,6 +415,9 @@ class Collector(osmium.SimpleHandler):
                 "rank": rank,
                 "place": place or ("boundary" if source == "relation" else "area"),
                 "wikidata": tags.get("wikidata") or tags.get("wikidata_ref") or "",
+                # Sparse, but free and authoritative where it exists, so prefer
+                # it over anything Wikidata has for the same place.
+                "osm_population": _int_or_none(tags.get("population")),
                 "ring": ring,
             }
         )
@@ -743,7 +765,11 @@ def build_neighborhoods(collector, max_neighborhoods):
                     "lat": round5(cy),
                     "wikidata": nb["wikidata"],
                     "image": "",
-                    "residents": None,
+                    # Filled by enrich_neighborhoods.py from Wikidata P1082/P18,
+                    # except where OSM already carries a population tag.
+                    "residents": nb.get("osm_population"),
+                    "populationYear": None,
+                    "imageSource": "",
                 },
                 "geometry": {
                     "type": "Polygon",
