@@ -653,6 +653,15 @@ def ring_area_km2(ring):
     return abs(area) / 2.0
 
 
+def bbox_area_km2(bbox):
+    """Rough planar area of the enrolled bbox, in km2."""
+    minx, miny, maxx, maxy = bbox
+    lat0 = (miny + maxy) / 2.0
+    km_per_deg_lat = 110.574
+    km_per_deg_lon = 111.320 * max(0.05, __import__("math").cos(__import__("math").radians(lat0)))
+    return max((maxx - minx) * km_per_deg_lon, 0.0) * max((maxy - miny) * km_per_deg_lat, 0.0)
+
+
 def build_neighborhoods(collector, max_neighborhoods):
     """
     Turn the collected rings into a FeatureCollection<Polygon>.
@@ -664,10 +673,17 @@ def build_neighborhoods(collector, max_neighborhoods):
     """
     best = {}
     bbox = collector.bbox
+    # The area cap has to scale with the city. A flat 400 km2 cap silently
+    # deleted most of Beijing's districts — Fangshan is 2301, Daxing 1462,
+    # Changping 1343, Shunyi 1010 — so 海淀区/通州区/大兴区/昌平区 came back
+    # missing and 朝阳区 fell back to a 10 km2 fragment. The containment check
+    # below is what actually rejects region-sized rings, so the cap only has to
+    # catch a polygon that is mostly the whole enrolled bbox.
+    max_km2 = max(MAX_NEIGHBORHOOD_KM2, 0.9 * bbox_area_km2(bbox))
     for nb in collector.neighborhoods:
         name = nb["name"]
         area = ring_area_km2(nb["ring"])
-        if area < MIN_NEIGHBORHOOD_KM2 or area > MAX_NEIGHBORHOOD_KM2:
+        if area < MIN_NEIGHBORHOOD_KM2 or area > max_km2:
             continue
         if ring_contained_frac(nb["ring"], bbox) < 0.5:
             continue
@@ -679,8 +695,16 @@ def build_neighborhoods(collector, max_neighborhoods):
         if prev is None or area > prev[0]:
             best[name] = (area, nb)
 
+    # Two differently-named relations can share one boundary (a joint
+    # forest/district edge in the Beijing area gave 朝阳区 and 顺义区 the exact
+    # same 174-point ring). Key on the geometry so only one survives.
+    seen_geom = set()
     features = []
     for name, (area, nb) in sorted(best.items(), key=lambda kv: -kv[1][0]):
+        gkey = (nb["place"], len(nb["ring"]), nb["ring"][0], nb["ring"][-1])
+        if gkey in seen_geom:
+            continue
+        seen_geom.add(gkey)
         cx, cy = centroid(nb["ring"])
         features.append(
             {
