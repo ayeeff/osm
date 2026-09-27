@@ -131,6 +131,10 @@ jobs:
             exit 1
           fi
           printf 'source=s3://%s/%s (%s bytes)\n' "$R2_BUCKET" "$SOURCE_KEY" "$SIZE"
+          # This is runner disk inside GitHub Actions, not the operator's home
+          # link, so having the file on disk keeps the osmium steps debuggable.
+          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
+            --no-progress --only-show-errors
           # The QID -> population/photo cache is permanent and shared, so we ask
           # Wikidata for each item once, ever, across all cities and all runs.
           aws s3 cp "s3://$R2_BUCKET/sources/osm/wikidata-cache.json" work/wd-cache.json \
