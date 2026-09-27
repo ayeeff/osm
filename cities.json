@@ -1,5 +1,5 @@
 {
-  "$comment": "Target registry. bbox is [minLng, minLat, maxLng, maxLat] and is copied from layer/anchor-pmtiles-manifest.json in ayeeff/astrogl. extract is the geofabrik per-country slug under sources/osm/ in the geo-datalake bucket; omit it when no extract covers the city (that city then keeps using the Overpass fallback in atlas-2d-worker).",
+  "$comment": "Target registry. bbox is [minLng, minLat, maxLng, maxLat] and is copied from layer/anchor-pmtiles-manifest.json in ayeeff/astrogl. extract is the per-country/territory slug under sources/osm/ in the geo-datalake bucket. If no extract covers the city, stage one with .github/workflows/stage-osm-extract.yml — do NOT fall back to a public Overpass mirror (AGENTS.md: 'CRITICAL - No public Overpass API. Ever.').",
   "cities": [
     {
       "slug": "beijing",
@@ -18,6 +18,18 @@
       "label": "Berlin",
       "extract": "germany",
       "bbox": [12.66124, 52.07137, 14.14186, 52.97227]
+    },
+    {
+      "slug": "amsterdam",
+      "label": "Amsterdam",
+      "extract": "netherlands",
+      "bbox": [4.17921, 51.89952, 5.65407, 52.80042]
+    },
+    {
+      "slug": "hongkong",
+      "label": "Hong Kong",
+      "extract": "hongkong",
+      "bbox": [113.69813, 21.85453, 114.67189, 22.75543]
     }
   ]
 }

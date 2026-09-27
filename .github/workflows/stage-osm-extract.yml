@@ -1,0 +1,125 @@
+name: Stage an OSM country extract
+
+# One-time maintenance job: put a `<country>-latest.osm.pbf` into
+# geo-datalake/sources/osm/ so the city pipeline has a sanctioned source.
+#
+# This is NOT a city pipeline and it does not run on a schedule. It exists
+# because Geofabrik does not publish every country, and because
+# `geo-datalake/sources/osm/` is the ONLY sanctioned OSM source (AGENTS.md:
+# "CRITICAL - No public Overpass API. Ever."). When a city is enrolled and its
+# country's extract is missing, run this once rather than reaching for Overpass.
+#
+#   gh workflow run stage-osm-extract.yml -f slug=netherlands
+#   gh workflow run stage-osm-extract.yml -f slug=hongkong
+#
+# `from` says where the bytes come from:
+#   geofabrik  - curl the upstream Geofabrik .osm.pbf directly
+#   europe     - derive a country from a continental extract we already hold,
+#                with osmium extract, for countries Geofabrik does not split out
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Country/territory slug, e.g. netherlands or hongkong"
+        required: true
+      from:
+        description: "geofabrik | europe | asia"
+        required: true
+        default: geofabrik
+      bbox:
+        description: "Only for from=europe/asia: minLng,minLat,maxLng,maxLat of the area to cut"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      R2_BUCKET: geo-datalake
+      AWS_ENDPOINT_URL: https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      AWS_DEFAULT_REGION: auto
+      AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+    steps:
+      - name: Install osmium
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y osmium-tool
+          osmium --version
+
+      - name: Configure R2
+        run: |
+          set -euo pipefail
+          aws configure set aws_access_key_id "${{ secrets.R2_ACCESS_KEY_ID }}"
+          aws configure set aws_secret_access_key "${{ secrets.R2_SECRET_ACCESS_KEY }}"
+
+      - name: Refuse to clobber an existing extract
+        run: |
+          set -euo pipefail
+          KEY="sources/osm/${{ inputs.slug }}-latest.osm.pbf"
+          SIZE=$(aws s3api head-object --bucket "$R2_BUCKET" --key "$KEY" \
+            --query 'ContentLength' --output text 2>/dev/null) || SIZE=""
+          if [ -n "$SIZE" ] && [ "$SIZE" != "None" ]; then
+            echo "::error::$KEY already exists ($SIZE bytes). Nothing to do."
+            exit 1
+          fi
+          echo "will stage $KEY"
+
+      - name: Fetch geofabrik
+        if: inputs.from == 'geofabrik'
+        run: |
+          set -euo pipefail
+          URL="https://download.geofabrik.de/europe/${{ inputs.slug }}-latest.osm.pbf"
+          echo "source: $URL"
+          curl -fSL --retry 3 --retry-delay 5 -o work.pbf "$URL"
+          ls -l work.pbf
+
+      - name: Cut from a continental extract we already hold
+        if: inputs.from != 'geofabrik'
+        run: |
+          set -euo pipefail
+          if [ -z "${{ inputs.bbox }}" ]; then
+            echo "::error::from=${{ inputs.from }} needs bbox=minLng,minLat,maxLng,maxLat"
+            exit 1
+          fi
+          SRC="sources/osm/${{ inputs.from }}-latest.osm.pbf"
+          echo "cutting $SRC with ${{ inputs.bbox }}"
+          # -s complete_ways: the default `simple` strategy drops the member
+          # ways of relations crossing the boundary, and those member ways ARE
+          # the administrative outlines we extract.
+          aws s3 cp "s3://$R2_BUCKET/$SRC" source.pbf --no-progress --only-show-errors
+          ls -l source.pbf
+          time osmium extract -b "${{ inputs.bbox }}" -s complete_ways -F pbf -o work.pbf source.pbf
+          rm -f source.pbf
+          osmium fileinfo -e work.pbf 2>&1 | head -n 20
+
+      - name: Sanity check
+        run: |
+          set -euo pipefail
+          # A truncated or empty extract would silently yield an empty map, so
+          # refuse to publish one. The head output of fileinfo lists the counts.
+          INFO=$(osmium fileinfo -e work.pbf 2>&1)
+          echo "$INFO" | head -n 20
+          NODES=$(echo "$INFO" | grep -i 'Number of nodes' | grep -oE '[0-9]+' | head -n1)
+          WAYS=$(echo "$INFO" | grep -i 'Number of ways' | grep -oE '[0-9]+' | head -n1)
+          RELS=$(echo "$INFO" | grep -i 'Number of relations' | grep -oE '[0-9]+' | head -n1)
+          echo "nodes=$NODES ways=$WAYS relations=$RELS"
+          if [ "${NODES:-0}" -lt 1000 ] || [ "${WAYS:-0}" -lt 1000 ] || [ "${RELS:-0}" -lt 100 ]; then
+            echo "::error::extract looks empty (nodes=$NODES ways=$WAYS relations=$RELS) - not publishing"
+            exit 1
+          fi
+          sha256sum work.pbf | tee sha.txt
+
+      - name: Publish
+        run: |
+          set -euo pipefail
+          KEY="sources/osm/${{ inputs.slug }}-latest.osm.pbf"
+          aws s3 cp work.pbf "s3://$R2_BUCKET/$KEY" \
+            --content-type application/octet-stream --no-progress --only-show-errors
+          aws s3 cp sha.txt "s3://$R2_BUCKET/sources/osm/${{ inputs.slug }}-latest.sha256" \
+            --no-progress --only-show-errors
+          aws s3api head-object --bucket "$R2_BUCKET" --key "$KEY" \
+            --query 'ContentLength' --output text
