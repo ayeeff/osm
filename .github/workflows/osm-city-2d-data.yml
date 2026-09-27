@@ -150,8 +150,17 @@ jobs:
           rm -f work/source.osm.pbf
 
       - name: Upload
+        if: always()
         run: |
           set -euo pipefail
+          # Keep a copy of the output so a bad extract can be diagnosed without
+          # re-reading a multi-GB country PBF.
+          mkdir -p "artifact/${SLUG}"
+          cp "work/out/${SLUG}"/*.json "artifact/${SLUG}/" 2>/dev/null || true
+          if [ ! -d "work/out/${SLUG}" ]; then
+            echo "::notice::no output for $SLUG"
+            exit 0
+          fi
           aws s3 sync "work/out/${SLUG}/" "s3://geo-datalake/sources/osm/places/${SLUG}/" \
             --exclude "*" --include "*.json"
           if [ "$PUBLISH" = "true" ]; then
@@ -163,6 +172,15 @@ jobs:
             echo "staged only (publish=false)"
           fi
           rm -rf work/source.osm.pbf work/city.osm.pbf
+
+      - name: Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: city-2d-${{ matrix.city.slug }}
+          path: artifact/
+          retention-days: 14
+          if-no-files-found: ignore
 
       - name: Summary
         if: always()

@@ -209,42 +209,84 @@ def shoelace2(ring):
     return total
 
 
+def ring_bbox(ring):
+    xs = [p[0] for p in ring]
+    ys = [p[1] for p in ring]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def ring_contained_frac(ring, bbox):
+    """
+    Fraction of the ring's OWN bounding box that falls inside the city bbox.
+
+    A district cannot be much bigger than the city we enrolled, so anything that
+    mostly lies outside is not that city's district. This is what keeps a hamlet
+    relation in Lower Saxony out of Berlin's map.
+    """
+    minx, miny, maxx, maxy = ring_bbox(ring)
+    w = max(maxx - minx, 1e-9)
+    h = max(maxy - miny, 1e-9)
+    ox = max(0.0, min(maxx, bbox[2]) - max(minx, bbox[0]))
+    oy = max(0.0, min(maxy, bbox[3]) - max(miny, bbox[1]))
+    return (ox * oy) / (w * h)
+
+
 def stitch_rings(segments):
     """
-    Join unordered way segments into closed rings and return the largest.
+    Walk the member ways into CLOSED rings and return every ring found.
 
     Needed because the overwhelming majority of real administrative boundaries
     are legacy `type=boundary` relations, not `type=multipolygon`. libosmium's
     area assembler only builds areas for multipolygons, so with_areas() hands
     back an EMPTY geometry for them — which is why an earlier version of this
-    script returned 13 neighbourhoods for Berlin instead of ~190.
+    script returned 12 neighbourhoods for Berlin instead of ~190.
+
+    Only rings that close on themselves are returned. An earlier version kept
+    whatever partial chain the greedy merge happened to reach, which is how a
+    5-point, 384 km2 "neighborhood" named "Elbe-Luebeck-Kanal" ended up on
+    Berlin's map: the member ways never formed a loop at all.
     """
-    pool = [list(s) for s in segments if len(s) >= 2]
-    rings = []
-    while pool:
-        cur = pool.pop()
-        grew = True
-        while grew and cur[0] != cur[-1]:
-            grew = False
-            for i, seg in enumerate(pool):
-                if seg[0] == cur[-1]:
-                    cur.extend(seg[1:])
-                elif seg[-1] == cur[-1]:
-                    cur.extend(reversed(seg[1:]))
-                elif seg[-1] == cur[0]:
-                    cur = seg[:-1] + cur
-                elif seg[0] == cur[0]:
-                    cur = list(reversed(seg[1:])) + cur
-                else:
-                    continue
-                pool.pop(i)
-                grew = True
+    adjacency = defaultdict(list)
+    closed = []
+    segs = []
+    for seg in segments:
+        if len(seg) < 2:
+            continue
+        if seg[0] == seg[-1] and len(seg) > 3:
+            closed.append(list(seg))   # a single way that is already a loop
+            continue
+        i = len(segs)
+        segs.append(list(seg))
+        adjacency[(seg[0][0], seg[0][1])].append(i)
+        adjacency[(seg[-1][0], seg[-1][1])].append(i)
+
+    used = [False] * len(segs)
+    for seed in range(len(segs)):
+        if used[seed]:
+            continue
+        used[seed] = True
+        ring = list(segs[seed])
+        while True:
+            cur = (ring[-1][0], ring[-1][1])
+            start = (ring[0][0], ring[0][1])
+            if cur == start:
                 break
-        if len(cur) >= 4:
-            rings.append(cur)
-    if not rings:
-        return None
-    return max(rings, key=lambda r: abs(shoelace2(r)))
+            nxt = None
+            for i in adjacency.get(cur, ()):
+                if not used[i]:
+                    nxt = i
+                    break
+            if nxt is None:
+                break
+            used[nxt] = True
+            seg = segs[nxt]
+            if (seg[0][0], seg[0][1]) == cur:
+                ring.extend(seg[1:])
+            else:
+                ring.extend(reversed(seg[:-1]))
+        if len(ring) >= 4 and (ring[0][0], ring[0][1]) == (ring[-1][0], ring[-1][1]):
+            closed.append(ring)
+    return closed
 
 
 def is_boundary_ish(tags):
@@ -304,13 +346,15 @@ def collect_boundaries(pbf, bbox):
         segments = [way_coords[r] for r in refs if r in way_coords]
         if not segments:
             continue
-        ring = stitch_rings(segments)
-        if not ring or not ring_hits_bbox(ring, bbox):
-            continue
-        ring = [(round5(p[0]), round5(p[1])) for p in ring]
-        if ring[0] != ring[-1]:
-            ring.append(ring[0])
-        out.append((tags, ring))
+        for ring in stitch_rings(segments):
+            if not ring_hits_bbox(ring, bbox):
+                continue
+            if ring_contained_frac(ring, bbox) < 0.5:
+                continue
+            ring = [(round5(p[0]), round5(p[1])) for p in ring]
+            if ring[0] != ring[-1]:
+                ring.append(ring[0])
+            out.append((tags, ring))
     return out
 
 
@@ -618,20 +662,26 @@ def build_neighborhoods(collector, max_neighborhoods):
     visual gain. Rank >= NEIGHBORHOOD_RANK_MIN keeps village-scale places out
     (they would be dots inside their parent's polygon anyway).
     """
-    seen = set()
-    features = []
-    for nb in sorted(collector.neighborhoods, key=lambda n: (-n["rank"], n["name"])):
+    best = {}
+    bbox = collector.bbox
+    for nb in collector.neighborhoods:
         name = nb["name"]
         area = ring_area_km2(nb["ring"])
         if area < MIN_NEIGHBORHOOD_KM2 or area > MAX_NEIGHBORHOOD_KM2:
             continue
-        cx, cy = centroid(nb["ring"])
-        # Dedupe on name + rounded centroid; OSM carries the same place as both a
-        # relation and a closed way very often.
-        key = (name, round(cx, 2), round(cy, 2))
-        if key in seen:
+        if ring_contained_frac(nb["ring"], bbox) < 0.5:
             continue
-        seen.add(key)
+        # One polygon per name, keeping the LARGEST. OSM carries the same place
+        # as several relations (admin_level 9 borough vs 10 sub-unit vs a
+        # duplicate closed way), and first-wins let a 5.6 km2 "Pankow" shadow
+        # the real 102 km2 borough.
+        prev = best.get(name)
+        if prev is None or area > prev[0]:
+            best[name] = (area, nb)
+
+    features = []
+    for name, (area, nb) in sorted(best.items(), key=lambda kv: -kv[1][0]):
+        cx, cy = centroid(nb["ring"])
         features.append(
             {
                 "type": "Feature",
@@ -640,6 +690,8 @@ def build_neighborhoods(collector, max_neighborhoods):
                     "rank": nb["rank"],
                     "kind": nb["place"],
                     "areaKm2": round(area, 2),
+                    "lon": round5(cx),
+                    "lat": round5(cy),
                     "wikidata": nb["wikidata"],
                     "image": "",
                     "residents": None,
