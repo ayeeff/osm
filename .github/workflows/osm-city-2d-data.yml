@@ -83,11 +83,13 @@ jobs:
       SLUG: ${{ matrix.city.slug }}
       LABEL: ${{ matrix.city.label }}
       EXTRACT: ${{ matrix.city.extract }}
-      # osmium -b takes minLat,minLon,maxLat,maxLon
+      # osmium -b takes minLng,minLat,maxLng,maxLat, and matrix.city.bbox is
+      # already in that order.
       BBOX: ${{ join(matrix.city.bbox, ',') }}
-      # matrix.city.bbox is [minLng, minLat, maxLng, maxLat], which is exactly
-      # what `osmium extract -b` wants (LONG1,LAT1,LONG2,LAT2) â€” pass it through.
       PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == false && 'false' || 'true' }}
+      # The only sanctioned OSM source. Never reach for a public Overpass mirror.
+      # See AGENTS.md "CRITICAL — No public Overpass API. Ever."
+      R2_BUCKET: geo-datalake
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
       AWS_ENDPOINT_URL: https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
@@ -118,36 +120,51 @@ jobs:
           set -euo pipefail
           mkdir -p work
           SOURCE_KEY="sources/osm/${EXTRACT}-latest.osm.pbf"
-          SIZE=$(aws s3api head-object --bucket geo-datalake --key "$SOURCE_KEY" \
-            --query 'ContentLength' --output text)
-          printf 'source=%s (%s bytes)\n' "$SOURCE_KEY" "$SIZE"
-          # This is runner disk inside GitHub Actions, not the operator's home
-          # link â€” a 1.5 GB country extract is nothing here, and having the file
-          # on disk makes the osmium steps debuggable and re-runnable.
-          aws s3 cp "s3://geo-datalake/${SOURCE_KEY}" work/source.osm.pbf \
+          # Don't let `set -e` swallow the useful message: a missing key makes
+          # head-object exit nonzero, so swallow the status and check it here.
+          SIZE=$(aws s3api head-object --bucket "$R2_BUCKET" --key "$SOURCE_KEY" \
+            --query 'ContentLength' --output text 2>/dev/null) || SIZE=""
+          if [ -z "$SIZE" ] || [ "$SIZE" = "None" ]; then
+            echo "::error::s3://$R2_BUCKET/$SOURCE_KEY not found."
+            echo "::error::Stage the country extract in sources/osm/ first."
+            echo "::error::Do NOT fall back to a public Overpass mirror."
+            exit 1
+          fi
+          printf 'source=s3://%s/%s (%s bytes)\n' "$R2_BUCKET" "$SOURCE_KEY" "$SIZE"
+          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
             --no-progress --only-show-errors
           ls -l work/source.osm.pbf
           osmium fileinfo work/source.osm.pbf | head -n 4
 
+      - name: Cut the city with osmium (C++)
+        run: |
+          set -euo pipefail
+          # Let osmium (C++) do the cutting, not Python.
+          #
+          # Reading the whole country extract with pyosmium took ~60 min for
+          # germany: pyosmium streams at a few MB/s, and we made THREE passes
+          # over 3.5 GB. osmium extract is two orders of magnitude faster and
+          # leaves a ~100-300 MB city file, so the Python passes are cheap.
+          #
+          # -s complete_ways is essential. The DEFAULT strategy is `simple`,
+          # which drops the member ways of any relation that crosses the
+          # boundary — and relation member ways ARE the district outlines.
+          #
+          # BBOX is [minLng, minLat, maxLng, maxLat], which is exactly what
+          # `osmium extract -b` wants.
+          printf 'bbox(long1,lat1,long2,lat2)=%s\n' "$BBOX"
+          time osmium extract -b "$BBOX" -s complete_ways -F pbf \
+            -o work/city.osm.pbf work/source.osm.pbf
+          osmium fileinfo -e work/city.osm.pbf 2>&1 | head -n 20
+          rm -f work/source.osm.pbf
+
       - name: Score places, street demand and neighborhood outlines
         run: |
           set -euo pipefail
-          # Read the WHOLE country extract and filter by bbox in Python.
-          #
-          # Do NOT pre-cut it with `osmium extract`. Its default `simple`
-          # strategy drops the member ways of relations, and — separately — the
-          # overwhelming majority of real administrative boundaries are legacy
-          # `type=boundary` relations, which libosmium's area assembler does not
-          # build at all (it only handles `type=multipolygon`). Together those
-          # two cost us 191 of Berlin's 203 neighborhood outlines.
-          #
-          # matrix.city.bbox is [minLng, minLat, maxLng, maxLat].
-          printf 'pbf=work/source.osm.pbf bbox=%s\n' "$BBOX"
-          python scripts/extract_city_2d_data.py \
+          time python scripts/extract_city_2d_data.py \
             --slug "$SLUG" --extract "$EXTRACT" \
-            --pbf work/source.osm.pbf --bbox "$BBOX" \
+            --pbf work/city.osm.pbf --bbox "$BBOX" \
             --out-dir "work/out/${SLUG}"
-          rm -f work/source.osm.pbf
 
       - name: Upload
         if: always()
@@ -161,7 +178,7 @@ jobs:
             echo "::notice::no output for $SLUG"
             exit 0
           fi
-          aws s3 sync "work/out/${SLUG}/" "s3://geo-datalake/sources/osm/places/${SLUG}/" \
+          aws s3 sync "work/out/${SLUG}/" "s3://$R2_BUCKET/sources/osm/places/${SLUG}/" \
             --exclude "*" --include "*.json"
           if [ "$PUBLISH" = "true" ]; then
             for f in places.json demand-streets.json neighborhoods.json; do
