@@ -182,6 +182,21 @@ jobs:
             --out "work/out/${SLUG}/neighborhoods.json" \
             --cache work/wd-cache.json
 
+      - name: Check the city's basemap is an extract of the city
+        run: |
+          set -euo pipefail
+          # The 2D map draws globe/basemaps/<slug>.pmtiles underneath the 2D
+          # data. Nothing about a wrong archive raises: berlin.pmtiles is a
+          # perfectly valid PMTiles v3 file with a real tile directory and a
+          # `boundaries` layer in its TileJSON, it is just an extract of New
+          # Jersey. Every tile over Berlin comes back empty and the map renders
+          # blank with no error. The only way to catch it is to compare the
+          # archive's own declared extent against the city.
+          #
+          # Fails on wrong-place so the broken city's job goes red while the
+          # other matrix jobs carry on.
+          python scripts/verify_city_basemap.py --slug "$SLUG" --bbox "$BBOX"
+
       - name: Upload
         if: always()
         run: |
