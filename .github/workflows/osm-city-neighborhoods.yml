@@ -334,14 +334,24 @@ jobs:
             # Do NOT clobber an already-enriched city. The 5 cities built by the
             # original workflow (amsterdam, beijing, berlin, hongkong, melbourne)
             # went through enrich_neighborhoods.py, so their published
-            # neighborhoods.json carries residents/populationYear/image that this
-            # workflow does not produce. Overwriting would silently strip that
-            # enrichment. Detected from the data rather than hardcoded, so a
-            # hand-enriched city is also protected.
+            # neighborhoods.json carries Wikidata population and photos that this
+            # workflow does not produce. Overwriting would silently strip that.
+            # Detected from the data rather than hardcoded, so a hand-enriched city
+            # is also protected.
+            #
+            # The test must be populationYear / image / imageSource, and NOT
+            # residents. build_neighborhoods fills residents from the OSM
+            # population tag, so keying on residents misread every city whose
+            # districts carry that tag as enriched and skipped it outright:
+            # algiers has 71 such features with populationYear null, so it was
+            # skipped and its places.json never published. Those three fields are
+            # set only by enrich_neighborhoods.py.
             if [ "$FORCE" != "true" ]; then
               aws s3 cp "$LIVE" work/live.json --no-progress --only-show-errors 2>/dev/null || rm -f work/live.json
               if [ -f work/live.json ] && jq -e \
-                   '[.features[] | select((.properties.residents // 0) > 0 or (.properties.image // "") != "")] | length > 0' \
+                   '[.features[] | select(.properties.populationYear != null
+                       or (.properties.image // "") != ""
+                       or (.properties.imageSource // "") != "")] | length > 0' \
                    work/live.json >/dev/null 2>&1; then
                 echo "::notice::$SLUG is already enriched; keeping the published file (set overwrite_enriched to replace it)"
                 rm -f work/live.json
