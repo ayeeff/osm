@@ -69,17 +69,14 @@ jobs:
         id: plan
         run: |
           set -euo pipefail
-          set -x
           # Only cities that name a geofabrik extract can be built here; the rest
           # have no staged PBF and must not silently fall back to Overpass.
           #
           # Reads cities-neighborhoods.json, NOT cities.json. That file is kept
           # small on purpose: it also drives osm-city-2d-data.yml, whose per-city
           # matrix would schedule ~900 jobs a week if this list were merged in.
-          jq --version
-          ls -l cities-neighborhoods.json
-          if ! jq -e '.cities | length' cities-neighborhoods.json; then
-            echo "::error::cities-neighborhoods.json is missing or not parseable; listing the checkout:"
+          if ! jq -e '.cities | length > 0' cities-neighborhoods.json; then
+            echo "::error::cities-neighborhoods.json is missing or empty; listing the checkout:"
             ls -la
             exit 1
           fi
@@ -89,7 +86,6 @@ jobs:
             cat jq.err || echo "(no stderr captured)"
             exit 1
           fi
-          echo "ALL length: ${#ALL}"
           if [ -n "$REQUESTED_SLUG" ]; then
             PICK=$(jq -c --arg s "$REQUESTED_SLUG" '[.[] | select(.slug == $s)]' <<<"$ALL")
             if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
