@@ -323,7 +323,13 @@ jobs:
             [ -d "$D" ] || continue
             SLUG=$(basename "$D")
             N=$(jq '.features | length' "$D/neighborhoods.json" 2>/dev/null || echo 0)
-            LIVE="s3://geo-datalake/globe/data/${SLUG}-2d/neighborhoods.json"
+            # The site reads this through its CONTENT R2 binding, whose
+            # bucket_name is `globe`, at key data/<slug>-2d/neighborhoods.json.
+            # Writing to s3://geo-datalake/globe/... looks right and serves
+            # nothing: that is a different bucket with a `globe/` key prefix in
+            # it, so every request 404s. The durable diagnostic copy below goes
+            # to geo-datalake on purpose, because that is the datalake.
+            LIVE="s3://globe/data/${SLUG}-2d/neighborhoods.json"
 
             # Do NOT clobber an already-enriched city. The 5 cities built by the
             # original workflow (amsterdam, beijing, berlin, hongkong, melbourne)
