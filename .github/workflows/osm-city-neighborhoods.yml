@@ -69,6 +69,7 @@ jobs:
         id: plan
         run: |
           set -euo pipefail
+          set -x
           # Only cities that name a geofabrik extract can be built here; the rest
           # have no staged PBF and must not silently fall back to Overpass.
           #
