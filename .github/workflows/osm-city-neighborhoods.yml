@@ -192,7 +192,6 @@ jobs:
           # other regions and the first one that actually contains it wins.
           TOTAL=0
           for _ in $CITIES; do TOTAL=$((TOTAL + 1)); done
-          declare -A FALLBACK_PBF=()
           FAILED=""
           COUNT=0
           for ENTRY in $CITIES; do
