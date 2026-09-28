@@ -5,6 +5,17 @@
  "count": 5,
  "cities": [
   {
+   "slug": "amsterdam",
+   "label": "Amsterdam",
+   "extract": "netherlands",
+   "bbox": [
+    4.61664,
+    52.04997,
+    5.21664,
+    52.64997
+   ]
+  },
+  {
    "slug": "beijing",
    "label": "Beijing",
    "extract": "china",
@@ -35,17 +46,6 @@
     -38.12003,
     145.27501,
     -37.52003
-   ]
-  },
-  {
-   "slug": "amsterdam",
-   "label": "Amsterdam",
-   "extract": "netherlands",
-   "bbox": [
-    4.17921,
-    51.89952,
-    5.65407,
-    52.80042
    ]
   },
   {
