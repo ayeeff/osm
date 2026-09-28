@@ -169,7 +169,7 @@ jobs:
             exit 1
           fi
           printf 'source=s3://%s/%s (%s bytes) for: %s\n' \
-            "$R2_BUCKET" "$SOURCE_KEY" "$SIZE" "$CITY_COUNT"
+            "$R2_BUCKET" "$SOURCE_KEY" "$SIZE" "$CITIES"
           # Downloaded ONCE per extract group, then reused for every city in the
           # group. This is the whole point of this workflow.
           aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
@@ -182,13 +182,15 @@ jobs:
           set -euo pipefail
           # CITIES carries "slug:minLng,minLat,maxLng,maxLat" per city. The bbox
           # comes from the registry, which is already osmium's argument order.
+          TOTAL=0
+          for _ in $CITIES; do TOTAL=$((TOTAL + 1)); done
           FAILED=""
           COUNT=0
           for ENTRY in $CITIES; do
             SLUG="${ENTRY%%:*}"
             BBOX="${ENTRY#*:}"
             COUNT=$((COUNT + 1))
-            printf '\n===== [%s/%s] %s  bbox=%s\n' "$COUNT" "$CITY_COUNT" "$SLUG" "$BBOX"
+            printf '\n===== [%s/%s] %s  bbox=%s\n' "$COUNT" "$TOTAL" "$SLUG" "$BBOX"
 
             # -s complete_ways is ESSENTIAL for neighbourhoods. The DEFAULT
             # strategy is `simple`, which drops the member ways of any relation
@@ -232,9 +234,12 @@ jobs:
         if: always()
         run: |
           set -euo pipefail
+          # Set by the previous step through GITHUB_ENV. This step is
+          # `if: always()`, so it can run before that step ever assigned it.
+          FAILED="${FAILED:-}"
           # `set -e` treats a false `[ ... ] && echo` as a failed step, so the
           # empty-FAILED case must not be the last command in an && chain.
-          if [ -n "${FAILED:-}" ]; then
+          if [ -n "$FAILED" ]; then
             echo "::warning::cities that did not build:$FAILED"
           fi
           # Keep a copy of the output so a bad extract can be diagnosed without
