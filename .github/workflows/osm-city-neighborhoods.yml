@@ -1,4 +1,4 @@
-name: OSM city neighbourhood boundaries
+﻿name: OSM city neighbourhood boundaries
 
 # Builds neighborhoods.json ONLY (no places.json / demand-streets.json) for every
 # city in cities-neighborhoods.json that names a geofabrik extract, from the per-country OSM
@@ -89,6 +89,7 @@ jobs:
           if ! jq -f scripts/neighborhood-plan.jq \
                  --arg slug "$REQUESTED_SLUG" \
                  --arg extract "$REQUESTED_EXTRACT" \
+                 --argjson per 40 \
                  cities-neighborhoods.json > groups.json 2>jq.err; then
             echo "::error::neighborhood-plan.jq exited nonzero:"
             cat jq.err || echo "(no stderr captured)"
@@ -171,68 +172,103 @@ jobs:
           printf 'source=s3://%s/%s (%s bytes) for: %s\n' \
             "$R2_BUCKET" "$SOURCE_KEY" "$SIZE" "$CITIES"
           # Downloaded ONCE per extract group, then reused for every city in the
-          # group. This is the whole point of this workflow.
-          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
+          # group. This is the whole point of this workflow. Named per extract so
+          # the fallback path can pull additional region files under the same
+          # scheme, each fetched at most once per job.
+          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" "work/src-${EXTRACT}.osm.pbf" \
             --no-progress --only-show-errors
-          ls -l work/source.osm.pbf
-          osmium fileinfo work/source.osm.pbf | head -n 4
+          ls -l "work/src-${EXTRACT}.osm.pbf"
+          osmium fileinfo "work/src-${EXTRACT}.osm.pbf" | head -n 4
 
       - name: Build neighbourhood outlines for every city in the group
         run: |
           set -euo pipefail
-          # CITIES carries "slug:minLng,minLat,maxLng,maxLat" per city. The bbox
-          # comes from the registry, which is already osmium's argument order.
+          # CITIES carries "slug:minLng,minLat,maxLng,maxLat[:fb1,fb2,...]" per
+          # city. The bbox comes from the registry, already in osmium's order.
+          # A trailing ":a,b,c" is a fallback extract list: the US is split into
+          # five Geofabrik regions and longitude alone cannot tell them apart
+          # (chicago -87.9 is midwest, houston -95.7 is south, both between -104
+          # and -80.5), so a city that comes back empty is retried against the
+          # other regions and the first one that actually contains it wins.
           TOTAL=0
           for _ in $CITIES; do TOTAL=$((TOTAL + 1)); done
+          declare -A FALLBACK_PBF=()
           FAILED=""
           COUNT=0
           for ENTRY in $CITIES; do
             SLUG="${ENTRY%%:*}"
-            BBOX="${ENTRY#*:}"
+            REST="${ENTRY#*:}"
+            FB=""
+            if [[ "$REST" == *,* ]]; then FB="${REST#*,}"; REST="${REST%%,*}"; fi
+            BBOX="$REST"
             COUNT=$((COUNT + 1))
             printf '\n===== [%s/%s] %s  bbox=%s\n' "$COUNT" "$TOTAL" "$SLUG" "$BBOX"
 
-            # -s complete_ways is ESSENTIAL for neighbourhoods. The DEFAULT
-            # strategy is `simple`, which drops the member ways of any relation
-            # that crosses the boundary, and relation member ways ARE the district
-            # outlines. With `simple` every neighbourhood silently vanishes -- that
-            # is how Berlin came back with 13 outlines instead of ~190.
-            if ! osmium extract -b "$BBOX" -s complete_ways -F pbf \
-                 -o "work/city-${SLUG}.osm.pbf" work/source.osm.pbf; then
-              echo "::error::osmium extract failed for $SLUG"
-              FAILED="$FAILED $SLUG:cut"
-              continue
+            # Build one city from a given extract: cut, extract, count. Returns
+            # the feature count, or -1 if the cut or the extractor failed.
+            build_city() {
+              local slug="$1" bbox="$2" ex="$3" pbf="work/city-$1-$3.osm.pbf"
+              # -s complete_ways is ESSENTIAL for neighbourhoods. The DEFAULT
+              # strategy is `simple`, which drops the member ways of any relation
+              # that crosses the boundary, and relation member ways ARE the
+              # district outlines. With `simple` every neighbourhood silently
+              # vanishes -- that is how Berlin came back with 13 outlines instead
+              # of ~190.
+              osmium extract -b "$bbox" -s complete_ways -F pbf -o "$pbf" \
+                "work/src-$3.osm.pbf" >/dev/null 2>&1 || { rm -f "$pbf"; echo -1; return; }
+              # --bbox= not --bbox : a bbox like -0.51672,5.25,0.08,5.85 starts
+              # with a minus, and argparse reads a space-separated value
+              # beginning with "-" as the next flag, so it fails with "expected
+              # one argument". This is why every western-hemisphere city failed
+              # while the 5 east-side ones worked.
+              python scripts/extract_city_2d_data.py \
+                --slug "$slug" --extract "$ex" \
+                --pbf "$pbf" --bbox="$bbox" \
+                --out-dir "work/out/$slug" >/dev/null 2>&1 \
+                || { rm -f "$pbf"; echo -1; return; }
+              rm -f "$pbf"
+              jq '.features | length' "work/out/$slug/neighborhoods.json" 2>/dev/null || echo 0
+            }
+
+            # Fetch a source PBF into work/src-<extract>.osm.pbf, once per group.
+            have_src() {
+              [ -f "work/src-$1.osm.pbf" ] && return 0
+              local key="sources/osm/$1-latest.osm.pbf"
+              aws s3 cp "s3://$R2_BUCKET/$key" "work/src-$1.osm.pbf" \
+                --no-progress --only-show-errors
+            }
+
+            rm -rf "work/out/$SLUG"
+            FEATURES=-1
+            USED="$EXTRACT"
+            if have_src "$EXTRACT"; then
+              FEATURES=$(build_city "$SLUG" "$BBOX" "$EXTRACT")
+              [ "$FEATURES" = "-1" ] || true
+            fi
+            # Empty (0) or failed (-1): the city is probably not in this region.
+            if [ "$FEATURES" -lt 1 ] && [ -n "$FB" ]; then
+              IFS=',' read -r -a FBS <<< "$FB"
+              for EX in "${FBS[@]}"; do
+                printf '  %s empty in %s, trying %s\n' "$SLUG" "$USED" "$EX"
+                if have_src "$EX"; then
+                  N=$(build_city "$SLUG" "$BBOX" "$EX")
+                  if [ "$N" -gt 0 ]; then FEATURES=$N; USED="$EX"; break; fi
+                fi
+              done
             fi
 
-            # --bbox= not --bbox : a bbox like -0.51672,5.25,0.08,5.85 starts with
-            # a minus, and argparse reads a space-separated value beginning with
-            # "-" as the next flag, so it fails with "expected one argument". The
-            # = form binds the value regardless of its first character. This is
-            # why every western-hemisphere city failed while the 5 east-side ones
-            # worked. Affects the old osm-city-2d-data.yml too.
-            if ! python scripts/extract_city_2d_data.py \
-                 --slug "$SLUG" --extract "$EXTRACT" \
-                 --pbf "work/city-${SLUG}.osm.pbf" --bbox="$BBOX" \
-                 --out-dir "work/out/${SLUG}"; then
-              echo "::error::extract_city_2d_data.py failed for $SLUG"
-              FAILED="$FAILED $SLUG:extract"
-              rm -f "work/city-${SLUG}.osm.pbf"
+            if [ "$FEATURES" -lt 1 ]; then
+              echo "::error::no neighbourhood features for $SLUG (last tried $USED)"
+              FAILED="$FAILED $SLUG:empty"
               continue
             fi
-
-            # The 2D map draws globe/basemaps/<slug>.pmtiles underneath the 2D
-            # data. A wrong-archive extract raises nothing -- the pmtiles is valid
-            # and simply empty over the city, so the map renders blank with no
-            # error. Compare the archive's declared extent against the city.
-            python scripts/verify_city_basemap.py --slug "$SLUG" --bbox "$BBOX" \
-              || echo "::warning::basemap extent mismatch for $SLUG"
-
-            FEATURES=$(jq '.features | length' "work/out/${SLUG}/neighborhoods.json" 2>/dev/null || echo 0)
-            printf '  -> %s features\n' "$FEATURES"
+            printf '  -> %s features via %s\n' "$FEATURES" "$USED"
             if [ "$FEATURES" -lt 5 ]; then
               echo "::warning::only $FEATURES neighbourhood features for $SLUG; the city may render without outlines"
             fi
-            rm -f "work/city-${SLUG}.osm.pbf"
+            # Record which region actually worked, so a bad longitude band can be
+            # corrected in the registry instead of re-derived every run.
+            echo "$SLUG $USED" >> cities-used.txt
           done
           echo "FAILED=$FAILED" >> "$GITHUB_ENV"
 

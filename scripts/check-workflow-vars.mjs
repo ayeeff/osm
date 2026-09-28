@@ -111,6 +111,17 @@ for (const file of files) {
       }
       for (const m of l.matchAll(/\bfor\s+([A-Za-z_][A-Za-z0-9_]*)\s+in\b/g)) scope.add(m[1]);
       for (const m of l.matchAll(/\bread\s+(?:-[a-zA-Z]+\s+)*([A-Za-z_][A-Za-z0-9_]*)/g)) scope.add(m[1]);
+      // `local slug="$1" bbox="$2" ex="$3" pbf=...` declares all four in one
+      // statement, so take every name at the head of a token, not just the first.
+      for (const m of l.matchAll(/\b(?:local|declare|export)\s+([^;#]*)/g)) {
+        for (const t of m[1].split(/\s+/)) {
+          // `a="$1"`, `b=$2`, or a bare `b`. The value may be quoted, so match the
+          // name at the head of the token and require `=` or end-of-token after it.
+          const name = t.match(/^([A-Za-z_][A-Za-z0-9_]*)(=|$)/);
+          if (name) scope.add(name[1]);
+        }
+      }
+      // `for EX in ...` over an array is already covered above.
     }
 
     const used = new Set();
