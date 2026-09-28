@@ -68,56 +68,46 @@ jobs:
       - name: Resolve the city matrix, grouped by extract
         id: plan
         run: |
-          set -euo pipefail
+          set -eo pipefail
           # Only cities that name a geofabrik extract can be built here; the rest
           # have no staged PBF and must not silently fall back to Overpass.
           #
           # Reads cities-neighborhoods.json, NOT cities.json. That file is kept
           # small on purpose: it also drives osm-city-2d-data.yml, whose per-city
           # matrix would schedule ~900 jobs a week if this list were merged in.
-          if ! jq -e '.cities | length > 0' cities-neighborhoods.json; then
-            echo "::error::cities-neighborhoods.json is missing or empty; listing the checkout:"
+          #
+          # The whole plan is ONE jq call driven by a program file, with the
+          # result written to groups.json. An earlier version chained four jq
+          # calls through <<<"$ALL" holding ~93 KB of JSON, and any failure in
+          # that chain exited 1 with no message. Nothing large passes through the
+          # shell here.
+          if [ ! -f cities-neighborhoods.json ]; then
+            echo "::error::cities-neighborhoods.json is missing; the checkout has:"
             ls -la
             exit 1
           fi
-          # NB: no work/ dir in this job, so stderr goes to the workspace root.
-          if ! ALL=$(jq -c '[.cities[] | select(.extract != null and .extract != "")]' cities-neighborhoods.json 2>jq.err); then
-            echo "::error::jq exited nonzero on cities-neighborhoods.json:"
+          if ! jq -f scripts/neighborhood-plan.jq \
+                 --arg slug "$REQUESTED_SLUG" \
+                 --arg extract "$REQUESTED_EXTRACT" \
+                 cities-neighborhoods.json > groups.json 2>jq.err; then
+            echo "::error::neighborhood-plan.jq exited nonzero:"
             cat jq.err || echo "(no stderr captured)"
             exit 1
           fi
-          if [ -n "$REQUESTED_SLUG" ]; then
-            PICK=$(jq -c --arg s "$REQUESTED_SLUG" '[.[] | select(.slug == $s)]' <<<"$ALL")
-            if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
-              echo "::error::slug '$REQUESTED_SLUG' has no 'extract' in cities-neighborhoods.json (or is unknown), so it cannot be built here"
-              exit 1
-            fi
-            ALL="$PICK"
-          fi
-          if [ -n "$REQUESTED_EXTRACT" ]; then
-            ALL=$(jq -c --arg e "$REQUESTED_EXTRACT" '[.[] | select(.extract == $e)]' <<<"$ALL")
-            if [ "$(jq 'length' <<<"$ALL")" -eq 0 ]; then
-              echo "::error::no city in cities-neighborhoods.json uses extract '$REQUESTED_EXTRACT'"
-              exit 1
-            fi
+          if [ ! -s groups.json ]; then
+            echo "::error::no city matched. A slug needs an 'extract' in cities-neighborhoods.json;"
+            echo "::error::an unknown slug, or one of the cities with no staged country PBF."
+            echo "::error::requested slug='$REQUESTED_SLUG' extract='$REQUESTED_EXTRACT'"
+            exit 1
           fi
 
-          # Group into one entry per extract, so the matrix fans out per country
-          # file rather than per city. Each entry carries its full city list.
-          # Each city is pre-joined to "slug:minLng,minLat,maxLng,maxLat" so the
-          # build job can read it straight out of an env var and split on the
-          # first colon. Doing the join in jq avoids a second matrix dimension.
-          GROUPS=$(jq -c 'group_by(.extract) | map({
-            extract: .[0].extract,
-            cities: [ .[] | "\(.slug):\(.bbox | join(","))" ]
-          })' <<<"$ALL")
-
-          CITY_COUNT=$(jq 'length' <<<"$ALL")
-          GROUP_COUNT=$(jq 'length' <<<"$GROUPS")
+          CITY_COUNT=$(jq '[.[] | .cities | length] | add' groups.json)
+          GROUP_COUNT=$(jq 'length' groups.json)
           echo "city_count=$CITY_COUNT" >> "$GITHUB_OUTPUT"
-          echo "groups=$GROUPS" >> "$GITHUB_OUTPUT"
+          # Single line, which is what a matrix value has to be.
+          echo "groups=$(jq -c . groups.json)" >> "$GITHUB_OUTPUT"
           printf 'cities: %s across %s extract(s)\n' "$CITY_COUNT" "$GROUP_COUNT"
-          jq -r '.[] | "  \(.extract): \(.cities | length) cities"' <<<"$GROUPS"
+          jq -r '.[] | "  \(.extract): \(.cities | length) cities"' groups.json
 
   build:
     needs: plan
