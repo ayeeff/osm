@@ -43,7 +43,7 @@ def citypair:
     | [ .[] | citypair ] as $all
     | (($all | length) / $per | ceil) as $n
     | [ range(0; $n) as $i
-        | { extract: $g.extract, cities: $all[$i * $per : ($i + 1) * $per] } ]
+        | { extract: $g[0].extract, cities: $all[$i * $per : ($i + 1) * $per] } ]
   )
 | add // []
 
