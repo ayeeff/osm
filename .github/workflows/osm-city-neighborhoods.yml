@@ -1,0 +1,284 @@
+name: OSM city neighbourhood boundaries
+
+# Builds neighborhoods.json ONLY (no places.json / demand-streets.json) for every
+# city in cities-neighborhoods.json that names a geofabrik extract, from the per-country OSM
+# extracts already staged in R2. No Overpass: one streamed country extract per
+# country group, scanned locally by osmium in the runner.
+#
+# Why this exists alongside osm-city-2d-data.yml: that workflow's matrix is one
+# job PER CITY, so it downloads the whole country PBF once per city. With ~900
+# cities that is ~1800 multi-GB downloads. This workflow's matrix is one job PER
+# EXTRACT, so the country PBF is downloaded ~61 times total and each city is cut
+# from the local copy. ~30x less R2 egress for identical extractor output.
+#
+# Enrichment (population/photo) is deliberately NOT done here. It is lazy: the
+# atlas page requests the enrichment overlay on first view and the Worker fills
+# and caches it. See geo/site/todo/neighborhoods.md. Running enrich_neighborhoods.py
+# over ~900 cities here would mean millions of Wikidata calls in CI.
+#
+# Output lands in BOTH buckets:
+#   geo-datalake/sources/osm/places/<slug>/   durable copy
+#   globe/data/<slug>-2d/                     what the site Worker serves
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "City slug; empty processes every city in cities-neighborhoods.json"
+        required: false
+        default: ""
+      extract:
+        description: "Only this geofabrik extract slug"
+        required: false
+        default: ""
+      publish:
+        description: Publish to the live globe/data prefix
+        type: boolean
+        required: false
+        default: true
+      overwrite_enriched:
+        description: "Replace published files that already carry population/photo enrichment"
+        type: boolean
+        required: false
+        default: false
+  schedule:
+    # Weekly, alongside the geofabrik extract refresh. Kept off the same minute as
+    # osm-city-2d-data so the two sweeps do not compete for runner capacity.
+    - cron: "47 4 * * 2"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: osm-city-neighborhoods
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      groups: ${{ steps.plan.outputs.groups }}
+      city_count: ${{ steps.plan.outputs.city_count }}
+    env:
+      REQUESTED_SLUG: ${{ inputs.slug }}
+      REQUESTED_EXTRACT: ${{ inputs.extract }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve the city matrix, grouped by extract
+        id: plan
+        run: |
+          set -euo pipefail
+          # Only cities that name a geofabrik extract can be built here; the rest
+          # have no staged PBF and must not silently fall back to Overpass.
+          #
+          # Reads cities-neighborhoods.json, NOT cities.json. That file is kept
+          # small on purpose: it also drives osm-city-2d-data.yml, whose per-city
+          # matrix would schedule ~900 jobs a week if this list were merged in.
+          ALL=$(jq -c '[.cities[] | select(.extract != null and .extract != "")]' cities-neighborhoods.json)
+          if [ -n "$REQUESTED_SLUG" ]; then
+            PICK=$(jq -c --arg s "$REQUESTED_SLUG" '[.[] | select(.slug == $s)]' <<<"$ALL")
+            if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
+              echo "::error::slug '$REQUESTED_SLUG' has no 'extract' in cities-neighborhoods.json (or is unknown), so it cannot be built here"
+              exit 1
+            fi
+            ALL="$PICK"
+          fi
+          if [ -n "$REQUESTED_EXTRACT" ]; then
+            ALL=$(jq -c --arg e "$REQUESTED_EXTRACT" '[.[] | select(.extract == $e)]' <<<"$ALL")
+            if [ "$(jq 'length' <<<"$ALL")" -eq 0 ]; then
+              echo "::error::no city in cities-neighborhoods.json uses extract '$REQUESTED_EXTRACT'"
+              exit 1
+            fi
+          fi
+
+          # Group into one entry per extract, so the matrix fans out per country
+          # file rather than per city. Each entry carries its full city list.
+          # Each city is pre-joined to "slug:minLng,minLat,maxLng,maxLat" so the
+          # build job can read it straight out of an env var and split on the
+          # first colon. Doing the join in jq avoids a second matrix dimension.
+          GROUPS=$(jq -c 'group_by(.extract) | map({
+            extract: .[0].extract,
+            cities: [ .[] | "\(.slug):\(.bbox | join(","))" ]
+          })' <<<"$ALL")
+
+          CITY_COUNT=$(jq 'length' <<<"$ALL")
+          GROUP_COUNT=$(jq 'length' <<<"$GROUPS")
+          echo "city_count=$CITY_COUNT" >> "$GITHUB_OUTPUT"
+          echo "groups=$GROUPS" >> "$GITHUB_OUTPUT"
+          printf 'cities: %s across %s extract(s)\n' "$CITY_COUNT" "$GROUP_COUNT"
+          jq -r '.[] | "  \(.extract): \(.cities | length) cities"' <<<"$GROUPS"
+
+  build:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        group: ${{ fromJSON(needs.plan.outputs.groups) }}
+    env:
+      EXTRACT: ${{ matrix.group.extract }}
+      # "slug:minLng,minLat,maxLng,maxLat" pairs, space separated, pre-joined by
+      # the plan job's jq. Slugs never contain a space or colon.
+      CITIES: ${{ join(matrix.group.cities, ' ') }}
+      PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == false && 'false' || 'true' }}
+      FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.overwrite_enriched == true && 'true' || 'false' }}
+      # The only sanctioned OSM source. Never reach for a public Overpass mirror.
+      # See AGENTS.md "CRITICAL -- No public Overpass API. Ever."
+      R2_BUCKET: geo-datalake
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      AWS_DEFAULT_REGION: auto
+      AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install osmium + pyosmium
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y osmium-tool
+          pip3 install --break-system-packages --quiet osmium
+
+      - name: Configure R2
+        run: |
+          set -euo pipefail
+          aws configure set aws_access_key_id "$R2_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$R2_SECRET_ACCESS_KEY"
+
+      - name: Fetch the country extract once for the whole group
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          SOURCE_KEY="sources/osm/${EXTRACT}-latest.osm.pbf"
+          # Don't let `set -e` swallow the useful message: a missing key makes
+          # head-object exit nonzero, so swallow the status and check it here.
+          SIZE=$(aws s3api head-object --bucket "$R2_BUCKET" --key "$SOURCE_KEY" \
+            --query 'ContentLength' --output text 2>/dev/null) || SIZE=""
+          if [ -z "$SIZE" ] || [ "$SIZE" = "None" ]; then
+            echo "::error::s3://$R2_BUCKET/$SOURCE_KEY not found."
+            echo "::error::Stage the country extract in sources/osm/ first."
+            echo "::error::Do NOT fall back to a public Overpass mirror."
+            exit 1
+          fi
+          printf 'source=s3://%s/%s (%s bytes) for: %s\n' \
+            "$R2_BUCKET" "$SOURCE_KEY" "$SIZE" "$CITY_COUNT"
+          # Downloaded ONCE per extract group, then reused for every city in the
+          # group. This is the whole point of this workflow.
+          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
+            --no-progress --only-show-errors
+          ls -l work/source.osm.pbf
+          osmium fileinfo work/source.osm.pbf | head -n 4
+
+      - name: Build neighbourhood outlines for every city in the group
+        run: |
+          set -euo pipefail
+          # CITIES carries "slug:minLng,minLat,maxLng,maxLat" per city. The bbox
+          # comes from the registry, which is already osmium's argument order.
+          FAILED=""
+          COUNT=0
+          for ENTRY in $CITIES; do
+            SLUG="${ENTRY%%:*}"
+            BBOX="${ENTRY#*:}"
+            COUNT=$((COUNT + 1))
+            printf '\n===== [%s/%s] %s  bbox=%s\n' "$COUNT" "$CITY_COUNT" "$SLUG" "$BBOX"
+
+            # -s complete_ways is ESSENTIAL for neighbourhoods. The DEFAULT
+            # strategy is `simple`, which drops the member ways of any relation
+            # that crosses the boundary, and relation member ways ARE the district
+            # outlines. With `simple` every neighbourhood silently vanishes -- that
+            # is how Berlin came back with 13 outlines instead of ~190.
+            if ! osmium extract -b "$BBOX" -s complete_ways -F pbf \
+                 -o "work/city-${SLUG}.osm.pbf" work/source.osm.pbf; then
+              echo "::error::osmium extract failed for $SLUG"
+              FAILED="$FAILED $SLUG:cut"
+              continue
+            fi
+
+            if ! python scripts/extract_city_2d_data.py \
+                 --slug "$SLUG" --extract "$EXTRACT" \
+                 --pbf "work/city-${SLUG}.osm.pbf" --bbox "$BBOX" \
+                 --out-dir "work/out/${SLUG}"; then
+              echo "::error::extract_city_2d_data.py failed for $SLUG"
+              FAILED="$FAILED $SLUG:extract"
+              rm -f "work/city-${SLUG}.osm.pbf"
+              continue
+            fi
+
+            # The 2D map draws globe/basemaps/<slug>.pmtiles underneath the 2D
+            # data. A wrong-archive extract raises nothing -- the pmtiles is valid
+            # and simply empty over the city, so the map renders blank with no
+            # error. Compare the archive's declared extent against the city.
+            python scripts/verify_city_basemap.py --slug "$SLUG" --bbox "$BBOX" \
+              || echo "::warning::basemap extent mismatch for $SLUG"
+
+            FEATURES=$(jq '.features | length' "work/out/${SLUG}/neighborhoods.json" 2>/dev/null || echo 0)
+            printf '  -> %s features\n' "$FEATURES"
+            if [ "$FEATURES" -lt 5 ]; then
+              echo "::warning::only $FEATURES neighbourhood features for $SLUG; the city may render without outlines"
+            fi
+            rm -f "work/city-${SLUG}.osm.pbf"
+          done
+          echo "FAILED=$FAILED" >> "$GITHUB_ENV"
+
+      - name: Upload
+        if: always()
+        run: |
+          set -euo pipefail
+          # `set -e` treats a false `[ ... ] && echo` as a failed step, so the
+          # empty-FAILED case must not be the last command in an && chain.
+          if [ -n "${FAILED:-}" ]; then
+            echo "::warning::cities that did not build:$FAILED"
+          fi
+          # Keep a copy of the output so a bad extract can be diagnosed without
+          # re-reading a multi-GB country PBF.
+          mkdir -p artifact
+          # Emit a per-city manifest so the result of a group is auditable
+          # without re-running the extractor.
+          : > artifact/manifest.jsonl
+          for D in work/out/*/; do
+            [ -d "$D" ] || continue
+            SLUG=$(basename "$D")
+            N=$(jq '.features | length' "$D/neighborhoods.json" 2>/dev/null || echo 0)
+            LIVE="s3://geo-datalake/globe/data/${SLUG}-2d/neighborhoods.json"
+
+            # Do NOT clobber an already-enriched city. The 5 cities built by the
+            # original workflow (amsterdam, beijing, berlin, hongkong, melbourne)
+            # went through enrich_neighborhoods.py, so their published
+            # neighborhoods.json carries residents/populationYear/image that this
+            # workflow does not produce. Overwriting would silently strip that
+            # enrichment. Detected from the data rather than hardcoded, so a
+            # hand-enriched city is also protected.
+            if [ "$FORCE" != "true" ]; then
+              aws s3 cp "$LIVE" work/live.json --no-progress --only-show-errors 2>/dev/null || rm -f work/live.json
+              if [ -f work/live.json ] && jq -e \
+                   '[.features[] | select((.properties.residents // 0) > 0 or (.properties.image // "") != "")] | length > 0' \
+                   work/live.json >/dev/null 2>&1; then
+                echo "::notice::$SLUG is already enriched; keeping the published file (set overwrite_enriched to replace it)"
+                rm -f work/live.json
+                echo "{\"slug\":\"$SLUG\",\"features\":$N,\"extract\":\"$EXTRACT\",\"skipped\":\"already-enriched\"}" >> artifact/manifest.jsonl
+                continue
+              fi
+              rm -f work/live.json
+            fi
+
+            echo "{\"slug\":\"$SLUG\",\"features\":$N,\"extract\":\"$EXTRACT\"}" >> artifact/manifest.jsonl
+            if [ "$PUBLISH" = "true" ]; then
+              aws s3 cp "$D/neighborhoods.json" "$LIVE" \
+                --no-progress --only-show-errors
+            fi
+            # Durable copy alongside places.json / demand-streets.json.
+            aws s3 cp "$D/neighborhoods.json" \
+              "s3://$R2_BUCKET/sources/osm/places/${SLUG}/neighborhoods.json" \
+              --no-progress --only-show-errors
+            mkdir -p "artifact/${SLUG}"
+            cp "$D/neighborhoods.json" "artifact/${SLUG}/" 2>/dev/null || true
+          done
+          cat artifact/manifest.jsonl
