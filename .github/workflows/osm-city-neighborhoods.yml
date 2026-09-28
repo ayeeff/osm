@@ -83,7 +83,13 @@ jobs:
             ls -la
             exit 1
           fi
-          ALL=$(jq -c '[.cities[] | select(.extract != null and .extract != "")]' cities-neighborhoods.json)
+          # NB: no work/ dir in this job, so stderr goes to the workspace root.
+          if ! ALL=$(jq -c '[.cities[] | select(.extract != null and .extract != "")]' cities-neighborhoods.json 2>jq.err); then
+            echo "::error::jq exited nonzero on cities-neighborhoods.json:"
+            cat jq.err || echo "(no stderr captured)"
+            exit 1
+          fi
+          echo "ALL length: ${#ALL}"
           if [ -n "$REQUESTED_SLUG" ]; then
             PICK=$(jq -c --arg s "$REQUESTED_SLUG" '[.[] | select(.slug == $s)]' <<<"$ALL")
             if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
