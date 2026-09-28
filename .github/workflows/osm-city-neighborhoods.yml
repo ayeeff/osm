@@ -204,9 +204,15 @@ jobs:
               continue
             fi
 
+            # --bbox= not --bbox : a bbox like -0.51672,5.25,0.08,5.85 starts with
+            # a minus, and argparse reads a space-separated value beginning with
+            # "-" as the next flag, so it fails with "expected one argument". The
+            # = form binds the value regardless of its first character. This is
+            # why every western-hemisphere city failed while the 5 east-side ones
+            # worked. Affects the old osm-city-2d-data.yml too.
             if ! python scripts/extract_city_2d_data.py \
                  --slug "$SLUG" --extract "$EXTRACT" \
-                 --pbf "work/city-${SLUG}.osm.pbf" --bbox "$BBOX" \
+                 --pbf "work/city-${SLUG}.osm.pbf" --bbox="$BBOX" \
                  --out-dir "work/out/${SLUG}"; then
               echo "::error::extract_city_2d_data.py failed for $SLUG"
               FAILED="$FAILED $SLUG:extract"
@@ -229,6 +235,21 @@ jobs:
             rm -f "work/city-${SLUG}.osm.pbf"
           done
           echo "FAILED=$FAILED" >> "$GITHUB_ENV"
+
+          # A per-city failure is tolerated so one bad city does not lose a whole
+          # country group, but a group where nothing built is a real failure and
+          # must not report success. Without this the run above went green while
+          # every single city in it errored out.
+          BUILT=0
+          for D in work/out/*/; do
+            [ -d "$D" ] || continue
+            if [ -f "$D/neighborhoods.json" ]; then BUILT=$((BUILT + 1)); fi
+          done
+          echo "cities built: $BUILT of $TOTAL"
+          if [ "$BUILT" -eq 0 ]; then
+            echo "::error::no city in group '$EXTRACT' produced a neighborhoods.json"
+            exit 1
+          fi
 
       - name: Upload
         if: always()

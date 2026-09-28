@@ -169,7 +169,7 @@ jobs:
           set -euo pipefail
           time python scripts/extract_city_2d_data.py \
             --slug "$SLUG" --extract "$EXTRACT" \
-            --pbf work/city.osm.pbf --bbox "$BBOX" \
+            --pbf work/city.osm.pbf --bbox="$BBOX" \
             --out-dir "work/out/${SLUG}"
 
       - name: Attach population and photos from Wikidata
@@ -195,7 +195,7 @@ jobs:
           #
           # Fails on wrong-place so the broken city's job goes red while the
           # other matrix jobs carry on.
-          python scripts/verify_city_basemap.py --slug "$SLUG" --bbox "$BBOX"
+          python scripts/verify_city_basemap.py --slug "$SLUG" --bbox="$BBOX"
 
       - name: Upload
         if: always()
