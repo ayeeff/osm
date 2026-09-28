@@ -198,8 +198,15 @@ jobs:
           for ENTRY in $CITIES; do
             SLUG="${ENTRY%%:*}"
             REST="${ENTRY#*:}"
+            # An entry is slug:minLng,minLat,maxLng,maxLat[:fb1,fb2,...]. The bbox
+            # itself contains commas, so the fallback list can only be split off
+            # at the LAST colon. Splitting on the first comma instead yields
+            # "29.51997" and "-95.03998" as if they were extract names.
             FB=""
-            if [[ "$REST" == *,* ]]; then FB="${REST#*,}"; REST="${REST%%,*}"; fi
+            if [[ "$REST" == *:* ]]; then
+              FB="${REST##*:}"
+              REST="${REST%:*}"
+            fi
             BBOX="$REST"
             COUNT=$((COUNT + 1))
             printf '\n===== [%s/%s] %s  bbox=%s\n' "$COUNT" "$TOTAL" "$SLUG" "$BBOX"
@@ -231,9 +238,16 @@ jobs:
             }
 
             # Fetch a source PBF into work/src-<extract>.osm.pbf, once per group.
+            # Head-checked so a wrong extract name reports itself instead of
+            # emitting a raw S3 404 into the middle of a retry list.
             have_src() {
               [ -f "work/src-$1.osm.pbf" ] && return 0
               local key="sources/osm/$1-latest.osm.pbf"
+              if ! aws s3api head-object --bucket "$R2_BUCKET" --key "$key" \
+                   >/dev/null 2>&1; then
+                echo "  no staged extract for '$1' (s3://$R2_BUCKET/$key)"
+                return 1
+              fi
               aws s3 cp "s3://$R2_BUCKET/$key" "work/src-$1.osm.pbf" \
                 --no-progress --only-show-errors
             }
