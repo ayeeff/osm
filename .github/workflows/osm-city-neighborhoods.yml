@@ -190,8 +190,56 @@ jobs:
           # (chicago -87.9 is midwest, houston -95.7 is south, both between -104
           # and -80.5), so a city that comes back empty is retried against the
           # other regions and the first one that actually contains it wins.
+          #
+          # One coarse cut first, then one cheap cut per city.
+          #
+          # `osmium extract -b` re-reads the entire input file to find the ways in
+          # a bbox, so cutting each city straight from the region PBF means N full
+          # scans of a 2-4 GiB file per job. Measured at 34 minutes per city, which
+          # put a 40-city job at roughly 23 hours, past the 360 minute job cap.
+          #
+          # Instead cut the union of every city bbox in this job ONCE from the
+          # region file, then cut each city from that much smaller intermediate.
+          # The cities in a job are geographically clustered by the registry
+          # (scripts/add-city-clusters.mjs), so the union is a fraction of the
+          # region and the per-city cuts read a small file. That is one full scan
+          # per job instead of one per city.
           TOTAL=0
           for _ in $CITIES; do TOTAL=$((TOTAL + 1)); done
+
+          union_bbox() {
+            # min-lng, min-lat, max-lng, max-lat over every city in the job.
+            # One pass into sort, not a per-value awk: this runs 4 times per job
+            # and an awk-per-field version is both slow and easy to get subtly
+            # wrong with negative coordinates.
+            local e rest v lo1="" lo2="" la1="" la2=""
+            local -a lons=() lats=()
+            for e in $CITIES; do
+              rest="${e#*:}"
+              [[ "$rest" == *:* ]] && rest="${rest%:*}"   # drop the fallback list
+              IFS=',' read -r -a p <<< "$rest"
+              lons+=("${p[0]}" "${p[2]}")
+              lats+=("${p[1]}" "${p[3]}")
+            done
+            lo1=$(printf '%s\n' "${lons[@]}" | sort -g | head -1)
+            lo2=$(printf '%s\n' "${lons[@]}" | sort -g | tail -1)
+            la1=$(printf '%s\n' "${lats[@]}" | sort -g | head -1)
+            la2=$(printf '%s\n' "${lats[@]}" | sort -g | tail -1)
+            printf '%s,%s,%s,%s' "$lo1" "$la1" "$lo2" "$la2"
+          }
+
+          COARSE="work/coarse.osm.pbf"
+          UNION=$(union_bbox)
+          printf 'coarse cut for %s cities: %s\n' "$TOTAL" "$UNION"
+          COARSE_OK=1
+          osmium extract -b "$UNION" -s complete_ways -F pbf -o "$COARSE" \
+            "work/src-$EXTRACT.osm.pbf" >/dev/null 2>&1 || COARSE_OK=0
+          if [ "$COARSE_OK" = "1" ]; then
+            ls -lh "$COARSE"
+          else
+            echo "  coarse cut failed, falling back to per-city cuts from the region file"
+          fi
+
           FAILED=""
           COUNT=0
           for ENTRY in $CITIES; do
@@ -214,6 +262,10 @@ jobs:
             # the feature count, or -1 if the cut or the extractor failed.
             build_city() {
               local slug="$1" bbox="$2" ex="$3" pbf="work/city-$1-$3.osm.pbf"
+              local base="work/src-$3.osm.pbf"
+              # Prefer the coarse cut: a city bbox is always inside the job's union,
+              # so the city is in there, and the file is far smaller than the region.
+              [ "$COARSE_OK" = "1" ] && [ "$ex" = "$EXTRACT" ] && base="$COARSE"
               # -s complete_ways is ESSENTIAL for neighbourhoods. The DEFAULT
               # strategy is `simple`, which drops the member ways of any relation
               # that crosses the boundary, and relation member ways ARE the
@@ -221,7 +273,7 @@ jobs:
               # vanishes -- that is how Berlin came back with 13 outlines instead
               # of ~190.
               osmium extract -b "$bbox" -s complete_ways -F pbf -o "$pbf" \
-                "work/src-$3.osm.pbf" >/dev/null 2>&1 || { rm -f "$pbf"; echo -1; return; }
+                "$base" >/dev/null 2>&1 || { rm -f "$pbf"; echo -1; return; }
               # --bbox= not --bbox : a bbox like -0.51672,5.25,0.08,5.85 starts
               # with a minus, and argparse reads a space-separated value
               # beginning with "-" as the next flag, so it fails with "expected

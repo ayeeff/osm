@@ -13,7 +13,8 @@
     -5.1465,
     -47.2331,
     -4.7065
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "a-u",
@@ -24,7 +25,8 @@
     -5.7849,
     -36.7021,
     -5.3449
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "abadi-nia",
@@ -35,7 +37,8 @@
     -16.4147,
     -48.395,
     -15.9747
-   ]
+   ],
+   "cluster": "brazil-33"
   },
   {
    "slug": "abidjan",
@@ -46,7 +49,8 @@
     5.02,
     -3.74005,
     5.62
-   ]
+   ],
+   "cluster": "ivory-coast-36"
   },
   {
    "slug": "abruzzo",
@@ -57,7 +61,8 @@
     42.0273,
     14.3255,
     42.4673
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "abtenau",
@@ -68,7 +73,8 @@
     47.3448,
     13.64455,
     47.7848
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "abudhabi",
@@ -79,7 +85,8 @@
     24.16668,
     54.66659,
     24.76668
-   ]
+   ],
+   "cluster": "gcc-states-44"
   },
   {
    "slug": "abuja",
@@ -90,7 +97,8 @@
     8.78333,
     7.83333,
     9.38333
-   ]
+   ],
+   "cluster": "nigeria-46"
   },
   {
    "slug": "acara",
@@ -101,7 +109,8 @@
     -3.1249,
     -39.9201,
     -2.6849
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "accra",
@@ -112,7 +121,8 @@
     5.25003,
     0.08328,
     5.85003
-   ]
+   ],
+   "cluster": "ghana-47"
   },
   {
    "slug": "adana",
@@ -123,7 +133,8 @@
     36.82,
     35.57,
     37.18
-   ]
+   ],
+   "cluster": "turkey-48"
   },
   {
    "slug": "addisababa",
@@ -134,7 +145,8 @@
     8.73331,
     39,
     9.33331
-   ]
+   ],
+   "cluster": "ethiopia-50"
   },
   {
    "slug": "adelaide",
@@ -145,7 +157,8 @@
     -35.11,
     138.85,
     -34.75
-   ]
+   ],
+   "cluster": "australia-54"
   },
   {
    "slug": "agawam",
@@ -163,7 +176,8 @@
     -72.3214,
     42.2891
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "aguascalientes",
@@ -174,7 +188,8 @@
     21.6699,
     -102.013,
     22.1099
-   ]
+   ],
+   "cluster": "mexico-80"
   },
   {
    "slug": "ahmedabad",
@@ -185,7 +200,8 @@
     22.7225,
     72.8714,
     23.3225
-   ]
+   ],
+   "cluster": "india-87"
   },
   {
    "slug": "aigueperse",
@@ -196,7 +212,8 @@
     45.8026,
     3.503,
     46.2426
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "akron",
@@ -214,7 +231,8 @@
     -81.39093,
     41.16174
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "alagoa-nova",
@@ -225,7 +243,8 @@
     -7.2805,
     -35.5319,
     -6.8405
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "alaior",
@@ -236,7 +255,8 @@
     39.6869,
     4.363,
     40.1269
-   ]
+   ],
+   "cluster": "spain-134"
   },
   {
    "slug": "alamad",
@@ -247,7 +267,8 @@
     13.0592,
     80.2597,
     13.3592
-   ]
+   ],
+   "cluster": "gcc-states-41"
   },
   {
    "slug": "albany",
@@ -265,7 +286,8 @@
     -73.73237,
     42.7658
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "albi",
@@ -276,7 +298,8 @@
     43.708,
     2.4451,
     44.148
-   ]
+   ],
+   "cluster": "france-94"
   },
   {
    "slug": "albufeira",
@@ -287,7 +310,8 @@
     36.8727,
     -7.9488,
     37.3127
-   ]
+   ],
+   "cluster": "portugal-139"
   },
   {
    "slug": "albuquerque",
@@ -305,7 +329,8 @@
     -106.46475,
     35.23801
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-142"
   },
   {
    "slug": "alec",
@@ -316,7 +341,8 @@
     46.0497,
     15.45245,
     46.4897
-   ]
+   ],
+   "cluster": "slovenia-154"
   },
   {
    "slug": "alexandria",
@@ -327,7 +353,8 @@
     30.9001,
     30.2187,
     31.5001
-   ]
+   ],
+   "cluster": "egypt-155"
   },
   {
    "slug": "algiers",
@@ -338,7 +365,8 @@
     36.46307,
     3.35055,
     37.06306
-   ]
+   ],
+   "cluster": "algeria-156"
   },
   {
    "slug": "almassora",
@@ -349,7 +377,8 @@
     39.7288,
     0.1571,
     40.1688
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "alpuente",
@@ -360,7 +389,8 @@
     39.6871,
     -0.7412,
     40.1271
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "alto-alegre-do-maranh-o",
@@ -371,7 +401,8 @@
     -4.4279,
     -44.2319,
     -3.9879
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "alto-alegre-do-pindar",
@@ -382,7 +413,8 @@
     -4.0112,
     -45.7294,
     -3.5712
-   ]
+   ],
+   "cluster": "brazil-13"
   },
   {
    "slug": "altoona",
@@ -400,7 +432,8 @@
     -78.1118,
     40.7251
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-71"
   },
   {
    "slug": "amambai",
@@ -411,7 +444,8 @@
     -23.3215,
     -54.9728,
     -22.8815
-   ]
+   ],
+   "cluster": "brazil-6"
   },
   {
    "slug": "amarillo",
@@ -429,7 +463,8 @@
     -101.71457,
     35.24258
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "amiens",
@@ -440,7 +475,8 @@
     49.6705,
     2.5932,
     50.1105
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "amman",
@@ -451,7 +487,8 @@
     31.65002,
     36.2333,
     32.25003
-   ]
+   ],
+   "cluster": "jordan-157"
   },
   {
    "slug": "anadia",
@@ -462,7 +499,8 @@
     40.2217,
     -8.1442,
     40.6617
-   ]
+   ],
+   "cluster": "portugal-139"
   },
   {
    "slug": "anaheim",
@@ -480,7 +518,8 @@
     -117.70628,
     33.88771
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "anajatuba",
@@ -491,7 +530,8 @@
     -3.497,
     -44.3656,
     -3.057
-   ]
+   ],
+   "cluster": "brazil-13"
   },
   {
    "slug": "anchieta",
@@ -502,7 +542,8 @@
     -20.9719,
     -40.423,
     -20.5319
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "anchorage",
@@ -520,7 +561,8 @@
     -149.51163,
     61.35729
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-pacific-159"
   },
   {
    "slug": "andernos-les-bains",
@@ -531,7 +573,8 @@
     44.524,
     -0.78875,
     44.964
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "anderson",
@@ -549,7 +592,8 @@
     -82.57698,
     34.65147
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "andijk",
@@ -560,7 +604,8 @@
     52.5323,
     5.4971,
     52.9723
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "andradina",
@@ -571,7 +616,8 @@
     -20.9479,
     -51.1802,
     -20.5079
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "ange-gardien",
@@ -582,7 +628,8 @@
     45.1184,
     -72.60795,
     45.5584
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "angoul-me",
@@ -593,7 +640,8 @@
     45.4295,
     0.3779,
     45.8695
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "ankara",
@@ -604,7 +652,8 @@
     39.62724,
     33.16439,
     40.22724
-   ]
+   ],
+   "cluster": "turkey-48"
   },
   {
    "slug": "ankaran-ancarano",
@@ -615,7 +664,8 @@
     45.3609,
     14.0629,
     45.8009
-   ]
+   ],
+   "cluster": "slovenia-154"
   },
   {
    "slug": "ankaya",
@@ -626,7 +676,8 @@
     39.7679,
     33.01268,
     40.0679
-   ]
+   ],
+   "cluster": "turkey-48"
   },
   {
    "slug": "antonina",
@@ -637,7 +688,8 @@
     -25.6545,
     -48.4881,
     -25.2145
-   ]
+   ],
+   "cluster": "brazil-7"
   },
   {
    "slug": "aparecida-do-taboado",
@@ -648,7 +700,8 @@
     -20.3052,
     -50.8855,
     -19.8652
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "apeldoorn",
@@ -659,7 +712,8 @@
     51.9562,
     6.26765,
     52.3962
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "apple-valley",
@@ -677,7 +731,8 @@
     -116.9329,
     34.716
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "apprieu",
@@ -688,7 +743,8 @@
     45.1795,
     5.7919,
     45.6195
-   ]
+   ],
+   "cluster": "france-97"
   },
   {
    "slug": "aracati",
@@ -699,7 +755,8 @@
     -4.8257,
     -37.5103,
     -4.3857
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "araioses",
@@ -710,7 +767,8 @@
     -3.1202,
     -41.7142,
     -2.6802
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "ardning",
@@ -721,7 +779,8 @@
     47.3709,
     14.6645,
     47.8109
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "arlington",
@@ -739,7 +798,8 @@
     -97.03342,
     32.82744
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "arnage",
@@ -750,7 +810,8 @@
     47.7057,
     0.4037,
     48.1457
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "ashburn",
@@ -768,7 +829,8 @@
     -77.24,
     39.22
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "asheville",
@@ -786,7 +848,8 @@
     -82.2822,
     35.7937
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "ashland",
@@ -804,7 +867,8 @@
     -82.6039,
     38.52235
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "at-lio-vivacqua",
@@ -815,7 +879,8 @@
     -21.1699,
     -40.9433,
     -20.7299
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "athens",
@@ -833,7 +898,8 @@
     24.03332,
     38.28333
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-68"
   },
   {
    "slug": "athol",
@@ -851,7 +917,8 @@
     -71.9256,
     42.812
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "atibaia",
@@ -862,7 +929,8 @@
     -23.3246,
     -46.3384,
     -22.8846
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "atlanta",
@@ -880,7 +948,8 @@
     -84.09995,
     34.13001
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "auburn",
@@ -898,7 +967,8 @@
     -122.15267,
     47.34289
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "augusta",
@@ -916,7 +986,8 @@
     -81.89099,
     33.58081
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "aurora",
@@ -934,7 +1005,8 @@
     -104.65892,
     39.85202
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "austin",
@@ -952,7 +1024,8 @@
     -97.49,
     30.45
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "axix-do-tocantins",
@@ -963,7 +1036,8 @@
     -5.8342,
     -47.5481,
     -5.3942
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "baghdad",
@@ -974,7 +1048,8 @@
     33.03865,
     44.69387,
     33.63865
-   ]
+   ],
+   "cluster": "iraq-173"
   },
   {
    "slug": "bakersfield",
@@ -992,7 +1067,8 @@
     -118.80275,
     35.46836
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "baku",
@@ -1003,7 +1079,8 @@
     40.09527,
     50.16222,
     40.69527
-   ]
+   ],
+   "cluster": "azerbaijan-174"
   },
   {
    "slug": "balsas",
@@ -1014,7 +1091,8 @@
     -7.7552,
     -45.8332,
     -7.3152
-   ]
+   ],
+   "cluster": "brazil-21"
   },
   {
    "slug": "baltimore",
@@ -1032,7 +1110,8 @@
     -76.465,
     39.43063
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "bangalore",
@@ -1043,7 +1122,8 @@
     12.67,
     77.86001,
     13.27
-   ]
+   ],
+   "cluster": "india-86"
   },
   {
    "slug": "bangkok",
@@ -1054,7 +1134,8 @@
     13.45,
     100.81664,
     14.05
-   ]
+   ],
+   "cluster": "thailand-175"
   },
   {
    "slug": "baraboo",
@@ -1072,7 +1153,8 @@
     -89.4799,
     43.7803
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-127"
   },
   {
    "slug": "barbalha",
@@ -1083,7 +1165,8 @@
     -7.5316,
     -39.0536,
     -7.0916
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "barcarena",
@@ -1094,7 +1177,8 @@
     -1.7386,
     -48.4203,
     -1.2986
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "barcelona",
@@ -1105,7 +1189,8 @@
     41.0874,
     2.4686,
     41.6874
-   ]
+   ],
+   "cluster": "spain-136"
   },
   {
    "slug": "barra-do-corda",
@@ -1116,7 +1201,8 @@
     -5.6864,
     -44.9958,
     -5.2464
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "barra-do-pira",
@@ -1127,7 +1213,8 @@
     -22.6936,
     -43.5993,
     -22.2536
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "barranquilla",
@@ -1138,7 +1225,8 @@
     10.7432,
     -74.5805,
     11.1833
-   ]
+   ],
+   "cluster": "colombia-177"
   },
   {
    "slug": "barreiros",
@@ -1149,7 +1237,8 @@
     -9.03,
     -34.9738,
     -8.5899
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "basilicata",
@@ -1160,7 +1249,8 @@
     40.4477,
     16.1388,
     40.8877
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "batonrouge",
@@ -1178,7 +1268,8 @@
     -90.92195,
     30.57746
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-110"
   },
   {
    "slug": "bay-springs",
@@ -1196,7 +1287,8 @@
     -89.0259,
     32.1992
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-110"
   },
   {
    "slug": "beaugency",
@@ -1207,7 +1299,8 @@
     47.5733,
     1.927,
     48.0133
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "beaumont",
@@ -1225,7 +1318,8 @@
     -94.03612,
     30.16498
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "beirut",
@@ -1236,7 +1330,8 @@
     33.57198,
     35.8097,
     34.17197
-   ]
+   ],
+   "cluster": "lebanon-179"
   },
   {
    "slug": "belgrade",
@@ -1247,7 +1342,8 @@
     44.51865,
     20.76799,
     45.11865
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "bellevue",
@@ -1265,7 +1361,8 @@
     -121.95,
     47.79
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "belohorizonte",
@@ -1276,7 +1373,8 @@
     -20.2167,
     -43.6345,
     -19.6167
-   ]
+   ],
+   "cluster": "brazil-0"
   },
   {
    "slug": "bengaluru",
@@ -1287,7 +1385,8 @@
     12.75466,
     77.80551,
     13.25928
-   ]
+   ],
+   "cluster": "india-86"
   },
   {
    "slug": "benitojurez",
@@ -1298,7 +1397,8 @@
     19.33919,
     -99.11281,
     19.43951
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "benuza",
@@ -1309,7 +1409,8 @@
     42.1171,
     -6.3721,
     42.5571
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "bergen",
@@ -1320,7 +1421,8 @@
     60.1636,
     5.63105,
     60.6036
-   ]
+   ],
+   "cluster": "norway-181"
   },
   {
    "slug": "bern",
@@ -1331,7 +1433,8 @@
     46.61668,
     7.76697,
     47.21668
-   ]
+   ],
+   "cluster": "switzerland-183"
   },
   {
    "slug": "bettendorf",
@@ -1349,7 +1452,8 @@
     -90.1902,
     41.7717
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "bigua-u",
@@ -1360,7 +1464,8 @@
     -27.7056,
     -48.4238,
     -27.2656
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "binghamton",
@@ -1378,7 +1483,8 @@
     -75.6203,
     42.3204
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "birmingham",
@@ -1389,7 +1495,8 @@
     52.31,
     -1.64,
     52.67
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "bl-nod-l-s-pont-mousson",
@@ -1400,7 +1507,8 @@
     48.6625,
     6.35385,
     49.1025
-   ]
+   ],
+   "cluster": "france-101"
   },
   {
    "slug": "blagnac",
@@ -1411,7 +1519,8 @@
     43.4167,
     1.6893,
     43.8567
-   ]
+   ],
+   "cluster": "france-94"
   },
   {
    "slug": "bloemfontein",
@@ -1422,7 +1531,8 @@
     -29.41999,
     26.52991,
     -28.81999
-   ]
+   ],
+   "cluster": "south-africa-185"
   },
   {
    "slug": "bloomington",
@@ -1440,7 +1550,8 @@
     -86.47544,
     39.23744
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "boa-viagem",
@@ -1451,7 +1562,8 @@
     -5.3468,
     -39.5103,
     -4.9069
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "bogot",
@@ -1462,7 +1574,8 @@
     4.45971,
     -73.93175,
     4.75971
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "bogota",
@@ -1473,7 +1586,8 @@
     4.29642,
     -73.78335,
     4.89642
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "boise",
@@ -1491,7 +1605,8 @@
     -116.12411,
     43.68248
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-150"
   },
   {
    "slug": "bom-jesus-da-lapa",
@@ -1502,7 +1617,8 @@
     -13.4254,
     -43.2347,
     -12.9854
-   ]
+   ],
+   "cluster": "brazil-27"
   },
   {
    "slug": "bordeaux",
@@ -1513,7 +1629,8 @@
     44.66,
     -0.33,
     45.02
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "boston",
@@ -1531,7 +1648,8 @@
     -70.7589,
     42.6601
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "bowling-green",
@@ -1549,7 +1667,8 @@
     -86.1544,
     37.188
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "bowlinggreen",
@@ -1567,7 +1686,8 @@
     -86.31108,
     37.05685
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "bradenton",
@@ -1585,7 +1705,8 @@
     -82.34919,
     27.518
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "brampton",
@@ -1596,7 +1717,8 @@
     43.59657,
     -79.63042,
     43.81671
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "braslia",
@@ -1607,7 +1729,8 @@
     -16.08334,
     -47.61605,
     -15.48334
-   ]
+   ],
+   "cluster": "brazil-30"
   },
   {
    "slug": "bratislava",
@@ -1618,7 +1741,8 @@
     47.85002,
     17.41698,
     48.45002
-   ]
+   ],
+   "cluster": "slovakia-187"
   },
   {
    "slug": "brazey-en-plaine",
@@ -1629,7 +1753,8 @@
     46.9235,
     5.51035,
     47.3635
-   ]
+   ],
+   "cluster": "france-99"
   },
   {
    "slug": "brazzaville",
@@ -1640,7 +1765,8 @@
     -4.55919,
     15.58469,
     -3.95919
-   ]
+   ],
+   "cluster": "congo-brazzaville-188"
   },
   {
    "slug": "brejo-da-madre-de-deus",
@@ -1651,7 +1777,8 @@
     -8.2707,
     -36.0109,
     -7.8307
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "bremen",
@@ -1662,7 +1789,8 @@
     52.8779,
     9.0981,
     53.3179
-   ]
+   ],
+   "cluster": "germany-190"
   },
   {
    "slug": "breves",
@@ -1673,7 +1801,8 @@
     -1.748,
     -50.3293,
     -1.308
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "brigham-city",
@@ -1691,7 +1820,8 @@
     -111.7222,
     41.7162
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-150"
   },
   {
    "slug": "brisbane",
@@ -1702,7 +1832,8 @@
     -27.58,
     153.22,
     -27.38
-   ]
+   ],
+   "cluster": "australia-51"
   },
   {
    "slug": "bristol",
@@ -1713,7 +1844,8 @@
     51.30015,
     -2.36024,
     51.64314
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "brooklyn",
@@ -1731,7 +1863,8 @@
     -73.83946,
     40.77116
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "brownsville",
@@ -1749,7 +1882,8 @@
     -97.38511,
     26.03656
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-103"
   },
   {
    "slug": "bu-je",
@@ -1760,7 +1894,8 @@
     43.3628,
     20.8662,
     43.8028
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "bucharest",
@@ -1771,7 +1906,8 @@
     44.13337,
     26.39994,
     44.73337
-   ]
+   ],
+   "cluster": "romania-191"
   },
   {
    "slug": "buchlovice",
@@ -1782,7 +1918,8 @@
     48.8589,
     17.62075,
     49.2989
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "buenaventura",
@@ -1793,7 +1930,8 @@
     3.658,
     -76.8072,
     4.098
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "buenosaires",
@@ -1804,7 +1942,8 @@
     -34.9025,
     -58.09753,
     -34.3025
-   ]
+   ],
+   "cluster": "argentina-193"
   },
   {
    "slug": "buffalo",
@@ -1822,7 +1961,8 @@
     -78.66461,
     43.08856
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-73"
   },
   {
    "slug": "burbank",
@@ -1840,7 +1980,8 @@
     -118.06,
     34.36
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "buriticupu",
@@ -1851,7 +1992,8 @@
     -4.5504,
     -46.1999,
     -4.1104
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "burlington",
@@ -1869,7 +2011,8 @@
     -79.7105,
     43.42972
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-73"
   },
   {
    "slug": "bursa",
@@ -1880,7 +2023,8 @@
     40.01,
     29.31,
     40.37
-   ]
+   ],
+   "cluster": "turkey-49"
   },
   {
    "slug": "c-cuta",
@@ -1891,7 +2035,8 @@
     7.6801,
     -72.2844,
     8.1201
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "caapor",
@@ -1902,7 +2047,8 @@
     -7.7126,
     -34.7076,
     -7.2726
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "cabo-frio",
@@ -1913,7 +2059,8 @@
     -23.0323,
     -41.7862,
     -22.5923
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "cacoal",
@@ -1924,7 +2071,8 @@
     -11.5498,
     -61.1056,
     -11.1098
-   ]
+   ],
+   "cluster": "brazil-26"
   },
   {
    "slug": "cairo",
@@ -1935,7 +2083,8 @@
     29.74996,
     31.54997,
     30.34996
-   ]
+   ],
+   "cluster": "egypt-155"
   },
   {
    "slug": "calabria",
@@ -1946,7 +2095,8 @@
     38.7612,
     16.5735,
     39.2012
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "calgary",
@@ -1957,7 +2107,8 @@
     50.8189,
     -113.88592,
     51.22017
-   ]
+   ],
+   "cluster": "canada-170"
   },
   {
    "slug": "cali",
@@ -1968,7 +2119,8 @@
     3.2111,
     -76.2931,
     3.6511
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "camocim",
@@ -1979,7 +2131,8 @@
     -3.1308,
     -40.6249,
     -2.6908
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "campania",
@@ -1990,7 +2143,8 @@
     40.6423,
     14.859,
     41.0823
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "campo-grande",
@@ -2001,7 +2155,8 @@
     -20.707,
     -54.3782,
     -20.267
-   ]
+   ],
+   "cluster": "brazil-4"
   },
   {
    "slug": "campo-redondo",
@@ -2012,7 +2167,8 @@
     -6.411,
     -35.9874,
     -5.971
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "canberra",
@@ -2023,7 +2179,8 @@
     -35.58303,
     149.42903,
     -34.98303
-   ]
+   ],
+   "cluster": "australia-55"
   },
   {
    "slug": "cancn",
@@ -2034,7 +2191,8 @@
     21.02429,
     -86.69656,
     21.32429
-   ]
+   ],
+   "cluster": "mexico-81"
   },
   {
    "slug": "candeias",
@@ -2045,7 +2203,8 @@
     -12.8945,
     -38.2944,
     -12.4545
-   ]
+   ],
+   "cluster": "brazil-27"
   },
   {
    "slug": "canton",
@@ -2063,7 +2222,8 @@
     -81.29961,
     40.89602
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "capetown",
@@ -2074,7 +2234,8 @@
     -34.22001,
     18.73499,
     -33.62001
-   ]
+   ],
+   "cluster": "south-africa-186"
   },
   {
    "slug": "capit-o-po-o",
@@ -2085,7 +2246,8 @@
     -1.9786,
     -46.9019,
     -1.5386
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "caracas",
@@ -2096,7 +2258,8 @@
     10.201,
     -66.61704,
     10.801
-   ]
+   ],
+   "cluster": "venezuela-194"
   },
   {
    "slug": "cariacica",
@@ -2107,7 +2270,8 @@
     -20.5273,
     -40.141,
     -20.0873
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "carlsbad",
@@ -2125,7 +2289,8 @@
     -117.03,
     33.3
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "carpinteria",
@@ -2143,7 +2308,8 @@
     -119.2544,
     34.6196
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "carrollton",
@@ -2161,7 +2327,8 @@
     -96.82154,
     33.06506
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "cartagena-de-indias",
@@ -2172,7 +2339,8 @@
     10.1849,
     -75.2741,
     10.6249
-   ]
+   ],
+   "cluster": "colombia-177"
   },
   {
    "slug": "cary",
@@ -2190,7 +2358,8 @@
     -78.53,
     35.97
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "casablanca",
@@ -2201,7 +2370,8 @@
     33.29998,
     -7.31637,
     33.89998
-   ]
+   ],
+   "cluster": "morocco-195"
   },
   {
    "slug": "castro-urdiales",
@@ -2212,7 +2382,8 @@
     43.1464,
     -2.92815,
     43.5864
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "catawba",
@@ -2230,7 +2401,8 @@
     -80.8255,
     35.8524
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "cathedral-city",
@@ -2248,7 +2420,8 @@
     -116.1898,
     34.0172
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "caxias-do-sul",
@@ -2259,7 +2432,8 @@
     -29.3746,
     -50.9082,
     -28.9346
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "cayeux-sur-mer",
@@ -2270,7 +2444,8 @@
     49.9565,
     1.7951,
     50.3965
-   ]
+   ],
+   "cluster": "france-101"
   },
   {
    "slug": "cedarrapids",
@@ -2288,7 +2463,8 @@
     -91.49407,
     42.15833
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-127"
   },
   {
    "slug": "cedro",
@@ -2299,7 +2475,8 @@
     -6.833,
     -38.8392,
     -6.393
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "cervo",
@@ -2310,7 +2487,8 @@
     43.4584,
     -7.1294,
     43.8984
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "chain-valley-bay",
@@ -2321,7 +2499,8 @@
     -33.3946,
     151.8373,
     -32.9546
-   ]
+   ],
+   "cluster": "australia-53"
   },
   {
    "slug": "champlain",
@@ -2332,7 +2511,8 @@
     46.2144,
     -72.05185,
     46.6544
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "chandler",
@@ -2350,7 +2530,8 @@
     -111.76066,
     33.37026
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "changsha",
@@ -2361,7 +2542,8 @@
     28.05,
     113.19,
     28.41
-   ]
+   ],
+   "cluster": "china-199"
   },
   {
    "slug": "charleston",
@@ -2379,7 +2561,8 @@
     -79.83433,
     32.95272
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-65"
   },
   {
    "slug": "charlotte",
@@ -2397,7 +2580,8 @@
     -80.61176,
     35.42933
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "chattanooga",
@@ -2415,7 +2599,8 @@
     -85.09089,
     35.14869
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "chengdu",
@@ -2426,7 +2611,8 @@
     30.37,
     104.37002,
     30.97
-   ]
+   ],
+   "cluster": "china-201"
   },
   {
    "slug": "chennai",
@@ -2437,7 +2623,8 @@
     12.7827,
     80.5707,
     13.3827
-   ]
+   ],
+   "cluster": "india-86"
   },
   {
    "slug": "chesapeake",
@@ -2455,7 +2642,8 @@
     -76.14788,
     36.89461
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "cheval-blanc",
@@ -2466,7 +2654,8 @@
     43.5845,
     5.36475,
     44.0245
-   ]
+   ],
+   "cluster": "france-95"
   },
   {
    "slug": "cheyres",
@@ -2477,7 +2666,8 @@
     46.5954,
     7.0809,
     47.0354
-   ]
+   ],
+   "cluster": "switzerland-183"
   },
   {
    "slug": "chiapas",
@@ -2488,7 +2678,8 @@
     16.1685,
     -92.508,
     16.6085
-   ]
+   ],
+   "cluster": "mexico-77"
   },
   {
    "slug": "chicago",
@@ -2506,7 +2697,8 @@
     -87.45006,
     42.12999
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "chico",
@@ -2524,7 +2716,8 @@
     -121.5527,
     39.9693
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "chongqing",
@@ -2535,7 +2728,8 @@
     29.263,
     106.8516,
     29.863
-   ]
+   ],
+   "cluster": "china-198"
   },
   {
    "slug": "chulavista",
@@ -2553,7 +2747,8 @@
     -116.9342,
     32.79005
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "cincinnati",
@@ -2571,7 +2766,8 @@
     -84.19724,
     39.33882
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "ciudadjurez",
@@ -2582,7 +2778,8 @@
     31.57024,
     -106.31084,
     31.87024
-   ]
+   ],
+   "cluster": "mexico-84"
   },
   {
    "slug": "clarksville",
@@ -2600,7 +2797,8 @@
     -87.18729,
     36.6608
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "cleveland",
@@ -2618,7 +2816,8 @@
     -81.47483,
     41.57991
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "clifton-beach",
@@ -2629,7 +2828,8 @@
     -16.9899,
     145.9047,
     -16.5499
-   ]
+   ],
+   "cluster": "australia-57"
   },
   {
    "slug": "clinton",
@@ -2647,7 +2847,8 @@
     -90.16367,
     41.88317
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "cod",
@@ -2658,7 +2859,8 @@
     -4.7027,
     -43.6651,
     -4.2627
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "colima",
@@ -2669,7 +2871,8 @@
     18.9932,
     -103.7113,
     19.4332
-   ]
+   ],
+   "cluster": "mexico-78"
   },
   {
    "slug": "collado-mediano",
@@ -2680,7 +2883,8 @@
     40.4695,
     -3.748,
     40.9095
-   ]
+   ],
+   "cluster": "spain-135"
   },
   {
    "slug": "coloradosprings",
@@ -2698,7 +2902,8 @@
     -104.64897,
     39.07254
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "columbia",
@@ -2716,7 +2921,8 @@
     -80.80484,
     34.19259
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "columbus",
@@ -2734,7 +2940,8 @@
     -82.76519,
     40.24989
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "concei-o-do-araguaia",
@@ -2745,7 +2952,8 @@
     -8.4426,
     -49.0822,
     -8.0026
-   ]
+   ],
+   "cluster": "brazil-23"
   },
   {
    "slug": "concei-o-do-coit",
@@ -2756,7 +2964,8 @@
     -11.793,
     -39.0716,
     -11.353
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "concord",
@@ -2774,7 +2983,8 @@
     -80.5198,
     35.48187
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "conway",
@@ -2792,7 +3002,8 @@
     -92.38166,
     35.13351
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-117"
   },
   {
    "slug": "copenhagen",
@@ -2803,7 +3014,8 @@
     55.58,
     12.7,
     55.8
-   ]
+   ],
+   "cluster": "denmark-210"
   },
   {
    "slug": "coralville",
@@ -2821,7 +3033,8 @@
     -91.2964,
     41.9086
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "corpuschristi",
@@ -2839,7 +3052,8 @@
     -97.16111,
     27.89152
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-105"
   },
   {
    "slug": "councilbluffs",
@@ -2857,7 +3071,8 @@
     -95.61,
     41.44
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-125"
   },
   {
    "slug": "covington",
@@ -2875,7 +3090,8 @@
     -83.71011,
     33.78541
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "cuauhtmoc",
@@ -2886,7 +3102,8 @@
     19.38266,
     -99.10909,
     19.47592
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "cuiab",
@@ -2897,7 +3114,8 @@
     -15.802,
     -55.8129,
     -15.362
-   ]
+   ],
+   "cluster": "brazil-31"
   },
   {
    "slug": "cumaru",
@@ -2908,7 +3126,8 @@
     -8.283,
     -35.5201,
     -7.843
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "curion-polis",
@@ -2919,7 +3138,8 @@
     -6.3153,
     -49.3806,
     -5.8753
-   ]
+   ],
+   "cluster": "brazil-21"
   },
   {
    "slug": "curitiba",
@@ -2930,7 +3150,8 @@
     -25.55934,
     -49.19241,
     -25.37087
-   ]
+   ],
+   "cluster": "brazil-7"
   },
   {
    "slug": "cypress",
@@ -2948,7 +3169,8 @@
     -95.52073,
     30.27513
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "cz-stochowski",
@@ -2959,7 +3181,8 @@
     50.6177,
     19.52505,
     51.0577
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "dalian",
@@ -2970,7 +3193,8 @@
     38.614,
     121.9147,
     39.214
-   ]
+   ],
+   "cluster": "china-205"
   },
   {
    "slug": "dallas",
@@ -2988,7 +3212,8 @@
     -96.55,
     32.96
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "damascus",
@@ -3006,7 +3231,8 @@
     36.59999,
     33.80003
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-66"
   },
   {
    "slug": "dammam",
@@ -3017,7 +3243,8 @@
     26.19625,
     50.26543,
     26.5286
-   ]
+   ],
+   "cluster": "gcc-states-45"
   },
   {
    "slug": "danville",
@@ -3035,7 +3262,8 @@
     -79.31753,
     36.65313
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "daressalaam",
@@ -3046,7 +3274,8 @@
     -7.10001,
     39.56834,
     -6.50001
-   ]
+   ],
+   "cluster": "tanzania-212"
   },
   {
    "slug": "darwin-city",
@@ -3057,7 +3286,8 @@
     -12.6811,
     131.0656,
     -12.2411
-   ]
+   ],
+   "cluster": "australia-56"
   },
   {
    "slug": "davenport",
@@ -3075,7 +3305,8 @@
     -90.48162,
     41.61579
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "dayton",
@@ -3093,7 +3324,8 @@
     -83.99063,
     39.94181
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "daytona-beach",
@@ -3111,7 +3343,8 @@
     -80.8786,
     29.4381
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "de-antofagasta",
@@ -3122,7 +3355,8 @@
     -23.5249,
     -69.8914,
     -23.0849
-   ]
+   ],
+   "cluster": "chile-213"
   },
   {
    "slug": "de-arica-y-parinacota",
@@ -3133,7 +3367,8 @@
     -18.6786,
     -70.059,
     -18.2386
-   ]
+   ],
+   "cluster": "chile-213"
   },
   {
    "slug": "de-tarapac",
@@ -3144,7 +3379,8 @@
     -20.4571,
     -69.897,
     -20.0171
-   ]
+   ],
+   "cluster": "chile-213"
   },
   {
    "slug": "dearborn",
@@ -3162,7 +3398,8 @@
     -82.93,
     42.5
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "deauville",
@@ -3173,7 +3410,8 @@
     49.1369,
     0.2974,
     49.5769
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "decatur",
@@ -3191,7 +3429,8 @@
     -84.16815,
     33.84233
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "del-biob-o",
@@ -3202,7 +3441,8 @@
     -37.0988,
     -72.7517,
     -36.6588
-   ]
+   ],
+   "cluster": "chile-214"
   },
   {
    "slug": "del-maule",
@@ -3213,7 +3453,8 @@
     -35.6455,
     -71.3402,
     -35.2055
-   ]
+   ],
+   "cluster": "chile-214"
   },
   {
    "slug": "delhi",
@@ -3224,7 +3465,8 @@
     28.38,
     77.46,
     28.78
-   ]
+   ],
+   "cluster": "india-89"
   },
   {
    "slug": "delmiro-gouveia",
@@ -3235,7 +3477,8 @@
     -9.5773,
     -37.8846,
     -9.1373
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "denton",
@@ -3253,7 +3496,8 @@
     -97.06742,
     33.28223
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "denver",
@@ -3271,7 +3515,8 @@
     -104.68402,
     40.03919
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "desmoines",
@@ -3289,7 +3534,8 @@
     -93.37,
     41.77
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "destin",
@@ -3307,7 +3553,8 @@
     -86.2095,
     30.6083
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-109"
   },
   {
    "slug": "detroit",
@@ -3325,7 +3572,8 @@
     -82.7458,
     42.6314
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "dhaka",
@@ -3336,7 +3584,8 @@
     23.42306,
     90.70858,
     24.02306
-   ]
+   ],
+   "cluster": "bangladesh-215"
   },
   {
    "slug": "divin-polis",
@@ -3347,7 +3596,8 @@
     -20.3643,
     -44.6604,
     -19.9243
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "dom-le-mesnil",
@@ -3358,7 +3608,8 @@
     49.4699,
     5.10375,
     49.9099
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "dom-pedrito",
@@ -3369,7 +3620,8 @@
     -31.2,
     -54.416,
     -30.76
-   ]
+   ],
+   "cluster": "brazil-9"
   },
   {
    "slug": "dom-pedro",
@@ -3380,7 +3632,8 @@
     -5.2441,
     -44.2114,
     -4.8041
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "dongguan",
@@ -3391,7 +3644,8 @@
     22.84,
     114,
     23.2
-   ]
+   ],
+   "cluster": "china-196"
   },
   {
    "slug": "dornava",
@@ -3402,7 +3656,8 @@
     46.2146,
     16.25375,
     46.6546
-   ]
+   ],
+   "cluster": "slovenia-154"
   },
   {
    "slug": "dourados",
@@ -3413,7 +3668,8 @@
     -22.4301,
     -54.5971,
     -21.9901
-   ]
+   ],
+   "cluster": "brazil-6"
   },
   {
    "slug": "dubai",
@@ -3424,7 +3680,8 @@
     24.93,
     55.57997,
     25.53
-   ]
+   ],
+   "cluster": "gcc-states-44"
   },
   {
    "slug": "dublin",
@@ -3435,7 +3692,8 @@
     53.03306,
     -5.9489,
     53.63306
-   ]
+   ],
+   "cluster": "ireland-and-northern-ireland-216"
   },
   {
    "slug": "duluth",
@@ -3453,7 +3711,8 @@
     -91.95658,
     46.93327
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-129"
   },
   {
    "slug": "durham",
@@ -3471,7 +3730,8 @@
     -78.76193,
     36.10832
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "dzki-wschodni",
@@ -3482,7 +3742,8 @@
     51.5046,
     20.00685,
     51.9446
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "eastham",
@@ -3500,7 +3761,8 @@
     -69.684,
     42.0578
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "edinburgh",
@@ -3511,7 +3773,8 @@
     55.86,
     -3.08,
     56.02
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "edmonton",
@@ -3522,7 +3785,8 @@
     53.37,
     -113.24,
     53.73
-   ]
+   ],
+   "cluster": "canada-172"
   },
   {
    "slug": "eloy",
@@ -3540,7 +3804,8 @@
     -111.3717,
     33.0054
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "elpaso",
@@ -3558,7 +3823,8 @@
     -106.14166,
     31.98209
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "elx-elche",
@@ -3569,7 +3835,8 @@
     38.0271,
     -0.3873,
     38.4671
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "emilia-romagna",
@@ -3580,7 +3847,8 @@
     44.3981,
     11.4325,
     44.8381
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "enix",
@@ -3591,7 +3859,8 @@
     36.6094,
     -2.2565,
     37.0494
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "erie",
@@ -3609,7 +3878,8 @@
     -79.97962,
     42.16744
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-73"
   },
   {
    "slug": "espartinas",
@@ -3620,7 +3890,8 @@
     37.1624,
     -5.8502,
     37.6024
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "espoo",
@@ -3631,7 +3902,8 @@
     60.03,
     24.91,
     60.39
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "etenice",
@@ -3642,7 +3914,8 @@
     50.4134,
     14.10665,
     50.8534
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "eugene",
@@ -3660,7 +3933,8 @@
     -122.80085,
     44.283
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-151"
   },
   {
    "slug": "eus-bio",
@@ -3671,7 +3945,8 @@
     -4.1003,
     -38.2359,
     -3.6603
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "evansville",
@@ -3689,7 +3964,8 @@
     -87.44272,
     38.18951
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "fairfield",
@@ -3707,7 +3983,8 @@
     -121.92025,
     38.31353
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "fairhope",
@@ -3725,7 +4002,8 @@
     -87.6354,
     30.6747
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-110"
   },
   {
    "slug": "fairy-meadow",
@@ -3736,7 +4014,8 @@
     -34.6171,
     151.1592,
     -34.1771
-   ]
+   ],
+   "cluster": "australia-55"
   },
   {
    "slug": "fall-river",
@@ -3754,7 +4033,8 @@
     -70.8537,
     41.9204
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "fargo",
@@ -3772,7 +4052,8 @@
     -96.52705,
     47.0746
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-130"
   },
   {
    "slug": "farmington",
@@ -3790,7 +4071,8 @@
     -108.12776,
     36.78907
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-144"
   },
   {
    "slug": "fayetteville",
@@ -3808,7 +4090,8 @@
     -78.7773,
     35.19337
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "feira-grande",
@@ -3819,7 +4102,8 @@
     -10.0858,
     -36.4457,
     -9.6458
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "filad-lfia",
@@ -3830,7 +4114,8 @@
     -10.9631,
     -39.909,
     -10.5231
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "formosa",
@@ -3841,7 +4126,8 @@
     -15.6127,
     -47.0953,
     -15.1727
-   ]
+   ],
+   "cluster": "brazil-30"
   },
   {
    "slug": "fort-de-france",
@@ -3852,7 +4138,8 @@
     14.4023,
     -60.8384,
     14.8423
-   ]
+   ],
+   "cluster": "france-93"
   },
   {
    "slug": "fort-pierce",
@@ -3870,7 +4157,8 @@
     -80.0747,
     27.6845
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "fortlauderdale",
@@ -3888,7 +4176,8 @@
     -80.06406,
     26.2318
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-64"
   },
   {
    "slug": "fortmyers",
@@ -3906,7 +4195,8 @@
     -81.69565,
     26.74649
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "fortwayne",
@@ -3924,7 +4214,8 @@
     -84.96995,
     41.20475
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "fortworth",
@@ -3942,7 +4233,8 @@
     -96.99324,
     33.08973
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "foshan",
@@ -3953,7 +4245,8 @@
     22.7218,
     113.4219,
     23.3218
-   ]
+   ],
+   "cluster": "china-196"
   },
   {
    "slug": "frankston-south",
@@ -3964,7 +4257,8 @@
     -38.3959,
     145.4266,
     -37.956
-   ]
+   ],
+   "cluster": "australia-55"
   },
   {
    "slug": "frederick",
@@ -3982,7 +4276,8 @@
     -77.1495,
     39.6481
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "fredericksburg",
@@ -4000,7 +4295,8 @@
     -77.40518,
     38.38749
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "fremont",
@@ -4018,7 +4314,8 @@
     -121.89857,
     37.59097
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-146"
   },
   {
    "slug": "fresno",
@@ -4036,7 +4333,8 @@
     -119.64445,
     36.91196
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-145"
   },
   {
    "slug": "friuli-venezia-giulia",
@@ -4047,7 +4345,8 @@
     45.8148,
     13.4154,
     46.2548
-   ]
+   ],
+   "cluster": "italy-39"
   },
   {
    "slug": "frostproof",
@@ -4065,7 +4364,8 @@
     -81.1268,
     27.9753
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "fuente-lamo",
@@ -4076,7 +4376,8 @@
     38.4769,
     -1.1667,
     38.9169
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "fujairah",
@@ -4087,7 +4388,8 @@
     24.95,
     56.58,
     25.31
-   ]
+   ],
+   "cluster": "gcc-states-44"
   },
   {
    "slug": "fukuoka",
@@ -4098,7 +4400,8 @@
     33.41,
     130.65,
     33.77
-   ]
+   ],
+   "cluster": "japan-220"
   },
   {
    "slug": "funchal",
@@ -4109,7 +4412,8 @@
     32.4254,
     -16.6748,
     32.8654
-   ]
+   ],
+   "cluster": "portugal-138"
   },
   {
    "slug": "fuzhou",
@@ -4120,7 +4424,8 @@
     25.89,
     119.55,
     26.25
-   ]
+   ],
+   "cluster": "china-197"
   },
   {
    "slug": "gaillon",
@@ -4131,7 +4436,8 @@
     48.9379,
     1.6401,
     49.3779
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "gainesville",
@@ -4149,7 +4455,8 @@
     -82.27157,
     29.73175
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "garanhuns",
@@ -4160,7 +4467,8 @@
     -9.1119,
     -36.2692,
     -8.6719
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "garopaba",
@@ -4171,7 +4479,8 @@
     -28.2466,
     -48.3954,
     -27.8066
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "gaziantep",
@@ -4182,7 +4491,8 @@
     36.89,
     37.63,
     37.25
-   ]
+   ],
+   "cluster": "turkey-48"
   },
   {
    "slug": "geneva",
@@ -4200,7 +4510,8 @@
     6.44002,
     46.51001
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-74"
   },
   {
    "slug": "georgetown",
@@ -4218,7 +4529,8 @@
     -57.86703,
     7.10197
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-60"
   },
   {
    "slug": "gilbert",
@@ -4236,7 +4548,8 @@
     -111.66618,
     33.40599
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "girona",
@@ -4247,7 +4560,8 @@
     41.7774,
     3.0984,
     42.2174
-   ]
+   ],
+   "cluster": "spain-136"
   },
   {
    "slug": "glasgow",
@@ -4258,7 +4572,8 @@
     55.68,
     -4,
     56.04
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "gleisdorf",
@@ -4269,7 +4584,8 @@
     46.8768,
     15.98905,
     47.3168
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "glendale",
@@ -4287,7 +4603,8 @@
     -112.10351,
     33.74409
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "goldcoast",
@@ -4298,7 +4615,8 @@
     -28.2283,
     153.55697,
     -27.67079
-   ]
+   ],
+   "cluster": "australia-51"
   },
   {
    "slug": "gorlicki",
@@ -4309,7 +4627,8 @@
     49.518,
     21.396,
     49.958
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "governador-valadares",
@@ -4320,7 +4639,8 @@
     -19.1038,
     -41.7342,
     -18.6638
-   ]
+   ],
+   "cluster": "brazil-0"
   },
   {
    "slug": "goyave",
@@ -4331,7 +4651,8 @@
     15.9044,
     -61.3547,
     16.3444
-   ]
+   ],
+   "cluster": "france-93"
   },
   {
    "slug": "gradefes",
@@ -4342,7 +4663,8 @@
     42.4578,
     -4.9466,
     42.8978
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "grand-junction",
@@ -4360,7 +4682,8 @@
     -108.2646,
     39.3003
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "grandrapids",
@@ -4378,7 +4701,8 @@
     -85.49161,
     43.09387
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "gray",
@@ -4396,7 +4720,8 @@
     -82.1929,
     36.6379
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "grayslake",
@@ -4414,7 +4739,8 @@
     -87.7134,
     42.5621
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "great-falls",
@@ -4432,7 +4758,8 @@
     -110.97275,
     47.7215
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-152"
   },
   {
    "slug": "greensboro",
@@ -4450,7 +4777,8 @@
     -79.65832,
     36.18496
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "greenville",
@@ -4468,7 +4796,8 @@
     -82.21483,
     34.94353
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "greinbach",
@@ -4479,7 +4808,8 @@
     47.0894,
     16.26255,
     47.5294
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "grimsby",
@@ -4490,7 +4820,8 @@
     42.9886,
     -79.29705,
     43.4286
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "gro-r-hrsdorf",
@@ -4501,7 +4832,8 @@
     50.9279,
     14.3638,
     51.3679
-   ]
+   ],
+   "cluster": "germany-190"
   },
   {
    "slug": "gua-doce-do-maranh-o",
@@ -4512,7 +4844,8 @@
     -3.2866,
     -41.9953,
     -2.8466
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "guadalajara",
@@ -4523,7 +4856,8 @@
     20.3597,
     -103.0496,
     20.9597
-   ]
+   ],
+   "cluster": "mexico-80"
   },
   {
    "slug": "guajar-mirim",
@@ -4534,7 +4868,8 @@
     -11.0322,
     -65.0538,
     -10.5922
-   ]
+   ],
+   "cluster": "brazil-26"
   },
   {
    "slug": "guanajuato",
@@ -4545,7 +4880,8 @@
     20.6019,
     -101.0115,
     21.0419
-   ]
+   ],
+   "cluster": "mexico-80"
   },
   {
    "slug": "guangzhou",
@@ -4556,7 +4892,8 @@
     22.8291,
     113.5644,
     23.4291
-   ]
+   ],
+   "cluster": "china-196"
   },
   {
    "slug": "guaraciaba-do-norte",
@@ -4567,7 +4904,8 @@
     -4.4078,
     -40.5682,
     -3.9678
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "guas-de-lind-ia",
@@ -4578,7 +4916,8 @@
     -22.6904,
     -46.3734,
     -22.2504
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "guerrero",
@@ -4589,7 +4928,8 @@
     17.2369,
     -99.5779,
     17.6769
-   ]
+   ],
+   "cluster": "mexico-78"
   },
   {
    "slug": "guilas",
@@ -4600,7 +4940,8 @@
     37.2061,
     -1.2601,
     37.6461
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "guildford",
@@ -4611,7 +4952,8 @@
     51.06,
     -0.32,
     51.42
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "gulfport",
@@ -4629,7 +4971,8 @@
     -88.8101,
     30.6372
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-110"
   },
   {
    "slug": "haavisto",
@@ -4640,7 +4983,8 @@
     61.8103,
     25.3376,
     62.2503
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "halifax",
@@ -4651,7 +4995,8 @@
     44.57097,
     -63.43451,
     44.92777
-   ]
+   ],
+   "cluster": "canada-165"
   },
   {
    "slug": "hamburg",
@@ -4662,7 +5007,8 @@
     53.37,
     10.24,
     53.73
-   ]
+   ],
+   "cluster": "germany-190"
   },
   {
    "slug": "hamilton",
@@ -4673,7 +5019,8 @@
     43.06782,
     -79.57601,
     43.41724
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "hamina",
@@ -4684,7 +5031,8 @@
     60.39,
     27.43,
     60.75
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "hampton",
@@ -4702,7 +5050,8 @@
     -76.2898,
     37.11398
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "hangzhou",
@@ -4713,7 +5062,8 @@
     29.9741,
     120.4551,
     30.5741
-   ]
+   ],
+   "cluster": "china-202"
   },
   {
    "slug": "hanoi",
@@ -4724,7 +5074,8 @@
     20.73333,
     106.15002,
     21.33333
-   ]
+   ],
+   "cluster": "vietnam-224"
   },
   {
    "slug": "harare",
@@ -4735,7 +5086,8 @@
     -18.11779,
     31.34471,
     -17.51779
-   ]
+   ],
+   "cluster": "zimbabwe-225"
   },
   {
    "slug": "harbin",
@@ -4746,7 +5098,8 @@
     45.62,
     126.78,
     45.98
-   ]
+   ],
+   "cluster": "china-209"
   },
   {
    "slug": "harnes",
@@ -4757,7 +5110,8 @@
     50.2257,
     3.20845,
     50.6657
-   ]
+   ],
+   "cluster": "france-101"
   },
   {
    "slug": "harrisburg",
@@ -4775,7 +5129,8 @@
     -76.70103,
     40.37262
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-71"
   },
   {
    "slug": "haverhill",
@@ -4793,7 +5148,8 @@
     -70.7942,
     42.9962
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "hefei",
@@ -4804,7 +5160,8 @@
     31.64,
     117.48,
     32
-   ]
+   ],
+   "cluster": "china-202"
   },
   {
    "slug": "heitora",
@@ -4815,7 +5172,8 @@
     -15.9783,
     -49.685,
     -15.5383
-   ]
+   ],
+   "cluster": "brazil-30"
   },
   {
    "slug": "helmond",
@@ -4826,7 +5184,8 @@
     51.2567,
     5.9581,
     51.6966
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "helsinki",
@@ -4837,7 +5196,8 @@
     59.87556,
     25.23413,
     60.47556
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "henderson",
@@ -4855,7 +5215,8 @@
     -114.87541,
     36.10261
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-145"
   },
   {
    "slug": "hidalgo",
@@ -4866,7 +5227,8 @@
     20.1449,
     -98.5709,
     20.5849
-   ]
+   ],
+   "cluster": "mexico-82"
   },
   {
    "slug": "hillsboro",
@@ -4884,7 +5246,8 @@
     -122.74,
     45.7
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-151"
   },
   {
    "slug": "hochiminhcity",
@@ -4895,7 +5258,8 @@
     10.5231,
     106.9297,
     11.1231
-   ]
+   ],
+   "cluster": "vietnam-223"
   },
   {
    "slug": "hohhot",
@@ -4906,7 +5270,8 @@
     40.66,
     112,
     41.02
-   ]
+   ],
+   "cluster": "china-206"
   },
   {
    "slug": "holbrook",
@@ -4924,7 +5289,8 @@
     -72.7717,
     41.0082
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "homosassa",
@@ -4942,7 +5308,8 @@
     -82.3283,
     28.9965
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "honolulu",
@@ -4960,7 +5327,8 @@
     -157.65216,
     21.52697
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-pacific-158"
   },
   {
    "slug": "hooghalen",
@@ -4971,7 +5339,8 @@
     52.7037,
     6.8511,
     53.1437
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "horsham",
@@ -4982,7 +5351,8 @@
     50.88,
     -0.08,
     51.24
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "houma",
@@ -5000,7 +5370,8 @@
     -90.4698,
     29.8035
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-107"
   },
   {
    "slug": "houston",
@@ -5018,7 +5389,8 @@
     -95.03998,
     30.11997
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-107"
   },
   {
    "slug": "huizhou",
@@ -5029,7 +5401,8 @@
     22.93,
     114.67,
     23.29
-   ]
+   ],
+   "cluster": "china-196"
   },
   {
    "slug": "hull",
@@ -5040,7 +5413,8 @@
     53.6971,
     -0.29885,
     54.1371
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "humble",
@@ -5058,7 +5432,8 @@
     -95.11216,
     30.14883
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-107"
   },
   {
    "slug": "huntsville",
@@ -5076,7 +5451,8 @@
     -86.42909,
     34.85513
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-117"
   },
   {
    "slug": "hyderabad",
@@ -5087,7 +5463,8 @@
     17.21,
     78.74,
     17.57
-   ]
+   ],
+   "cluster": "india-86"
   },
   {
    "slug": "ibagu",
@@ -5098,7 +5475,8 @@
     4.221,
     -74.9894,
     4.6609
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "icatu",
@@ -5109,7 +5487,8 @@
     -2.9498,
     -43.7624,
     -2.5098
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "ida-viru-maakond",
@@ -5120,7 +5499,8 @@
     59.156,
     28.0882,
     59.596
-   ]
+   ],
+   "cluster": "estonia-226"
   },
   {
    "slug": "igarap-do-meio",
@@ -5131,7 +5511,8 @@
     -3.8547,
     -44.8833,
     -3.4147
-   ]
+   ],
+   "cluster": "brazil-13"
   },
   {
    "slug": "igarap-miri",
@@ -5142,7 +5523,8 @@
     -2.216,
     -48.802,
     -1.776
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "igarat",
@@ -5153,7 +5535,8 @@
     -23.405,
     -45.9729,
     -22.965
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "igrane",
@@ -5164,7 +5547,8 @@
     42.976,
     17.43985,
     43.416
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "ilinsk",
@@ -5175,7 +5559,8 @@
     49.0553,
     19.6416,
     49.4953
-   ]
+   ],
+   "cluster": "slovakia-187"
   },
   {
    "slug": "imb",
@@ -5186,7 +5571,8 @@
     -30.1748,
     -49.8665,
     -29.7348
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "independence",
@@ -5204,7 +5590,8 @@
     -104.45914,
     38.40445
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "indianapolis",
@@ -5222,7 +5609,8 @@
     -85.92191,
     39.96998
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "ipswich",
@@ -5233,7 +5621,8 @@
     52.0237,
     1.75955,
     52.4637
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "irec",
@@ -5244,7 +5633,8 @@
     -11.5247,
     -41.6293,
     -11.0847
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "irving",
@@ -5262,7 +5652,8 @@
     -96.90081,
     32.96422
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "islamabad",
@@ -5273,7 +5664,8 @@
     33.4,
     73.46664,
     34
-   ]
+   ],
+   "cluster": "pakistan-229"
   },
   {
    "slug": "issoudun",
@@ -5284,7 +5676,8 @@
     46.7223,
     2.30215,
     47.1623
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "istanbul",
@@ -5295,7 +5688,8 @@
     40.805,
     29.31001,
     41.405
-   ]
+   ],
+   "cluster": "turkey-49"
   },
   {
    "slug": "itabuna",
@@ -5306,7 +5700,8 @@
     -15.0089,
     -39.0569,
     -14.5689
-   ]
+   ],
+   "cluster": "brazil-29"
   },
   {
    "slug": "itagua",
@@ -5317,7 +5712,8 @@
     -23.104,
     -43.608,
     -22.664
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "itaituba",
@@ -5328,7 +5724,8 @@
     -4.6479,
     -55.7414,
     -4.2079
-   ]
+   ],
+   "cluster": "brazil-19"
   },
   {
    "slug": "itamonte",
@@ -5339,7 +5736,8 @@
     -22.52,
     -44.6199,
     -22.08
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "itapo",
@@ -5350,7 +5748,8 @@
     -26.3052,
     -48.3662,
     -25.8652
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "itaporanga-d-ajuda",
@@ -5361,7 +5760,8 @@
     -11.2325,
     -37.1062,
     -10.7925
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "itaqui",
@@ -5372,7 +5772,8 @@
     -29.3651,
     -56.2944,
     -28.9251
-   ]
+   ],
+   "cluster": "brazil-9"
   },
   {
    "slug": "itariri",
@@ -5383,7 +5784,8 @@
     -24.5351,
     -46.9454,
     -24.0951
-   ]
+   ],
+   "cluster": "brazil-7"
   },
   {
    "slug": "ithaca",
@@ -5401,7 +5803,8 @@
     -76.1866,
     42.6737
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-73"
   },
   {
    "slug": "jackson",
@@ -5419,7 +5822,8 @@
     -90.08921,
     32.41974
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-114"
   },
   {
    "slug": "jacksonville",
@@ -5437,7 +5841,8 @@
     -81.3969,
     30.57497
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-109"
   },
   {
    "slug": "jakarta",
@@ -5448,7 +5853,8 @@
     -6.47442,
     107.12944,
     -5.87442
-   ]
+   ],
+   "cluster": "indonesia-230"
   },
   {
    "slug": "jeddah",
@@ -5459,7 +5865,8 @@
     21.36,
     39.44,
     21.72
-   ]
+   ],
+   "cluster": "gcc-states-42"
   },
   {
    "slug": "jiangyin",
@@ -5470,7 +5877,8 @@
     31.73,
     120.55,
     32.09
-   ]
+   ],
+   "cluster": "china-202"
   },
   {
    "slug": "jind-ich-v-hradec-ii",
@@ -5481,7 +5889,8 @@
     48.9309,
     15.31445,
     49.3709
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "johannesburg",
@@ -5492,7 +5901,8 @@
     -26.47005,
     28.33001,
     -25.87005
-   ]
+   ],
+   "cluster": "south-africa-185"
   },
   {
    "slug": "johorbahru",
@@ -5503,7 +5913,8 @@
     1.31,
     103.99,
     1.67
-   ]
+   ],
+   "cluster": "malaysia-singapore-brunei-231"
   },
   {
    "slug": "jonesboro",
@@ -5521,7 +5932,8 @@
     -82.32348,
     36.44427
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "jp-cand",
@@ -5532,7 +5944,8 @@
     36.0029,
     139.9006,
     36.4429
-   ]
+   ],
+   "cluster": "japan-221"
   },
   {
    "slug": "juiz-de-fora",
@@ -5543,7 +5956,8 @@
     -21.9579,
     -43.1303,
     -21.5179
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "juno-beach",
@@ -5561,7 +5975,8 @@
     -79.8089,
     27.0869
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-64"
   },
   {
    "slug": "juscimeira",
@@ -5572,7 +5987,8 @@
     -16.3448,
     -54.4655,
     -15.9048
-   ]
+   ],
+   "cluster": "brazil-34"
   },
   {
    "slug": "k-s-m",
@@ -5583,7 +5999,8 @@
     62.439,
     29.6655,
     62.879
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "kabul",
@@ -5594,7 +6011,8 @@
     34.21669,
     69.48326,
     34.81669
-   ]
+   ],
+   "cluster": "afghanistan-232"
   },
   {
    "slug": "kansascity",
@@ -5612,7 +6030,8 @@
     -94.32099,
     39.35706
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-122"
   },
   {
    "slug": "kaohsiung",
@@ -5623,7 +6042,8 @@
     22.44683,
     120.52438,
     22.91413
-   ]
+   ],
+   "cluster": "taiwan-233"
   },
   {
    "slug": "karachi",
@@ -5634,7 +6054,8 @@
     24.5607,
     67.3011,
     25.1607
-   ]
+   ],
+   "cluster": "pakistan-228"
   },
   {
    "slug": "karper",
@@ -5645,7 +6066,8 @@
     62.9401,
     22.0013,
     63.3801
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "katowice",
@@ -5656,7 +6078,8 @@
     50.0059,
     19.23535,
     50.4459
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "katy",
@@ -5674,7 +6097,8 @@
     -95.69125,
     29.89935
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-107"
   },
   {
    "slug": "khartoum",
@@ -5685,7 +6109,8 @@
     15.28808,
     32.83418,
     15.88808
-   ]
+   ],
+   "cluster": "sudan-234"
   },
   {
    "slug": "khobar",
@@ -5696,7 +6121,8 @@
     26.1,
     50.46,
     26.46
-   ]
+   ],
+   "cluster": "gcc-states-45"
   },
   {
    "slug": "kingston",
@@ -5714,7 +6140,8 @@
     -76.46743,
     18.27708
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-62"
   },
   {
    "slug": "kinshasa",
@@ -5725,7 +6152,8 @@
     -4.62972,
     15.61497,
     -4.02972
-   ]
+   ],
+   "cluster": "congo-democratic-republic-235"
   },
   {
    "slug": "kissimmee",
@@ -5743,7 +6171,8 @@
     -81.29095,
     28.3779
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "knoxville",
@@ -5761,7 +6190,8 @@
     -83.70535,
     36.12265
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "ko-cia-ski",
@@ -5772,7 +6202,8 @@
     51.846,
     16.94815,
     52.286
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "ko-ick",
@@ -5783,7 +6214,8 @@
     48.4402,
     21.9768,
     48.8802
-   ]
+   ],
+   "cluster": "slovakia-187"
   },
   {
    "slug": "kolkata",
@@ -5794,7 +6226,8 @@
     22.19497,
     88.62467,
     22.79497
-   ]
+   ],
+   "cluster": "india-88"
   },
   {
    "slug": "kozienicki",
@@ -5805,7 +6238,8 @@
     51.2749,
     21.93985,
     51.7149
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "kristiansand-s",
@@ -5816,7 +6250,8 @@
     57.9284,
     8.30595,
     58.3683
-   ]
+   ],
+   "cluster": "norway-181"
   },
   {
    "slug": "ku-im",
@@ -5827,7 +6262,8 @@
     49.0874,
     16.82725,
     49.5274
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "kualalumpur",
@@ -5838,7 +6274,8 @@
     2.86667,
     101.99998,
     3.46667
-   ]
+   ],
+   "cluster": "malaysia-singapore-brunei-231"
   },
   {
    "slug": "kuusamo",
@@ -5849,7 +6286,8 @@
     65.8144,
     29.52245,
     66.2544
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "kyiv",
@@ -5860,7 +6298,8 @@
     50.27,
     30.77,
     50.63
-   ]
+   ],
+   "cluster": "ukraine-236"
   },
   {
    "slug": "kyoto",
@@ -5871,7 +6310,8 @@
     34.72999,
     136.05,
     35.32999
-   ]
+   ],
+   "cluster": "japan-220"
   },
   {
    "slug": "l-islet",
@@ -5882,7 +6322,8 @@
     46.9156,
     -70.0582,
     47.3556
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "la-arak",
@@ -5893,7 +6334,8 @@
     44.777,
     19.86495,
     45.217
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "la-crosse",
@@ -5911,7 +6353,8 @@
     -90.93745,
     44.0232
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-127"
   },
   {
    "slug": "la-font-d-en-carr-s",
@@ -5922,7 +6365,8 @@
     38.6962,
     0.0733,
     39.1362
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "la-puerta-de-segura",
@@ -5933,7 +6377,8 @@
     38.1345,
     -2.4599,
     38.5745
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "la-roche-sur-yon",
@@ -5944,7 +6389,8 @@
     46.4464,
     -1.1443,
     46.8864
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "la-roda",
@@ -5955,7 +6401,8 @@
     38.9884,
     -1.8535,
     39.4284
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "laa-an-der-thaya",
@@ -5966,7 +6413,8 @@
     48.4902,
     16.6335,
     48.9302
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "lafayette",
@@ -5984,7 +6432,8 @@
     -91.97181,
     30.31835
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-110"
   },
   {
    "slug": "lagos",
@@ -5995,7 +6444,8 @@
     6.14326,
     3.69153,
     6.74326
-   ]
+   ],
+   "cluster": "nigeria-46"
   },
   {
    "slug": "lahore",
@@ -6006,7 +6456,8 @@
     31.37,
     74.59,
     31.73
-   ]
+   ],
+   "cluster": "pakistan-229"
   },
   {
    "slug": "laitila",
@@ -6017,7 +6468,8 @@
     60.6593,
     22.00595,
     61.0993
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "lake-placid",
@@ -6035,7 +6487,8 @@
     -77.3861,
     36.0265
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "lakeland",
@@ -6053,7 +6506,8 @@
     -81.85595,
     28.16629
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "lakewood",
@@ -6071,7 +6525,8 @@
     -105.00709,
     39.7865
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "lancaster",
@@ -6089,7 +6544,8 @@
     -118.07232,
     34.72519
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "lanett",
@@ -6107,7 +6563,8 @@
     -84.9821,
     33.0728
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "lansing",
@@ -6125,7 +6582,8 @@
     -84.47963,
     42.80445
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "lapaz",
@@ -6136,7 +6594,8 @@
     -16.79797,
     -67.84999,
     -16.19797
-   ]
+   ],
+   "cluster": "mexico-76"
   },
   {
    "slug": "laredo",
@@ -6154,7 +6613,8 @@
     -99.42717,
     27.71884
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-105"
   },
   {
    "slug": "las-cruces",
@@ -6172,7 +6632,8 @@
     -106.4999,
     32.5246
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "las-palmas-de-gran-canaria",
@@ -6183,7 +6644,8 @@
     27.8753,
     -15.1909,
     28.3153
-   ]
+   ],
+   "cluster": "spain-131"
   },
   {
    "slug": "lasvegas",
@@ -6201,7 +6663,8 @@
     -115.02,
     36.28
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-145"
   },
   {
    "slug": "lautiosaari",
@@ -6212,7 +6675,8 @@
     65.6235,
     24.9872,
     66.0635
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "lawrence",
@@ -6230,7 +6694,8 @@
     -95.08525,
     39.12167
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-122"
   },
   {
    "slug": "lawrenceville",
@@ -6248,7 +6713,8 @@
     -83.83796,
     34.10621
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "le-luc",
@@ -6259,7 +6725,8 @@
     43.1469,
     6.61015,
     43.5869
-   ]
+   ],
+   "cluster": "france-95"
   },
   {
    "slug": "lebanon",
@@ -6277,7 +6744,8 @@
     -86.24784,
     36.25814
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "leeds",
@@ -6288,7 +6756,8 @@
     53.71222,
     -1.33924,
     53.89532
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "leeuwarden",
@@ -6299,7 +6768,8 @@
     52.9774,
     6.11675,
     53.4174
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "leli-k",
@@ -6310,7 +6780,8 @@
     55.5126,
     21.5373,
     55.9526
-   ]
+   ],
+   "cluster": "lithuania-237"
   },
   {
    "slug": "lenovac",
@@ -6321,7 +6792,8 @@
     43.5849,
     22.464,
     44.0249
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "lepp-virta",
@@ -6332,7 +6804,8 @@
     62.2714,
     28.1462,
     62.7114
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "les-diablerets",
@@ -6343,7 +6816,8 @@
     46.1319,
     7.46205,
     46.5719
-   ]
+   ],
+   "cluster": "switzerland-183"
   },
   {
    "slug": "letku",
@@ -6354,7 +6828,8 @@
     60.4791,
     24.02965,
     60.9191
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "lexington",
@@ -6372,7 +6847,8 @@
     -84.35517,
     38.17685
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "liguria",
@@ -6383,7 +6859,8 @@
     43.7768,
     8.61285,
     44.2168
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "lima",
@@ -6394,7 +6871,8 @@
     -12.34801,
     -76.75007,
     -11.74801
-   ]
+   ],
+   "cluster": "peru-238"
   },
   {
    "slug": "limoges",
@@ -6405,7 +6883,8 @@
     45.6226,
     1.5625,
     46.0626
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "lincoln",
@@ -6423,7 +6902,8 @@
     -96.5713,
     40.90349
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-125"
   },
   {
    "slug": "lincoln-uk",
@@ -6434,7 +6914,8 @@
     53.0077,
     0.1231,
     53.4477
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "lisbon",
@@ -6445,7 +6926,8 @@
     38.42272,
     -8.84486,
     39.02272
-   ]
+   ],
+   "cluster": "portugal-139"
   },
   {
    "slug": "littlerock",
@@ -6463,7 +6945,8 @@
     -92.1831,
     34.84379
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-117"
   },
   {
    "slug": "littleton",
@@ -6481,7 +6964,8 @@
     -104.86967,
     39.64709
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "liverpool",
@@ -6492,7 +6976,8 @@
     53.30425,
     -2.79137,
     53.59055
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "ljubljana",
@@ -6503,7 +6988,8 @@
     45.75529,
     14.81497,
     46.35529
-   ]
+   ],
+   "cluster": "slovenia-154"
   },
   {
    "slug": "lom",
@@ -6514,7 +7000,8 @@
     5.83194,
     1.52276,
     6.43194
-   ]
+   ],
+   "cluster": "togo-239"
   },
   {
    "slug": "lombardia",
@@ -6525,7 +7012,8 @@
     45.3545,
     10.1521,
     45.7945
-   ]
+   ],
+   "cluster": "italy-39"
   },
   {
    "slug": "london",
@@ -6536,7 +7024,8 @@
     51.2,
     0.18328,
     51.79999
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "londrina",
@@ -6547,7 +7036,8 @@
     -23.5301,
     -50.9353,
     -23.0901
-   ]
+   ],
+   "cluster": "brazil-6"
   },
   {
    "slug": "longbeach",
@@ -6565,7 +7055,8 @@
     -118.0497,
     33.89794
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "longeville-l-s-saint-avold",
@@ -6576,7 +7067,8 @@
     48.8956,
     6.9385,
     49.3356
-   ]
+   ],
+   "cluster": "france-101"
   },
   {
    "slug": "longmont",
@@ -6594,7 +7086,8 @@
     -104.8134,
     40.3935
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-149"
   },
   {
    "slug": "los-fresnos",
@@ -6612,7 +7105,8 @@
     -97.258,
     26.293
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-105"
   },
   {
    "slug": "los-realejos",
@@ -6623,7 +7117,8 @@
     28.1614,
     -16.364,
     28.6014
-   ]
+   ],
+   "cluster": "spain-131"
   },
   {
    "slug": "losangeles",
@@ -6641,7 +7136,8 @@
     -117.87998,
     34.28998
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "louisville",
@@ -6659,7 +7155,8 @@
     -85.42884,
     38.3516
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-121"
   },
   {
    "slug": "lu-s-eduardo-magalh-es",
@@ -6670,7 +7167,8 @@
     -12.3139,
     -45.5732,
     -11.8739
-   ]
+   ],
+   "cluster": "brazil-28"
   },
   {
    "slug": "luanda",
@@ -6681,7 +7179,8 @@
     -9.13829,
     13.53443,
     -8.53829
-   ]
+   ],
+   "cluster": "angola-240"
   },
   {
    "slug": "lubbock",
@@ -6699,7 +7198,8 @@
     -101.79068,
     33.61805
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-112"
   },
   {
    "slug": "lucena",
@@ -6710,7 +7210,8 @@
     37.1739,
     -4.1973,
     37.6139
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "lumbres",
@@ -6721,7 +7222,8 @@
     50.4892,
     2.4245,
     50.9291
-   ]
+   ],
+   "cluster": "france-101"
   },
   {
    "slug": "lusaka",
@@ -6732,7 +7234,8 @@
     -15.71664,
     28.58332,
     -15.11664
-   ]
+   ],
+   "cluster": "zambia-241"
   },
   {
    "slug": "luxembourg",
@@ -6743,7 +7246,8 @@
     49.31166,
     6.43,
     49.91166
-   ]
+   ],
+   "cluster": "luxembourg-242"
   },
   {
    "slug": "lyon",
@@ -6754,7 +7258,8 @@
     45.58,
     5.09,
     45.94
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "m-laga",
@@ -6765,7 +7270,8 @@
     36.5076,
     -4.1773,
     36.9476
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "m-xico",
@@ -6776,7 +7282,8 @@
     19.2366,
     -99.4464,
     19.6766
-   ]
+   ],
+   "cluster": "mexico-80"
   },
   {
    "slug": "m-yry",
@@ -6787,7 +7294,8 @@
     62.5889,
     23.74875,
     63.0289
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "maca",
@@ -6798,7 +7306,8 @@
     -22.5578,
     -41.5631,
     -22.1178
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "macap",
@@ -6809,7 +7318,8 @@
     -0.1707,
     -50.8624,
     0.2693
-   ]
+   ],
+   "cluster": "brazil-35"
   },
   {
    "slug": "macon",
@@ -6827,7 +7337,8 @@
     -83.53719,
     32.96557
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "madison",
@@ -6845,7 +7356,8 @@
     -89.23848,
     43.15798
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-127"
   },
   {
    "slug": "madrid",
@@ -6856,7 +7368,8 @@
     40.10003,
     -3.38335,
     40.70003
-   ]
+   ],
+   "cluster": "spain-135"
   },
   {
    "slug": "magalh-es-barata",
@@ -6867,7 +7380,8 @@
     -1.0542,
     -47.3888,
     -0.6142
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "mahlu",
@@ -6878,7 +7392,8 @@
     62.4036,
     25.3282,
     62.8436
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "makaticity",
@@ -6889,7 +7404,8 @@
     14.5123,
     121.0661,
     14.59429
-   ]
+   ],
+   "cluster": "philippines-243"
   },
   {
    "slug": "malente",
@@ -6900,7 +7416,8 @@
     53.9616,
     10.83565,
     54.4016
-   ]
+   ],
+   "cluster": "germany-190"
   },
   {
    "slug": "mamanguape",
@@ -6911,7 +7428,8 @@
     -7.0484,
     -34.9092,
     -6.6084
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "manalapan",
@@ -6929,7 +7447,8 @@
     -74.0584,
     40.5166
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "manaus",
@@ -6940,7 +7459,8 @@
     -3.2507,
     -59.7789,
     -2.8107
-   ]
+   ],
+   "cluster": "brazil-15"
   },
   {
    "slug": "manchester",
@@ -6951,7 +7471,8 @@
     53.32968,
     -2.05909,
     53.58237
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "mandaluyongcity",
@@ -6962,7 +7483,8 @@
     14.4332,
     121.1909,
     14.7332
-   ]
+   ],
+   "cluster": "philippines-243"
   },
   {
    "slug": "manhua-u",
@@ -6973,7 +7495,8 @@
     -20.482,
     -41.8025,
     -20.042
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "manila",
@@ -6984,7 +7507,8 @@
     14.30416,
     121.28222,
     14.90416
-   ]
+   ],
+   "cluster": "philippines-243"
   },
   {
    "slug": "manilva",
@@ -6995,7 +7519,8 @@
     36.1012,
     -4.9712,
     36.5412
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "mansfield",
@@ -7013,7 +7538,8 @@
     -82.45435,
     40.80901
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "mara",
@@ -7024,7 +7550,8 @@
     -14.283,
     -38.7993,
     -13.843
-   ]
+   ],
+   "cluster": "brazil-29"
   },
   {
    "slug": "marab",
@@ -7035,7 +7562,8 @@
     -5.5991,
     -48.9067,
     -5.1591
-   ]
+   ],
+   "cluster": "brazil-18"
   },
   {
    "slug": "maraial",
@@ -7046,7 +7574,8 @@
     -9.0049,
     -35.5941,
     -8.5649
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "marche",
@@ -7057,7 +7586,8 @@
     43.1204,
     13.72035,
     43.5604
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "marietta",
@@ -7075,7 +7605,8 @@
     -84.37223,
     34.06913
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "mariluz",
@@ -7086,7 +7617,8 @@
     -24.2242,
     -52.9068,
     -23.7843
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "markelo",
@@ -7097,7 +7629,8 @@
     52.0218,
     6.8182,
     52.4618
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "marmora",
@@ -7115,7 +7648,8 @@
     -74.3839,
     39.4694
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "maroochydore",
@@ -7126,7 +7660,8 @@
     -26.8736,
     153.3385,
     -26.4336
-   ]
+   ],
+   "cluster": "australia-51"
   },
   {
    "slug": "marseille",
@@ -7137,7 +7672,8 @@
     43.12,
     5.62,
     43.48
-   ]
+   ],
+   "cluster": "france-95"
   },
   {
    "slug": "marysville",
@@ -7155,7 +7691,8 @@
     -121.94445,
     48.3098
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "massaranduba",
@@ -7166,7 +7703,8 @@
     -26.8318,
     -48.7583,
     -26.3918
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "maumelle",
@@ -7184,7 +7722,8 @@
     -92.1155,
     35.0575
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-117"
   },
   {
    "slug": "mauz-sur-le-mignon",
@@ -7195,7 +7734,8 @@
     45.9744,
     -0.37205,
     46.4144
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "mckinney",
@@ -7213,7 +7753,8 @@
     -96.46527,
     33.34762
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "medell-n",
@@ -7224,7 +7765,8 @@
     6.0438,
     -75.3496,
     6.4837
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "medford",
@@ -7242,7 +7784,8 @@
     -122.8085,
     42.39329
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-151"
   },
   {
    "slug": "medina",
@@ -7260,7 +7803,8 @@
     39.86,
     24.65
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-63"
   },
   {
    "slug": "medve-a",
@@ -7271,7 +7815,8 @@
     43.6668,
     21.50575,
     44.1068
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "meg-ve",
@@ -7282,7 +7827,8 @@
     45.6369,
     6.9227,
     46.0769
-   ]
+   ],
+   "cluster": "france-97"
   },
   {
    "slug": "melchtal",
@@ -7293,7 +7839,8 @@
     46.6036,
     8.5928,
     47.0436
-   ]
+   ],
+   "cluster": "switzerland-183"
   },
   {
    "slug": "memphis",
@@ -7311,7 +7858,8 @@
     -89.69344,
     35.26926
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-117"
   },
   {
    "slug": "meridian",
@@ -7329,7 +7877,8 @@
     -116.33123,
     43.68247
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-150"
   },
   {
    "slug": "merritt-island",
@@ -7347,7 +7896,8 @@
     -80.4318,
     28.5495
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "mesa",
@@ -7365,7 +7915,8 @@
     -111.55694,
     33.49111
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "mesquite",
@@ -7383,7 +7934,8 @@
     -96.44916,
     32.9168
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "mexicocity",
@@ -7394,7 +7946,8 @@
     19.14244,
     -98.83099,
     19.74244
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "miami",
@@ -7412,7 +7965,8 @@
     -79.92411,
     26.08761
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-102"
   },
   {
    "slug": "michoac-n-de-ocampo",
@@ -7423,7 +7977,8 @@
     19.3175,
     -101.3639,
     19.7575
-   ]
+   ],
+   "cluster": "mexico-78"
   },
   {
    "slug": "middletown",
@@ -7441,7 +7996,8 @@
     -74.34319,
     41.51416
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "midland",
@@ -7459,7 +8015,8 @@
     -101.89404,
     32.0939
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-108"
   },
   {
    "slug": "midlothian",
@@ -7477,7 +8034,8 @@
     -77.56511,
     37.54559
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "midrand",
@@ -7488,7 +8046,8 @@
     -26.17,
     28.38,
     -25.81
-   ]
+   ],
+   "cluster": "south-africa-185"
   },
   {
    "slug": "milan",
@@ -7499,7 +8058,8 @@
     45.4,
     9.32,
     45.56
-   ]
+   ],
+   "cluster": "italy-39"
   },
   {
    "slug": "milford",
@@ -7517,7 +8077,8 @@
     -72.97589,
     41.26652
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "milwaukee",
@@ -7535,7 +8096,8 @@
     -87.85527,
     43.21433
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "minneapolis",
@@ -7553,7 +8115,8 @@
     -93.18909,
     45.17596
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-129"
   },
   {
    "slug": "minsk",
@@ -7564,7 +8127,8 @@
     53.59998,
     27.86663,
     54.19998
-   ]
+   ],
+   "cluster": "belarus-244"
   },
   {
    "slug": "minusio",
@@ -7575,7 +8139,8 @@
     45.96,
     9.12875,
     46.4
-   ]
+   ],
+   "cluster": "switzerland-183"
   },
   {
    "slug": "mishawaka",
@@ -7593,7 +8158,8 @@
     -85.8765,
     41.9044
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "mississauga",
@@ -7604,7 +8170,8 @@
     43.47725,
     -79.53389,
     43.74816
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "mobile",
@@ -7622,7 +8189,8 @@
     -88.00992,
     30.79177
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-110"
   },
   {
    "slug": "mocajuba",
@@ -7633,7 +8201,8 @@
     -2.8001,
     -49.2875,
     -2.3601
-   ]
+   ],
+   "cluster": "brazil-13"
   },
   {
    "slug": "modesto",
@@ -7651,7 +8220,8 @@
     -120.90487,
     37.72538
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-145"
   },
   {
    "slug": "moju-dos-campos",
@@ -7662,7 +8232,8 @@
     -2.8795,
     -54.4449,
     -2.4395
-   ]
+   ],
+   "cluster": "brazil-14"
   },
   {
    "slug": "moliets-et-maa",
@@ -7673,7 +8244,8 @@
     43.624,
     -1.0739,
     44.064
-   ]
+   ],
+   "cluster": "france-94"
   },
   {
    "slug": "molise",
@@ -7684,7 +8256,8 @@
     41.4842,
     14.9499,
     41.9242
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "monroe",
@@ -7702,7 +8275,8 @@
     -91.9714,
     32.58888
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-114"
   },
   {
    "slug": "monrovia",
@@ -7720,7 +8294,8 @@
     -10.50475,
     6.61056
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-59"
   },
   {
    "slug": "mont-tremblant",
@@ -7731,7 +8306,8 @@
     45.9863,
     -74.2909,
     46.4263
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "montauban",
@@ -7742,7 +8318,8 @@
     43.7942,
     1.6702,
     44.2342
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "monte-apraz-vel",
@@ -7753,7 +8330,8 @@
     -20.9939,
     -49.474,
     -20.5539
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "monterrey",
@@ -7764,7 +8342,8 @@
     25.36999,
     -100.02998,
     25.97
-   ]
+   ],
+   "cluster": "mexico-82"
   },
   {
    "slug": "montes-claros",
@@ -7775,7 +8354,8 @@
     -16.9479,
     -43.6195,
     -16.5079
-   ]
+   ],
+   "cluster": "brazil-32"
   },
   {
    "slug": "montgomery",
@@ -7793,7 +8373,8 @@
     -86.0978,
     32.43985
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "montral",
@@ -7804,7 +8385,8 @@
     45.35884,
     -73.43781,
     45.65884
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "montreal",
@@ -7815,7 +8397,8 @@
     45.2017,
     -73.2673,
     45.8017
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "morelos",
@@ -7826,7 +8409,8 @@
     18.5443,
     -98.9228,
     18.9843
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "moreno",
@@ -7837,7 +8421,8 @@
     -8.3377,
     -34.8778,
     -7.8977
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "mossor",
@@ -7848,7 +8433,8 @@
     -5.3879,
     -37.1316,
     -4.9479
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "mount-olive",
@@ -7866,7 +8452,8 @@
     -86.6079,
     33.919
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "mountpleasant",
@@ -7884,7 +8471,8 @@
     -87.66,
     42.91
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "mountvernon",
@@ -7902,7 +8490,8 @@
     -3.37249,
     58.73629
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-75"
   },
   {
    "slug": "moyon-villages",
@@ -7913,7 +8502,8 @@
     48.7784,
     -0.83145,
     49.2184
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "mumbai",
@@ -7924,7 +8514,8 @@
     18.71699,
     73.15698,
     19.31699
-   ]
+   ],
+   "cluster": "india-87"
   },
   {
    "slug": "munds-park",
@@ -7942,7 +8533,8 @@
     -111.3914,
     35.1635
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-142"
   },
   {
    "slug": "munich",
@@ -7953,7 +8545,8 @@
     48.0913,
     12.0861,
     48.6163
-   ]
+   ],
+   "cluster": "germany-189"
   },
   {
    "slug": "murcia",
@@ -7964,7 +8557,8 @@
     37.81,
     -0.88,
     38.17
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "murfreesboro",
@@ -7982,7 +8576,8 @@
     -86.32684,
     35.97614
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "murgenthal",
@@ -7993,7 +8588,8 @@
     47.0519,
     8.13965,
     47.4919
-   ]
+   ],
+   "cluster": "switzerland-183"
   },
   {
    "slug": "muribeca",
@@ -8004,7 +8600,8 @@
     -10.5787,
     -36.7405,
     -10.1387
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "myrtlebeach",
@@ -8022,7 +8619,8 @@
     -78.72797,
     33.81373
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-65"
   },
   {
    "slug": "nacogdoches",
@@ -8040,7 +8638,8 @@
     -94.3858,
     31.8459
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "nagoya",
@@ -8051,7 +8650,8 @@
     34.8815,
     137.2066,
     35.4815
-   ]
+   ],
+   "cluster": "japan-221"
   },
   {
    "slug": "nairobi",
@@ -8062,7 +8662,8 @@
     -1.58335,
     37.11665,
     -0.98335
-   ]
+   ],
+   "cluster": "kenya-245"
   },
   {
    "slug": "nanjing",
@@ -8073,7 +8674,8 @@
     31.7603,
     119.0969,
     32.3603
-   ]
+   ],
+   "cluster": "china-203"
   },
   {
    "slug": "napa",
@@ -8091,7 +8693,8 @@
     -122.0198,
     38.5423
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "naperville",
@@ -8109,7 +8712,8 @@
     -87.8728,
     41.9967
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-124"
   },
   {
    "slug": "naples",
@@ -8127,7 +8731,8 @@
     -81.53748,
     26.33369
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "narvik",
@@ -8138,7 +8743,8 @@
     68.26,
     17.68,
     68.62
-   ]
+   ],
+   "cluster": "norway-182"
   },
   {
    "slug": "nashville",
@@ -8156,7 +8762,8 @@
     -86.53073,
     36.36791
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "nazar",
@@ -8167,7 +8774,8 @@
     -13.2541,
     -38.7963,
     -12.814
-   ]
+   ],
+   "cluster": "brazil-27"
   },
   {
    "slug": "neukirchen-erzgeb",
@@ -8178,7 +8786,8 @@
     50.5614,
     13.16055,
     51.0014
-   ]
+   ],
+   "cluster": "germany-189"
   },
   {
    "slug": "neum-nster",
@@ -8189,7 +8798,8 @@
     53.8626,
     10.2678,
     54.3026
-   ]
+   ],
+   "cluster": "germany-190"
   },
   {
    "slug": "new-city",
@@ -8207,7 +8817,8 @@
     -73.6971,
     41.3682
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "newalbany",
@@ -8225,7 +8836,8 @@
     -82.56,
     40.26
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "newark",
@@ -8243,7 +8855,8 @@
     -74.13101,
     40.80341
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "newdelhi",
@@ -8254,7 +8867,8 @@
     28.30002,
     77.49998,
     28.90002
-   ]
+   ],
+   "cluster": "india-89"
   },
   {
    "slug": "neworleans",
@@ -8272,7 +8886,8 @@
     -89.9204,
     30.06354
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-107"
   },
   {
    "slug": "newportnews",
@@ -8290,7 +8905,8 @@
     -76.27975,
     37.13038
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "newtaipeicity",
@@ -8301,7 +8917,8 @@
     24.90613,
     121.70707,
     25.21936
-   ]
+   ],
+   "cluster": "taiwan-233"
   },
   {
    "slug": "newyork",
@@ -8319,7 +8936,8 @@
     -73.68001,
     41.04998
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "newyorkcity",
@@ -8337,7 +8955,8 @@
     -73.85597,
     40.86427
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "nicosia",
@@ -8348,7 +8967,8 @@
     34.86668,
     33.66663,
     35.46668
-   ]
+   ],
+   "cluster": "cyprus-246"
   },
   {
    "slug": "ningbo",
@@ -8359,7 +8979,8 @@
     29.69,
     121.8,
     30.05
-   ]
+   ],
+   "cluster": "china-200"
   },
   {
    "slug": "ningde",
@@ -8370,7 +8991,8 @@
     26.48,
     119.8,
     26.84
-   ]
+   ],
+   "cluster": "china-197"
   },
   {
    "slug": "nitriansky",
@@ -8381,7 +9003,8 @@
     48.1133,
     18.4723,
     48.5533
-   ]
+   ],
+   "cluster": "slovakia-187"
   },
   {
    "slug": "nokomis",
@@ -8399,7 +9022,8 @@
     -82.1891,
     27.3622
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "norfolk",
@@ -8417,7 +9041,8 @@
     -76.1572,
     36.97574
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "north-fort-myers",
@@ -8435,7 +9060,8 @@
     -81.6486,
     26.8965
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "northlasvegas",
@@ -8453,7 +9079,8 @@
     -115.06093,
     36.31265
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-145"
   },
   {
    "slug": "norwalk",
@@ -8471,7 +9098,8 @@
     -82.3144,
     41.4856
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "nottingham",
@@ -8482,7 +9110,8 @@
     52.85728,
     -1.02829,
     53.13079
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "noum-a",
@@ -8493,7 +9122,8 @@
     -22.4783,
     166.6931,
     -22.0384
-   ]
+   ],
+   "cluster": "france-91"
   },
   {
    "slug": "nova-cruz",
@@ -8504,7 +9134,8 @@
     -6.6832,
     -35.2385,
     -6.2432
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "nova-friburgo",
@@ -8515,7 +9146,8 @@
     -22.5092,
     -42.3078,
     -22.0692
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "novi-pazar",
@@ -8526,7 +9158,8 @@
     42.9164,
     20.811,
     43.3564
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "novo-horizonte-do-oeste",
@@ -8537,7 +9170,8 @@
     -11.8899,
     -61.8161,
     -11.4499
-   ]
+   ],
+   "cluster": "brazil-26"
   },
   {
    "slug": "nowotarski",
@@ -8548,7 +9182,8 @@
     49.264,
     20.3754,
     49.704
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "ocala",
@@ -8566,7 +9201,8 @@
     -81.98447,
     29.30697
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "ocara",
@@ -8577,7 +9213,8 @@
     -4.7501,
     -38.3525,
     -4.3101
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "ocean-isle-beach",
@@ -8595,7 +9232,8 @@
     -78.1557,
     34.1115
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-65"
   },
   {
    "slug": "odessa",
@@ -8613,7 +9251,8 @@
     -102.25388,
     31.96348
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-108"
   },
   {
    "slug": "okinawa",
@@ -8624,7 +9263,8 @@
     26.03,
     127.93,
     26.39
-   ]
+   ],
+   "cluster": "japan-219"
   },
   {
    "slug": "oklahomacity",
@@ -8642,7 +9282,8 @@
     -97.31413,
     35.70148
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-118"
   },
   {
    "slug": "okletac",
@@ -8653,7 +9294,8 @@
     43.8581,
     19.88195,
     44.2981
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "omaha",
@@ -8671,7 +9313,8 @@
     -95.88201,
     41.3553
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-125"
   },
   {
    "slug": "ontario",
@@ -8689,7 +9332,8 @@
     -117.52661,
     34.1058
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "opolski",
@@ -8700,7 +9344,8 @@
     50.5024,
     18.5207,
     50.9424
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "or",
@@ -8718,7 +9363,8 @@
     -122.77475,
     45.1586
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-151"
   },
   {
    "slug": "oran",
@@ -8729,7 +9375,8 @@
     35.52,
     -0.38,
     35.88
-   ]
+   ],
+   "cluster": "algeria-156"
   },
   {
    "slug": "orange",
@@ -8747,7 +9394,8 @@
     -117.617,
     33.925
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "origny-sainte-benoite",
@@ -8758,7 +9406,8 @@
     49.6203,
     3.78905,
     50.0603
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "oriximin",
@@ -8769,7 +9418,8 @@
     -1.8844,
     -55.8042,
     -1.4444
-   ]
+   ],
+   "cluster": "brazil-11"
   },
   {
    "slug": "orlando",
@@ -8787,7 +9437,8 @@
     -81.09662,
     28.65025
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "orovac",
@@ -8798,7 +9449,8 @@
     45.654,
     17.27415,
     46.094
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "osaka",
@@ -8809,7 +9461,8 @@
     34.3937,
     135.8023,
     34.9937
-   ]
+   ],
+   "cluster": "japan-220"
   },
   {
    "slug": "oshkosh",
@@ -8827,7 +9480,8 @@
     -88.26455,
     44.2419
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-129"
   },
   {
    "slug": "oslo",
@@ -8838,7 +9492,8 @@
     59.61669,
     11.04998,
     60.21669
-   ]
+   ],
+   "cluster": "norway-181"
   },
   {
    "slug": "ostrowski",
@@ -8849,7 +9504,8 @@
     51.4146,
     18.12285,
     51.8546
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "ottawa",
@@ -8860,7 +9516,8 @@
     45.1167,
     -75.40002,
     45.7167
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "overlandpark",
@@ -8878,7 +9535,8 @@
     -94.6192,
     39.0201
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-122"
   },
   {
    "slug": "owensboro",
@@ -8896,7 +9554,8 @@
     -86.8447,
     37.9626
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-119"
   },
   {
    "slug": "oxford",
@@ -8914,7 +9573,8 @@
     -85.76428,
     33.63525
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "oxnard",
@@ -8932,7 +9592,8 @@
     -118.9148,
     34.4187
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "paattinen",
@@ -8943,7 +9604,8 @@
     60.3757,
     22.68545,
     60.8157
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "padre-bernardo",
@@ -8954,7 +9616,8 @@
     -15.6935,
     -48.0045,
     -15.2535
-   ]
+   ],
+   "cluster": "brazil-30"
   },
   {
    "slug": "padul",
@@ -8965,7 +9628,8 @@
     36.809,
     -3.3537,
     37.249
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "palos-de-la-frontera",
@@ -8976,7 +9640,8 @@
     36.9079,
     -6.5367,
     37.3479
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "palotina",
@@ -8987,7 +9652,8 @@
     -24.5038,
     -53.6013,
     -24.0638
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "panama-city",
@@ -9005,7 +9671,8 @@
     -85.4213,
     30.4122
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-109"
   },
   {
    "slug": "paracuru",
@@ -9016,7 +9683,8 @@
     -3.6484,
     -38.8018,
     -3.2084
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "paranaquecity",
@@ -9027,7 +9695,8 @@
     14.33156,
     121.16749,
     14.63156
-   ]
+   ],
+   "cluster": "philippines-243"
   },
   {
    "slug": "paris",
@@ -9038,7 +9707,8 @@
     48.56669,
     2.63333,
     49.16669
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "parnamirim",
@@ -9049,7 +9719,8 @@
     -6.1427,
     -35.0031,
     -5.7027
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "parres",
@@ -9060,7 +9731,8 @@
     43.1344,
     -4.91545,
     43.5744
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "pasadena",
@@ -9078,7 +9750,8 @@
     -95.10039,
     29.73116
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-107"
   },
   {
    "slug": "pasigcity",
@@ -9089,7 +9762,8 @@
     14.43691,
     121.2114,
     14.73691
-   ]
+   ],
+   "cluster": "philippines-243"
   },
   {
    "slug": "passo-fundo",
@@ -9100,7 +9774,8 @@
     -28.4798,
     -52.1605,
     -28.0398
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "pastrana",
@@ -9111,7 +9786,8 @@
     40.223,
     -2.6415,
     40.663
-   ]
+   ],
+   "cluster": "spain-135"
   },
   {
    "slug": "paterson",
@@ -9129,7 +9805,8 @@
     -71.3766,
     43.0377
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "pello",
@@ -9140,7 +9817,8 @@
     66.5914,
     24.24965,
     67.0314
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "pelotas",
@@ -9151,7 +9829,8 @@
     -31.968,
     -52.0932,
     -31.528
-   ]
+   ],
+   "cluster": "brazil-9"
   },
   {
    "slug": "penrith",
@@ -9162,7 +9841,8 @@
     -33.9743,
     150.9647,
     -33.5343
-   ]
+   ],
+   "cluster": "australia-53"
   },
   {
    "slug": "pensacola",
@@ -9180,7 +9860,8 @@
     -87.14381,
     30.57335
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-109"
   },
   {
    "slug": "peoria",
@@ -9198,7 +9879,8 @@
     -112.18317,
     33.78137
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "pereira",
@@ -9209,7 +9891,8 @@
     4.5957,
     -75.479,
     5.0357
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "peroj",
@@ -9220,7 +9903,8 @@
     44.7565,
     14.0718,
     45.1965
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "perth",
@@ -9231,7 +9915,8 @@
     -32.12,
     116.02,
     -31.88
-   ]
+   ],
+   "cluster": "australia-52"
   },
   {
    "slug": "pesqueira",
@@ -9242,7 +9927,8 @@
     -8.6103,
     -36.4429,
     -8.1703
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "petalingjaya",
@@ -9253,7 +9939,8 @@
     3.04151,
     101.66785,
     3.21778
-   ]
+   ],
+   "cluster": "malaysia-singapore-brunei-231"
   },
   {
    "slug": "petrolina",
@@ -9264,7 +9951,8 @@
     -9.5316,
     -40.3085,
     -9.0916
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "pfunds",
@@ -9275,7 +9963,8 @@
     46.7476,
     10.8387,
     47.1876
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "philadelphia",
@@ -9293,7 +9982,8 @@
     -74.8652,
     40.2526
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "phnompenh",
@@ -9304,7 +9994,8 @@
     11.25003,
     105.21663,
     11.85003
-   ]
+   ],
+   "cluster": "cambodia-247"
   },
   {
    "slug": "phoenix",
@@ -9322,7 +10013,8 @@
     -111.82,
     33.63
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "pi-n",
@@ -9333,7 +10025,8 @@
     -26.3463,
     -49.1738,
     -25.9063
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "picassent",
@@ -9344,7 +10037,8 @@
     39.1181,
     -0.2056,
     39.5581
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "piemonte",
@@ -9355,7 +10049,8 @@
     44.8702,
     8.232,
     45.3102
-   ]
+   ],
+   "cluster": "italy-39"
   },
   {
    "slug": "pismo-beach",
@@ -9373,7 +10068,8 @@
     -120.3668,
     35.3557
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "pittsburgh",
@@ -9391,7 +10087,8 @@
     -79.74668,
     40.58575
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-71"
   },
   {
    "slug": "plano",
@@ -9409,7 +10106,8 @@
     -96.62633,
     33.13093
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-115"
   },
   {
    "slug": "plymouth",
@@ -9427,7 +10125,8 @@
     -70.52418,
     42.00142
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "po-o-das-trincheiras",
@@ -9438,7 +10137,8 @@
     -9.5574,
     -37.1736,
     -9.1174
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "poitiers",
@@ -9449,7 +10149,8 @@
     46.3545,
     0.63435,
     46.7945
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "pojuca",
@@ -9460,7 +10161,8 @@
     -12.6397,
     -38.097,
     -12.1997
-   ]
+   ],
+   "cluster": "brazil-27"
   },
   {
    "slug": "pola-a",
@@ -9471,7 +10173,8 @@
     43.801,
     15.80835,
     44.241
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "polanka-nad-odrou",
@@ -9482,7 +10185,8 @@
     49.5618,
     18.4687,
     50.0018
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "pomarkku",
@@ -9493,7 +10197,8 @@
     61.5037,
     22.249,
     61.9437
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "ponta-grossa",
@@ -9504,7 +10209,8 @@
     -25.309,
     -49.8926,
     -24.869
-   ]
+   ],
+   "cluster": "brazil-7"
   },
   {
    "slug": "ponte-caldelas",
@@ -9515,7 +10221,8 @@
     42.1595,
     -8.2174,
     42.5995
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "pontes-e-lacerda",
@@ -9526,7 +10233,8 @@
     -15.4541,
     -59.1044,
     -15.0141
-   ]
+   ],
+   "cluster": "brazil-31"
   },
   {
    "slug": "pontons",
@@ -9537,7 +10245,8 @@
     41.2084,
     1.78,
     41.6484
-   ]
+   ],
+   "cluster": "spain-136"
   },
   {
    "slug": "popay-n",
@@ -9548,7 +10257,8 @@
     2.2311,
     -76.3854,
     2.6711
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "pornic",
@@ -9559,7 +10269,8 @@
     46.8901,
     -1.79075,
     47.3301
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "port-la-nouvelle",
@@ -9570,7 +10281,8 @@
     42.7947,
     3.35265,
     43.2347
-   ]
+   ],
+   "cluster": "france-94"
   },
   {
    "slug": "portland",
@@ -9588,7 +10300,8 @@
     -122.41079,
     45.64365
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-151"
   },
   {
    "slug": "porto-seguro",
@@ -9599,7 +10312,8 @@
     -16.756,
     -38.9027,
     -16.316
-   ]
+   ],
+   "cluster": "brazil-32"
   },
   {
    "slug": "porto-velho",
@@ -9610,7 +10324,8 @@
     -8.9914,
     -63.6652,
     -8.5514
-   ]
+   ],
+   "cluster": "brazil-24"
   },
   {
    "slug": "posterholt",
@@ -9621,7 +10336,8 @@
     50.8999,
     6.3105,
     51.3399
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "pougues-les-eaux",
@@ -9632,7 +10348,8 @@
     46.8562,
     3.39965,
     47.2962
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "prado",
@@ -9643,7 +10360,8 @@
     -17.412,
     -38.9945,
     -16.972
-   ]
+   ],
+   "cluster": "brazil-32"
   },
   {
    "slug": "prague",
@@ -9654,7 +10372,8 @@
     49.78334,
     14.76598,
     50.38334
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "praia-grande",
@@ -9665,7 +10384,8 @@
     -24.2416,
     -46.255,
     -23.8016
-   ]
+   ],
+   "cluster": "brazil-7"
   },
   {
    "slug": "presidente-epit-cio",
@@ -9676,7 +10396,8 @@
     -21.9967,
     -51.8776,
     -21.5567
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "pretoria",
@@ -9687,7 +10408,8 @@
     -26.00692,
     28.52943,
     -25.40692
-   ]
+   ],
+   "cluster": "south-africa-185"
   },
   {
    "slug": "prien-m",
@@ -9698,7 +10420,8 @@
     54.4259,
     24.2479,
     54.8659
-   ]
+   ],
+   "cluster": "lithuania-237"
   },
   {
    "slug": "provo",
@@ -9716,7 +10439,8 @@
     -111.3713,
     40.4674
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-150"
   },
   {
    "slug": "pszczy-ski",
@@ -9727,7 +10451,8 @@
     49.7504,
     19.25535,
     50.1904
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "puebla",
@@ -9738,7 +10463,8 @@
     18.94984,
     -98.0638,
     19.1188
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "pueblo",
@@ -9756,7 +10482,8 @@
     -104.317,
     38.4956
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "puerto-real",
@@ -9767,7 +10494,8 @@
     36.3088,
     -5.9192,
     36.7488
-   ]
+   ],
+   "cluster": "spain-132"
   },
   {
    "slug": "puglia",
@@ -9778,7 +10506,8 @@
     40.3622,
     17.7206,
     40.8022
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "pune",
@@ -9789,7 +10518,8 @@
     18.2204,
     74.1567,
     18.8204
-   ]
+   ],
+   "cluster": "india-87"
   },
   {
    "slug": "purmo",
@@ -9800,7 +10530,8 @@
     63.3163,
     23.2234,
     63.7563
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "putrajaya",
@@ -9811,7 +10542,8 @@
     2.61402,
     102.00194,
     3.21402
-   ]
+   ],
+   "cluster": "malaysia-singapore-brunei-231"
   },
   {
    "slug": "qingdao",
@@ -9822,7 +10554,8 @@
     35.7671,
     120.6826,
     36.3671
-   ]
+   ],
+   "cluster": "china-205"
   },
   {
    "slug": "quer-taro",
@@ -9833,7 +10566,8 @@
     20.3445,
     -99.6579,
     20.7845
-   ]
+   ],
+   "cluster": "mexico-82"
   },
   {
    "slug": "quezoncity",
@@ -9844,7 +10578,8 @@
     14.4619,
     121.11502,
     14.79421
-   ]
+   ],
+   "cluster": "philippines-243"
   },
   {
    "slug": "quintana-roo",
@@ -9855,7 +10590,8 @@
     20.1796,
     -87.1102,
     20.6196
-   ]
+   ],
+   "cluster": "mexico-81"
   },
   {
    "slug": "quito",
@@ -9866,7 +10602,8 @@
     -0.51499,
     -78.20005,
     0.08501
-   ]
+   ],
+   "cluster": "ecuador-248"
   },
   {
    "slug": "rabat",
@@ -9877,7 +10614,8 @@
     33.7253,
     -6.53613,
     34.3253
-   ]
+   ],
+   "cluster": "morocco-195"
   },
   {
    "slug": "raleigh",
@@ -9895,7 +10633,8 @@
     -78.47268,
     35.9954
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "ravenna",
@@ -9913,7 +10652,8 @@
     -80.9182,
     41.3806
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "regina",
@@ -9924,7 +10664,8 @@
     50.30008,
     -104.4678,
     50.60008
-   ]
+   ],
+   "cluster": "canada-169"
   },
   {
    "slug": "region-midtjylland",
@@ -9935,7 +10676,8 @@
     55.937,
     10.40545,
     56.377
-   ]
+   ],
+   "cluster": "denmark-210"
   },
   {
    "slug": "region-nordjylland",
@@ -9946,7 +10688,8 @@
     56.8452,
     10.24845,
     57.2852
-   ]
+   ],
+   "cluster": "denmark-210"
   },
   {
    "slug": "region-syddanmark",
@@ -9957,7 +10700,8 @@
     55.237,
     9.9778,
     55.677
-   ]
+   ],
+   "cluster": "denmark-210"
   },
   {
    "slug": "reims",
@@ -9968,7 +10712,8 @@
     49.0414,
     4.3296,
     49.4814
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "remire-montjoly",
@@ -9979,7 +10724,8 @@
     4.6831,
     -52.0503,
     5.1231
-   ]
+   ],
+   "cluster": "france-92"
   },
   {
    "slug": "reno",
@@ -9997,7 +10743,8 @@
     -119.72019,
     39.66091
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "reoc-n",
@@ -10008,7 +10755,8 @@
     43.1349,
     -3.81655,
     43.5749
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "reseda",
@@ -10026,7 +10774,8 @@
     -83.05881,
     40.6215
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "reykjavk",
@@ -10037,7 +10786,8 @@
     63.85002,
     -21.65001,
     64.45002
-   ]
+   ],
+   "cluster": "iceland-249"
   },
   {
    "slug": "ribeira-do-pombal",
@@ -10048,7 +10798,8 @@
     -11.0444,
     -38.2944,
     -10.6044
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "richmond",
@@ -10059,7 +10810,8 @@
     37.35733,
     -77.26902,
     37.72781
-   ]
+   ],
+   "cluster": "canada-163"
   },
   {
    "slug": "riells-i-viabrea",
@@ -10070,7 +10822,8 @@
     41.5069,
     2.8421,
     41.9469
-   ]
+   ],
+   "cluster": "spain-136"
   },
   {
    "slug": "riga",
@@ -10081,7 +10834,8 @@
     56.65002,
     24.39997,
     57.25002
-   ]
+   ],
+   "cluster": "latvia-250"
   },
   {
    "slug": "rio-claro",
@@ -10092,7 +10846,8 @@
     -23.056,
     -43.9607,
     -22.616
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "rio-do-sul",
@@ -10103,7 +10858,8 @@
     -27.3732,
     -49.3645,
     -26.9332
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "rio-largo",
@@ -10114,7 +10870,8 @@
     -9.7178,
     -35.5998,
     -9.2778
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "rio-maior",
@@ -10125,7 +10882,8 @@
     39.1199,
     -8.6508,
     39.5599
-   ]
+   ],
+   "cluster": "portugal-139"
   },
   {
    "slug": "rio-real",
@@ -10136,7 +10894,8 @@
     -11.7514,
     -37.6985,
     -11.3114
-   ]
+   ],
+   "cluster": "brazil-25"
   },
   {
    "slug": "riodejaneiro",
@@ -10147,7 +10906,8 @@
     -23.22502,
     -42.92502,
     -22.62502
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "risika",
@@ -10158,7 +10918,8 @@
     44.8862,
     14.9479,
     45.3262
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "riverside",
@@ -10176,7 +10937,8 @@
     -117.24026,
     34.0353
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "rives-d-andaine",
@@ -10187,7 +10949,8 @@
     48.2944,
     -0.1224,
     48.7344
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "riyadh",
@@ -10198,7 +10961,8 @@
     24.34083,
     47.07274,
     24.94083
-   ]
+   ],
+   "cluster": "gcc-states-43"
   },
   {
    "slug": "rmqi",
@@ -10209,7 +10973,8 @@
     43.50501,
     87.87501,
     44.10501
-   ]
+   ],
+   "cluster": "china-208"
   },
   {
    "slug": "roanoke",
@@ -10227,7 +10992,8 @@
     -79.85637,
     37.38357
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "rochester",
@@ -10245,7 +11011,8 @@
     -77.45373,
     43.28229
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-73"
   },
   {
    "slug": "rockford",
@@ -10263,7 +11030,8 @@
     -88.93357,
     42.34182
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-127"
   },
   {
    "slug": "rockville",
@@ -10281,7 +11049,8 @@
     -76.9,
     39.26
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "rogers",
@@ -10299,7 +11068,8 @@
     -93.8912,
     36.5361
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-120"
   },
   {
    "slug": "rome",
@@ -10310,7 +11080,8 @@
     41.59596,
     12.78326,
     42.19596
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "romilly-sur-seine",
@@ -10321,7 +11092,8 @@
     48.2964,
     4.02095,
     48.7364
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "ropczycko-s-dziszowski",
@@ -10332,7 +11104,8 @@
     49.8365,
     21.91315,
     50.2765
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "ros-rio-do-sul",
@@ -10343,7 +11116,8 @@
     -30.4749,
     -54.6629,
     -30.0349
-   ]
+   ],
+   "cluster": "brazil-9"
   },
   {
    "slug": "roseau",
@@ -10361,7 +11135,8 @@
     -61.08702,
     15.60102
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-61"
   },
   {
    "slug": "roseville",
@@ -10379,7 +11154,8 @@
     -121.20578,
     38.8161
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "rs",
@@ -10390,7 +11166,8 @@
     44.2045,
     21.13355,
     44.6445
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "russas",
@@ -10401,7 +11178,8 @@
     -5.1368,
     -37.7914,
     -4.6968
-   ]
+   ],
+   "cluster": "brazil-16"
   },
   {
    "slug": "rzesz-w",
@@ -10412,7 +11190,8 @@
     49.7936,
     22.29505,
     50.2336
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "s-hertogenbosch",
@@ -10423,7 +11202,8 @@
     51.4775,
     5.59405,
     51.9175
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "s-o-bento",
@@ -10434,7 +11214,8 @@
     -2.9294,
     -44.6293,
     -2.4894
-   ]
+   ],
+   "cluster": "brazil-13"
   },
   {
    "slug": "s-o-carlos",
@@ -10445,7 +11226,8 @@
     -22.2133,
     -47.6692,
     -21.7733
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "s-o-domingos-do-capim",
@@ -10456,7 +11238,8 @@
     -2.011,
     -47.5256,
     -1.571
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "s-o-gon-alo-dos-campos",
@@ -10467,7 +11250,8 @@
     -12.5971,
     -38.7379,
     -12.1571
-   ]
+   ],
+   "cluster": "brazil-27"
   },
   {
    "slug": "s-o-jo-o-da-barra",
@@ -10478,7 +11262,8 @@
     -21.9861,
     -40.8334,
     -21.5462
-   ]
+   ],
+   "cluster": "brazil-2"
   },
   {
    "slug": "s-o-louren-o-do-sul",
@@ -10489,7 +11274,8 @@
     -31.5868,
     -51.7162,
     -31.1468
-   ]
+   ],
+   "cluster": "brazil-9"
   },
   {
    "slug": "s-o-luiz-gonzaga",
@@ -10500,7 +11286,8 @@
     -28.6287,
     -54.7073,
     -28.1887
-   ]
+   ],
+   "cluster": "brazil-9"
   },
   {
    "slug": "s-o-miguel-do-igua-u",
@@ -10511,7 +11298,8 @@
     -25.5714,
     -54.0039,
     -25.1314
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "s-o-roque-do-cana",
@@ -10522,7 +11310,8 @@
     -19.96,
     -40.4111,
     -19.52
-   ]
+   ],
+   "cluster": "brazil-0"
   },
   {
    "slug": "s-o-sebasti-o-da-boa-vista",
@@ -10533,7 +11322,8 @@
     -1.7632,
     -49.3558,
     -1.3232
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "saarbr-cken",
@@ -10544,7 +11334,8 @@
     49.0314,
     7.2991,
     49.4714
-   ]
+   ],
+   "cluster": "germany-189"
   },
   {
    "slug": "sab-udia",
@@ -10555,7 +11346,8 @@
     -23.6042,
     -51.3411,
     -23.1642
-   ]
+   ],
+   "cluster": "brazil-6"
   },
   {
    "slug": "sacramento",
@@ -10573,7 +11365,8 @@
     -121.3046,
     38.72314
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "saint-andr-d-argenteuil",
@@ -10584,7 +11377,8 @@
     45.3341,
     -74.034,
     45.7741
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "saint-augustine",
@@ -10602,7 +11396,8 @@
     -81.1201,
     30.1111
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "saint-george",
@@ -10620,7 +11415,8 @@
     -113.3152,
     37.3221
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-144"
   },
   {
    "slug": "saint-hilarion",
@@ -10631,7 +11427,8 @@
     48.3961,
     2.01045,
     48.8361
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "saint-jacques",
@@ -10642,7 +11439,8 @@
     45.7295,
     -73.2723,
     46.1695
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "saint-joseph-de-beauce",
@@ -10653,7 +11451,8 @@
     46.0862,
     -70.57855,
     46.5262
-   ]
+   ],
+   "cluster": "canada-166"
   },
   {
    "slug": "saint-s-bastien-sur-loire",
@@ -10664,7 +11463,8 @@
     46.9688,
     -1.2006,
     47.4088
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "saint-vallier",
@@ -10675,7 +11475,8 @@
     46.4286,
     4.64995,
     46.8686
-   ]
+   ],
+   "cluster": "france-99"
   },
   {
    "slug": "saintgeorges",
@@ -10686,7 +11487,8 @@
     11.75263,
     -61.44165,
     12.35263
-   ]
+   ],
+   "cluster": "canada-162"
   },
   {
    "slug": "salazie",
@@ -10697,7 +11499,8 @@
     -21.2587,
     55.748,
     -20.8187
-   ]
+   ],
+   "cluster": "france-90"
   },
   {
    "slug": "salem",
@@ -10715,7 +11518,8 @@
     -122.95921,
     45.01001
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-151"
   },
   {
    "slug": "sales-polis",
@@ -10726,7 +11530,8 @@
     -23.7721,
     -45.5972,
     -23.3321
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "saltlakecity",
@@ -10744,7 +11549,8 @@
     -111.64,
     40.94
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-150"
   },
   {
    "slug": "salto",
@@ -10755,7 +11561,8 @@
     -23.4077,
     -47.0829,
     -22.9677
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "samarkand",
@@ -10766,7 +11573,8 @@
     39.47,
     67.22,
     39.83
-   ]
+   ],
+   "cluster": "uzbekistan-251"
   },
   {
    "slug": "san-luis-potos",
@@ -10777,7 +11585,8 @@
     21.9677,
     -100.4069,
     22.4077
-   ]
+   ],
+   "cluster": "mexico-82"
   },
   {
    "slug": "sanaa",
@@ -10788,7 +11597,8 @@
     15.05473,
     44.50659,
     15.65473
-   ]
+   ],
+   "cluster": "yemen-252"
   },
   {
    "slug": "sanantonio",
@@ -10806,7 +11616,8 @@
     -98.28337,
     29.72917
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-108"
   },
   {
    "slug": "sandiego",
@@ -10824,7 +11635,8 @@
     -116.91,
     32.9
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "sanford",
@@ -10842,7 +11654,8 @@
     -81.12312,
     28.95055
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "sanfrancisco",
@@ -10860,7 +11673,8 @@
     -122.15998,
     38.04001
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-146"
   },
   {
    "slug": "sanjose",
@@ -10878,7 +11692,8 @@
     -121.73733,
     37.44474
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-146"
   },
   {
    "slug": "sanmarcos",
@@ -10896,7 +11711,8 @@
     -97.79139,
     30.03327
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-108"
   },
   {
    "slug": "santa-b-rbara",
@@ -10907,7 +11723,8 @@
     40.4949,
     0.7876,
     40.9349
-   ]
+   ],
+   "cluster": "spain-135"
   },
   {
    "slug": "santa-b-rbara-d-oeste",
@@ -10918,7 +11735,8 @@
     -22.9572,
     -47.1388,
     -22.5172
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "santa-eul-ria-des-riu",
@@ -10929,7 +11747,8 @@
     38.7602,
     1.7694,
     39.2002
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "santa-marta",
@@ -10940,7 +11759,8 @@
     11.0053,
     -73.9745,
     11.4453
-   ]
+   ],
+   "cluster": "colombia-177"
   },
   {
    "slug": "santa-rita",
@@ -10951,7 +11771,8 @@
     -3.8113,
     -43.0532,
     -3.3713
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "santaana",
@@ -10969,7 +11790,8 @@
     -117.81379,
     33.79369
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "santamonica",
@@ -10987,7 +11809,8 @@
     -118.24,
     34.2
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "santiago",
@@ -10998,7 +11821,8 @@
     -33.75001,
     -70.36704,
     -33.15001
-   ]
+   ],
+   "cluster": "chile-214"
   },
   {
    "slug": "santo-ant-nio-do-tau",
@@ -11009,7 +11833,8 @@
     -1.3432,
     -47.9091,
     -0.9032
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "sapporo",
@@ -11020,7 +11845,8 @@
     42.88,
     141.6,
     43.24
-   ]
+   ],
+   "cluster": "japan-222"
   },
   {
    "slug": "sapucaia-do-sul",
@@ -11031,7 +11857,8 @@
     -30.0498,
     -50.8868,
     -29.6098
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "saquarema",
@@ -11042,7 +11869,8 @@
     -23.1343,
     -42.2987,
     -22.6943
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "sarajevo",
@@ -11053,7 +11881,8 @@
     43.55002,
     18.683,
     44.15002
-   ]
+   ],
+   "cluster": "bosnia-herzegovina-253"
   },
   {
    "slug": "sarasota",
@@ -11071,7 +11900,8 @@
     -82.40912,
     27.42016
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "sardegna",
@@ -11082,7 +11912,8 @@
     39.7889,
     9.2398,
     40.2289
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "saskatoon",
@@ -11093,7 +11924,8 @@
     52.06355,
     -106.50051,
     52.21391
-   ]
+   ],
+   "cluster": "canada-171"
   },
   {
    "slug": "savannah",
@@ -11111,7 +11943,8 @@
     -80.93116,
     32.19263
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-113"
   },
   {
    "slug": "schenectady",
@@ -11129,7 +11962,8 @@
     -73.6356,
     43.0434
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "scottsdale",
@@ -11147,7 +11981,8 @@
     -111.81471,
     33.82722
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "seattle",
@@ -11165,7 +12000,8 @@
     -122.0321,
     47.9062
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "seia",
@@ -11176,7 +12012,8 @@
     40.1972,
     -7.4174,
     40.6372
-   ]
+   ],
+   "cluster": "portugal-139"
   },
   {
    "slug": "selah",
@@ -11194,7 +12031,8 @@
     -120.25465,
     46.9297
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "semarang",
@@ -11205,7 +12043,8 @@
     -7.17,
     110.67,
     -6.81
-   ]
+   ],
+   "cluster": "indonesia-230"
   },
   {
    "slug": "sencelles",
@@ -11216,7 +12055,8 @@
     39.3915,
     3.1617,
     39.8315
-   ]
+   ],
+   "cluster": "spain-134"
   },
   {
    "slug": "seoul",
@@ -11227,7 +12067,8 @@
     37.26635,
     127.29973,
     37.86635
-   ]
+   ],
+   "cluster": "south-korea-254"
   },
   {
    "slug": "sert-ozinho",
@@ -11238,7 +12079,8 @@
     -21.2542,
     -47.6497,
     -20.8142
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "shahalam",
@@ -11249,7 +12091,8 @@
     2.89,
     101.77,
     3.25
-   ]
+   ],
+   "cluster": "malaysia-singapore-brunei-231"
   },
   {
    "slug": "shanghai",
@@ -11260,7 +12103,8 @@
     30.91645,
     121.7365,
     31.51645
-   ]
+   ],
+   "cluster": "china-203"
   },
   {
    "slug": "sharjah",
@@ -11271,7 +12115,8 @@
     25.26802,
     55.63011,
     25.40861
-   ]
+   ],
+   "cluster": "gcc-states-44"
   },
   {
    "slug": "shenyang",
@@ -11282,7 +12127,8 @@
     41.5057,
     123.7315,
     42.1057
-   ]
+   ],
+   "cluster": "china-207"
   },
   {
    "slug": "shenzhen",
@@ -11293,7 +12139,8 @@
     22.2431,
     114.3579,
     22.8431
-   ]
+   ],
+   "cluster": "china-196"
   },
   {
    "slug": "shermanoaks",
@@ -11311,7 +12158,8 @@
     -118.2,
     34.33
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-143"
   },
   {
    "slug": "shinjuku",
@@ -11322,7 +12170,8 @@
     35.54115,
     139.85854,
     35.84115
-   ]
+   ],
+   "cluster": "japan-221"
   },
   {
    "slug": "shreveport",
@@ -11340,7 +12189,8 @@
     -93.68227,
     32.63784
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-114"
   },
   {
    "slug": "sicilia",
@@ -11351,7 +12201,8 @@
     37.4334,
     14.5372,
     37.8734
-   ]
+   ],
+   "cluster": "italy-37"
   },
   {
    "slug": "siero",
@@ -11362,7 +12213,8 @@
     43.1548,
     -5.4052,
     43.5948
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "sinaloa",
@@ -11373,7 +12225,8 @@
     24.7795,
     -107.5984,
     25.2195
-   ]
+   ],
+   "cluster": "mexico-83"
   },
   {
    "slug": "sincelejo",
@@ -11384,7 +12237,8 @@
     9.0806,
     -75.173,
     9.5206
-   ]
+   ],
+   "cluster": "colombia-177"
   },
   {
    "slug": "singapore",
@@ -11395,7 +12249,8 @@
     0.99303,
     104.15582,
     1.59303
-   ]
+   ],
+   "cluster": "malaysia-singapore-brunei-231"
   },
   {
    "slug": "siouxfalls",
@@ -11413,7 +12268,8 @@
     -96.62674,
     43.62342
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-128"
   },
   {
    "slug": "skar-yski",
@@ -11424,7 +12280,8 @@
     50.8835,
     21.19845,
     51.3235
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "sliema",
@@ -11435,7 +12292,8 @@
     35.73,
     14.75,
     36.09
-   ]
+   ],
+   "cluster": "malta-255"
   },
   {
    "slug": "smyrna",
@@ -11453,7 +12311,8 @@
     -86.47213,
     36.01293
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-116"
   },
   {
    "slug": "sobral",
@@ -11464,7 +12323,8 @@
     -3.9123,
     -40.1817,
     -3.4723
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "sonoma",
@@ -11482,7 +12342,8 @@
     -122.1911,
     38.4961
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-148"
   },
   {
    "slug": "sooretama",
@@ -11493,7 +12354,8 @@
     -19.409,
     -39.8724,
     -18.969
-   ]
+   ],
+   "cluster": "brazil-0"
   },
   {
    "slug": "sopaulo",
@@ -11504,7 +12366,8 @@
     -23.85868,
     -46.32502,
     -23.25868
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "sotillo-de-la-adrada",
@@ -11515,7 +12378,8 @@
     40.0779,
     -4.2967,
     40.5179
-   ]
+   ],
+   "cluster": "spain-135"
   },
   {
    "slug": "soto-en-cameros",
@@ -11526,7 +12390,8 @@
     42.0625,
     -2.1339,
     42.5025
-   ]
+   ],
+   "cluster": "spain-136"
   },
   {
    "slug": "souppes-sur-loing",
@@ -11537,7 +12402,8 @@
     47.9655,
     3.03285,
     48.4055
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "soure",
@@ -11548,7 +12414,8 @@
     -0.9408,
     -48.2976,
     -0.5008
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "spokane",
@@ -11566,7 +12433,8 @@
     -117.17413,
     47.79792
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "spokane-valley",
@@ -11584,7 +12452,8 @@
     -116.91845,
     47.8864
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-152"
   },
   {
    "slug": "spring",
@@ -11602,7 +12471,8 @@
     -95.31511,
     30.1487
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "springfield",
@@ -11620,7 +12490,8 @@
     -93.19478,
     37.27413
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-120"
   },
   {
    "slug": "st-andr",
@@ -11631,7 +12502,8 @@
     46.5482,
     15.15185,
     46.9882
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "st-petersburg",
@@ -11649,7 +12521,8 @@
     -82.4635,
     27.9224
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "stalowowolski",
@@ -11660,7 +12533,8 @@
     50.4162,
     22.40525,
     50.8562
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "star-holice",
@@ -11671,7 +12545,8 @@
     49.8519,
     16.31125,
     50.2919
-   ]
+   ],
+   "cluster": "czech-republic-192"
   },
   {
    "slug": "stlouis",
@@ -11689,7 +12564,8 @@
     -90.13712,
     38.81909
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-122"
   },
   {
    "slug": "stockholm",
@@ -11700,7 +12576,8 @@
     59.05076,
     18.39734,
     59.65076
-   ]
+   ],
+   "cluster": "sweden-256"
   },
   {
    "slug": "stockton",
@@ -11718,7 +12595,8 @@
     -121.1128,
     38.08051
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-146"
   },
   {
    "slug": "stpetersburg",
@@ -11736,7 +12614,8 @@
     -82.54092,
     28.05699
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "surabaya",
@@ -11747,7 +12626,8 @@
     -7.36565,
     112.81749,
     -7.21557
-   ]
+   ],
+   "cluster": "indonesia-230"
   },
   {
    "slug": "surat",
@@ -11758,7 +12638,8 @@
     20.8702,
     73.1311,
     21.4702
-   ]
+   ],
+   "cluster": "india-87"
   },
   {
    "slug": "surrey",
@@ -11769,7 +12650,8 @@
     49.00694,
     -122.4345,
     49.23188
-   ]
+   ],
+   "cluster": "canada-167"
   },
   {
    "slug": "suzhou",
@@ -11780,7 +12662,8 @@
     30.9989,
     120.8853,
     31.5989
-   ]
+   ],
+   "cluster": "china-203"
   },
   {
    "slug": "svo-e",
@@ -11791,7 +12674,8 @@
     42.7634,
     22.5664,
     43.2034
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "swansboro",
@@ -11809,7 +12693,8 @@
     -76.8192,
     34.899
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "sydney",
@@ -11820,7 +12705,8 @@
     -34.22001,
     151.48518,
     -33.62001
-   ]
+   ],
+   "cluster": "australia-53"
   },
   {
    "slug": "tabasco",
@@ -11831,7 +12717,8 @@
     17.8753,
     -92.9835,
     18.3153
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "tacoma",
@@ -11849,7 +12736,8 @@
     -122.20746,
     47.29948
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "taichung",
@@ -11860,7 +12748,8 @@
     24.0212,
     120.75175,
     24.38878
-   ]
+   ],
+   "cluster": "taiwan-233"
   },
   {
    "slug": "tail-ndia",
@@ -11871,7 +12760,8 @@
     -3.1353,
     -48.7198,
     -2.6952
-   ]
+   ],
+   "cluster": "brazil-13"
   },
   {
    "slug": "taipei",
@@ -11882,7 +12772,8 @@
     24.73583,
     121.86833,
     25.33583
-   ]
+   ],
+   "cluster": "taiwan-233"
   },
   {
    "slug": "tallahassee",
@@ -11900,7 +12791,8 @@
     -84.13689,
     30.61726
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-109"
   },
   {
    "slug": "tallinn",
@@ -11911,7 +12803,8 @@
     59.13388,
     25.02805,
     59.73388
-   ]
+   ],
+   "cluster": "estonia-226"
   },
   {
    "slug": "tampa",
@@ -11929,7 +12822,8 @@
     -82.29217,
     28.1855
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-106"
   },
   {
    "slug": "taoyuan",
@@ -11940,7 +12834,8 @@
     24.83655,
     121.40953,
     25.10575
-   ]
+   ],
+   "cluster": "taiwan-233"
   },
   {
    "slug": "taquari",
@@ -11951,7 +12846,8 @@
     -30.0196,
     -51.6109,
     -29.5796
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "tartu-maakond",
@@ -11962,7 +12858,8 @@
     58.1548,
     27.03445,
     58.5948
-   ]
+   ],
+   "cluster": "estonia-226"
   },
   {
    "slug": "tashkent",
@@ -11973,7 +12870,8 @@
     41.0117,
     69.59494,
     41.6117
-   ]
+   ],
+   "cluster": "uzbekistan-251"
   },
   {
    "slug": "taubat",
@@ -11984,7 +12882,8 @@
     -23.2363,
     -45.292,
     -22.7963
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "tehran",
@@ -11995,7 +12894,8 @@
     35.37194,
     51.72434,
     35.97194
-   ]
+   ],
+   "cluster": "iran-257"
   },
   {
    "slug": "tempe",
@@ -12013,7 +12913,8 @@
     -111.88128,
     33.46205
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "teres-polis",
@@ -12024,7 +12925,8 @@
     -22.6305,
     -42.7196,
     -22.1905
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "teresina",
@@ -12035,7 +12937,8 @@
     -5.24,
     -42.5626,
     -4.8
-   ]
+   ],
+   "cluster": "brazil-17"
   },
   {
    "slug": "thebronx",
@@ -12053,7 +12956,8 @@
     -73.80256,
     40.92375
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-70"
   },
   {
    "slug": "thehague",
@@ -12064,7 +12968,8 @@
     51.78004,
     4.56996,
     52.38004
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "tianjin",
@@ -12075,7 +12980,8 @@
     38.95,
     117.45,
     39.31
-   ]
+   ],
+   "cluster": "china-205"
   },
   {
    "slug": "tibi",
@@ -12086,7 +12992,8 @@
     38.3375,
     -0.3203,
     38.7775
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "tijuana",
@@ -12097,7 +13004,8 @@
     32.37116,
     -116.78068,
     32.56508
-   ]
+   ],
+   "cluster": "mexico-85"
   },
   {
    "slug": "timba-ba",
@@ -12108,7 +13016,8 @@
     -7.746,
     -35.0994,
     -7.306
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "tirana",
@@ -12119,7 +13028,8 @@
     41.02754,
     20.11889,
     41.62754
-   ]
+   ],
+   "cluster": "albania-258"
   },
   {
    "slug": "tokyo",
@@ -12130,7 +13040,8 @@
     35.38502,
     140.05141,
     35.98502
-   ]
+   ],
+   "cluster": "japan-221"
   },
   {
    "slug": "toledo",
@@ -12148,7 +13059,8 @@
     -83.44204,
     41.74344
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-123"
   },
   {
    "slug": "topeka",
@@ -12166,7 +13078,8 @@
     -95.52804,
     39.19833
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-122"
   },
   {
    "slug": "toronto",
@@ -12177,7 +13090,8 @@
     43.39998,
     -79.12002,
     43.99998
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "toscana",
@@ -12188,7 +13102,8 @@
     43.412,
     11.0362,
     43.852
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "tournon-sur-rh-ne",
@@ -12199,7 +13114,8 @@
     44.8404,
     5.12465,
     45.2804
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "tours",
@@ -12210,7 +13126,8 @@
     47.1693,
     0.98985,
     47.6093
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "tr-laz",
@@ -12221,7 +13138,8 @@
     47.2237,
     -0.1984,
     47.6637
-   ]
+   ],
+   "cluster": "france-98"
   },
   {
    "slug": "tracuateua",
@@ -12232,7 +13150,8 @@
     -1.3542,
     -46.7272,
     -0.9142
-   ]
+   ],
+   "cluster": "brazil-10"
   },
   {
    "slug": "trasmiras",
@@ -12243,7 +13162,8 @@
     41.8218,
     -7.2944,
     42.2618
-   ]
+   ],
+   "cluster": "spain-137"
   },
   {
    "slug": "tren-iansky",
@@ -12254,7 +13174,8 @@
     48.7555,
     18.49955,
     49.1955
-   ]
+   ],
+   "cluster": "slovakia-187"
   },
   {
    "slug": "trentino-alto-adige-s-dtirol",
@@ -12265,7 +13186,8 @@
     45.9883,
     11.36615,
     46.4283
-   ]
+   ],
+   "cluster": "italy-39"
   },
   {
    "slug": "trindade",
@@ -12276,7 +13198,8 @@
     -7.9678,
     -40.0495,
     -7.5278
-   ]
+   ],
+   "cluster": "brazil-20"
   },
   {
    "slug": "tripoli",
@@ -12287,7 +13210,8 @@
     32.5925,
     13.48001,
     33.1925
-   ]
+   ],
+   "cluster": "lebanon-178"
   },
   {
    "slug": "troms",
@@ -12298,7 +13222,8 @@
     69.4349,
     19.2495,
     69.8749
-   ]
+   ],
+   "cluster": "norway-182"
   },
   {
    "slug": "trondheim",
@@ -12309,7 +13234,8 @@
     63.2005,
     10.7226,
     63.6405
-   ]
+   ],
+   "cluster": "norway-181"
   },
   {
    "slug": "tubar-o",
@@ -12320,7 +13246,8 @@
     -28.7067,
     -48.7702,
     -28.2668
-   ]
+   ],
+   "cluster": "brazil-8"
   },
   {
    "slug": "tucson",
@@ -12338,7 +13265,8 @@
     -110.72533,
     32.54216
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-140"
   },
   {
    "slug": "tulsa",
@@ -12356,7 +13284,8 @@
     -95.80306,
     36.20708
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-120"
   },
   {
    "slug": "tunja",
@@ -12367,7 +13296,8 @@
     5.3197,
     -73.1378,
     5.7597
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "tw-cand",
@@ -12378,7 +13308,8 @@
     22.8828,
     120.4702,
     23.3227
-   ]
+   ],
+   "cluster": "taiwan-233"
   },
   {
    "slug": "tx",
@@ -12396,7 +13327,8 @@
     -95.806,
     30.9906
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "tyler",
@@ -12414,7 +13346,8 @@
     -95.17233,
     32.50245
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-114"
   },
   {
    "slug": "tyrn-v",
@@ -12425,7 +13358,8 @@
     64.4835,
     26.03205,
     64.9235
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "ubajara",
@@ -12436,7 +13370,8 @@
     -4.0826,
     -40.7426,
     -3.6426
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "uberaba",
@@ -12447,7 +13382,8 @@
     -19.9667,
     -47.6891,
     -19.5267
-   ]
+   ],
+   "cluster": "brazil-1"
   },
   {
    "slug": "uberl-ndia",
@@ -12458,7 +13394,8 @@
     -19.1477,
     -48.0321,
     -18.7077
-   ]
+   ],
+   "cluster": "brazil-1"
   },
   {
    "slug": "umbria",
@@ -12469,7 +13406,8 @@
     42.8684,
     12.78165,
     43.3084
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "upton",
@@ -12487,7 +13425,8 @@
     -71.3222,
     42.3904
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "urua-u",
@@ -12498,7 +13437,8 @@
     -14.748,
     -48.8944,
     -14.308
-   ]
+   ],
+   "cluster": "brazil-30"
   },
   {
    "slug": "uruar",
@@ -12509,7 +13449,8 @@
     -3.9639,
     -53.4526,
     -3.5239
-   ]
+   ],
+   "cluster": "brazil-14"
   },
   {
    "slug": "uruburetama",
@@ -12520,7 +13461,8 @@
     -3.8413,
     -39.2883,
     -3.4013
-   ]
+   ],
+   "cluster": "brazil-12"
   },
   {
    "slug": "v-ksy",
@@ -12531,7 +13473,8 @@
     60.9612,
     25.78635,
     61.4012
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "vacqui-res",
@@ -12542,7 +13485,8 @@
     43.5909,
     4.23725,
     44.0309
-   ]
+   ],
+   "cluster": "france-94"
   },
   {
    "slug": "vale-do-para-so",
@@ -12553,7 +13497,8 @@
     -10.7117,
     -61.9238,
     -10.2717
-   ]
+   ],
+   "cluster": "brazil-26"
   },
   {
    "slug": "valen-a",
@@ -12564,7 +13509,8 @@
     -18.0193,
     -41.1849,
     -17.5793
-   ]
+   ],
+   "cluster": "brazil-32"
   },
   {
    "slug": "valletta",
@@ -12575,7 +13521,8 @@
     35.59973,
     14.81471,
     36.19973
-   ]
+   ],
+   "cluster": "malta-255"
   },
   {
    "slug": "valparaso",
@@ -12586,7 +13533,8 @@
     -33.34776,
     -71.32102,
     -32.74776
-   ]
+   ],
+   "cluster": "chile-214"
   },
   {
    "slug": "vancouver",
@@ -12597,7 +13545,8 @@
     48.97342,
     -122.82165,
     49.57342
-   ]
+   ],
+   "cluster": "canada-167"
   },
   {
    "slug": "vargem-alegre",
@@ -12608,7 +13557,8 @@
     -19.8216,
     -42.0657,
     -19.3816
-   ]
+   ],
+   "cluster": "brazil-0"
   },
   {
    "slug": "vaughan",
@@ -12619,7 +13569,8 @@
     43.74891,
     -79.38977,
     43.91252
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "vaux-sur-mer",
@@ -12630,7 +13581,8 @@
     45.4122,
     -0.7593,
     45.8522
-   ]
+   ],
+   "cluster": "france-96"
   },
   {
    "slug": "veneto",
@@ -12641,7 +13593,8 @@
     45.296,
     11.8043,
     45.736
-   ]
+   ],
+   "cluster": "italy-38"
   },
   {
    "slug": "vera-cruz",
@@ -12652,7 +13605,8 @@
     -14.167,
     -39.2206,
     -13.727
-   ]
+   ],
+   "cluster": "brazil-27"
   },
   {
    "slug": "veracruz-de-ignacio-de-la-llave",
@@ -12663,7 +13617,8 @@
     18.87,
     -95.9243,
     19.31
-   ]
+   ],
+   "cluster": "mexico-79"
   },
   {
    "slug": "vesilahti",
@@ -12674,7 +13629,8 @@
     61.0842,
     23.9073,
     61.5242
-   ]
+   ],
+   "cluster": "finland-217"
   },
   {
    "slug": "vi-osa",
@@ -12685,7 +13641,8 @@
     -9.593,
     -36.0244,
     -9.153
-   ]
+   ],
+   "cluster": "brazil-22"
   },
   {
    "slug": "victoria",
@@ -12696,7 +13653,8 @@
     -4.91663,
     55.74999,
     -4.31663
-   ]
+   ],
+   "cluster": "canada-161"
   },
   {
    "slug": "vienna",
@@ -12707,7 +13665,8 @@
     47.90002,
     16.66664,
     48.50001
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "vila-nova-de-famalic-o",
@@ -12718,7 +13677,8 @@
     41.1843,
     -8.2345,
     41.6243
-   ]
+   ],
+   "cluster": "portugal-139"
   },
   {
    "slug": "villavicencio",
@@ -12729,7 +13689,8 @@
     3.9189,
     -73.4023,
     4.3589
-   ]
+   ],
+   "cluster": "colombia-176"
   },
   {
    "slug": "villers-saint-paul",
@@ -12740,7 +13701,8 @@
     49.0701,
     2.7928,
     49.5101
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "vilnius",
@@ -12751,7 +13713,8 @@
     54.38337,
     25.61663,
     54.98337
-   ]
+   ],
+   "cluster": "lithuania-237"
   },
   {
    "slug": "vinica-breg",
@@ -12762,7 +13725,8 @@
     46.1232,
     16.4274,
     46.5632
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "virginiabeach",
@@ -12780,7 +13744,8 @@
     -75.93721,
     36.93327
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "visalia",
@@ -12798,7 +13763,8 @@
     -119.0519,
     36.5373
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-145"
   },
   {
    "slug": "vit-ria-da-conquista",
@@ -12809,7 +13775,8 @@
     -15.0891,
     -40.634,
     -14.6491
-   ]
+   ],
+   "cluster": "brazil-29"
   },
   {
    "slug": "vitr",
@@ -12820,7 +13787,8 @@
     47.9025,
     -0.89025,
     48.3425
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "votorantim",
@@ -12831,7 +13799,8 @@
     -23.7654,
     -47.201,
     -23.3254
-   ]
+   ],
+   "cluster": "brazil-5"
   },
   {
    "slug": "votuporanga",
@@ -12842,7 +13811,8 @@
     -20.6324,
     -49.737,
     -20.1924
-   ]
+   ],
+   "cluster": "brazil-3"
   },
   {
    "slug": "vranjska-banja",
@@ -12853,7 +13823,8 @@
     42.3335,
     22.2938,
     42.7735
-   ]
+   ],
+   "cluster": "serbia-180"
   },
   {
    "slug": "waco",
@@ -12871,7 +13842,8 @@
     -96.99667,
     31.69933
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-111"
   },
   {
    "slug": "warnerrobins",
@@ -12889,7 +13861,8 @@
     -76.57774,
     40.1126
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "warren",
@@ -12907,7 +13880,8 @@
     -82.94889,
     42.55734
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-126"
   },
   {
    "slug": "warsaw",
@@ -12918,7 +13892,8 @@
     51.95,
     21.3,
     52.55
-   ]
+   ],
+   "cluster": "poland-211"
   },
   {
    "slug": "washington",
@@ -12936,7 +13911,8 @@
     -76.70942,
     39.19955
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "washingtondc",
@@ -12954,7 +13930,8 @@
     -76.70942,
     39.19955
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "wasselonne",
@@ -12965,7 +13942,8 @@
     48.4186,
     7.74685,
     48.8586
-   ]
+   ],
+   "cluster": "france-101"
   },
   {
    "slug": "watsonville",
@@ -12983,7 +13961,8 @@
     -121.4892,
     37.1469
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-146"
   },
   {
    "slug": "wattenberg",
@@ -12994,7 +13973,8 @@
     47.0465,
     11.9109,
     47.4865
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "wellington",
@@ -13012,7 +13992,8 @@
     175.08327,
     -40.99999
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-58"
   },
   {
    "slug": "wenatchee",
@@ -13030,7 +14011,8 @@
     -120.01925,
     47.6458
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-153"
   },
   {
    "slug": "westminster",
@@ -13048,7 +14030,8 @@
     -104.97134,
     39.97919
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-147"
   },
   {
    "slug": "westpalmbeach",
@@ -13066,7 +14049,8 @@
     -79.90337,
     26.86534
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-64"
   },
   {
    "slug": "wichita",
@@ -13084,7 +14068,8 @@
     -97.15988,
     37.77483
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-120"
   },
   {
    "slug": "wilmington",
@@ -13102,7 +14087,8 @@
     -77.76296,
     34.33973
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "winchester",
@@ -13120,7 +14106,8 @@
     -78.09956,
     39.24097
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "windham",
@@ -13138,7 +14125,8 @@
     -70.1355,
     44.0531
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-72"
   },
   {
    "slug": "windsor",
@@ -13149,7 +14137,8 @@
     42.19962,
     -82.5182,
     42.35362
-   ]
+   ],
+   "cluster": "canada-164"
   },
   {
    "slug": "winklern",
@@ -13160,7 +14149,8 @@
     46.6491,
     13.1773,
     47.0891
-   ]
+   ],
+   "cluster": "austria-40"
   },
   {
    "slug": "winnipeg",
@@ -13171,7 +14161,8 @@
     49.76458,
     -96.95688,
     49.98419
-   ]
+   ],
+   "cluster": "canada-168"
   },
   {
    "slug": "winstonsalem",
@@ -13189,7 +14180,8 @@
     -80.13255,
     36.21815
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-67"
   },
   {
    "slug": "winter-haven",
@@ -13207,7 +14199,8 @@
     -81.4202,
     28.2047
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-midwest-104"
   },
   {
    "slug": "wolphaartsdijk",
@@ -13218,7 +14211,8 @@
     51.3231,
     4.1157,
     51.7631
-   ]
+   ],
+   "cluster": "netherlands-160"
   },
   {
    "slug": "woodbridge",
@@ -13236,7 +14230,8 @@
     -77.23043,
     38.70562
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-northeast-69"
   },
   {
    "slug": "wuenheim",
@@ -13247,7 +14242,8 @@
     47.6541,
     7.50795,
     48.0941
-   ]
+   ],
+   "cluster": "france-99"
   },
   {
    "slug": "wuhan",
@@ -13258,7 +14254,8 @@
     30.2928,
     114.6055,
     30.8928
-   ]
+   ],
+   "cluster": "china-202"
   },
   {
    "slug": "wuxi",
@@ -13269,7 +14266,8 @@
     31.31,
     120.56,
     31.67
-   ]
+   ],
+   "cluster": "china-203"
   },
   {
    "slug": "xian",
@@ -13280,7 +14278,8 @@
     34.09,
     109.2,
     34.45
-   ]
+   ],
+   "cluster": "china-204"
   },
   {
    "slug": "yangon",
@@ -13291,7 +14290,8 @@
     16.5661,
     96.4951,
     17.1661
-   ]
+   ],
+   "cluster": "myanmar-259"
   },
   {
    "slug": "yepes",
@@ -13302,7 +14302,8 @@
     39.6868,
     -3.3478,
     40.1268
-   ]
+   ],
+   "cluster": "spain-133"
   },
   {
    "slug": "ylivieska",
@@ -13313,7 +14314,8 @@
     63.8751,
     24.8344,
     64.3151
-   ]
+   ],
+   "cluster": "finland-218"
   },
   {
    "slug": "york",
@@ -13324,7 +14326,8 @@
     54.0069,
     -1.2226,
     54.4469
-   ]
+   ],
+   "cluster": "great-britain-184"
   },
   {
    "slug": "yuma",
@@ -13342,7 +14345,8 @@
     -114.3189,
     32.9173
    ],
-   "country": "US"
+   "country": "US",
+   "cluster": "us-west-141"
   },
   {
    "slug": "yvetot",
@@ -13353,7 +14357,8 @@
     49.3931,
     1.06695,
     49.8331
-   ]
+   ],
+   "cluster": "france-100"
   },
   {
    "slug": "zacatecas",
@@ -13364,7 +14369,8 @@
     22.7118,
     -102.3895,
     23.1518
-   ]
+   ],
+   "cluster": "mexico-82"
   },
   {
    "slug": "zagreb",
@@ -13375,7 +14381,8 @@
     45.50001,
     16.29999,
     46.10001
-   ]
+   ],
+   "cluster": "croatia-227"
   },
   {
    "slug": "zapopan",
@@ -13386,7 +14393,8 @@
     20.57815,
     -103.35956,
     20.77591
-   ]
+   ],
+   "cluster": "mexico-80"
   },
   {
    "slug": "zhengzhou",
@@ -13397,7 +14405,15 @@
     34.57,
     113.87,
     34.93
-   ]
+   ],
+   "cluster": "china-204"
   }
- ]
+ ],
+ "clusters": {
+  "per": 40,
+  "span": 6,
+  "generated": "2026-09-29",
+  "count": 260,
+  "$comment": "Cities are grouped by geography so a job cuts one compact region instead of scanning a whole country file per city. The plan job groups by (extract, cluster); the build step cuts the union bbox once and then each city from it."
+ }
 }

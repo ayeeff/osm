@@ -40,10 +40,26 @@ def citypair:
 | group_by(.extract)
 | map(
     . as $g
-    | [ .[] | citypair ] as $all
-    | (($all | length) / $per | ceil) as $n
-    | [ range(0; $n) as $i
-        | { extract: $g[0].extract, cities: $all[$i * $per : ($i + 1) * $per] } ]
+    # Group by geographic cluster within the extract. Clustering is what makes the
+    # build step cheap: a job cuts the union bbox of its cities ONCE from the
+    # region file, then cuts each city from that. `osmium extract -b` re-reads its
+    # entire input for every bbox, so a job of 40 cities scattered across a 2-4 GiB
+    # region costs 40 full scans. Measured at 34 min/city, which is ~23 hours for a
+    # 40-city job, past the 360 min cap. Clusters cap the union at a few degrees, so
+    # the per-city cuts read a small file instead.
+    #
+    # Cities with no cluster (an older registry) fall back to one cluster per extract,
+    # which is the old behaviour, so a missing cluster degrades to slow rather than
+    # to wrong.
+    | [ .[] | { city: ., cluster: (.cluster // $g[0].extract) } ]
+    | group_by(.cluster)
+    | map(
+        . as $cl
+        | [ $cl[].city | citypair ] as $all
+        | (($all | length) / $per | ceil) as $n
+        | [ range(0; $n) as $i
+            | { extract: $g[0].extract, cities: $all[$i * $per : ($i + 1) * $per] } ]
+      )
   )
 | add // []
 
