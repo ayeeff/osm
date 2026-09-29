@@ -48,19 +48,24 @@ def citypair:
     # 40-city job, past the 360 min cap. Clusters cap the union at a few degrees, so
     # the per-city cuts read a small file instead.
     #
-    # Cities with no cluster (an older registry) fall back to one cluster per extract,
-    # which is the old behaviour, so a missing cluster degrades to slow rather than
-    # to wrong.
+    # Cities with no cluster (an older registry) fall back to one cluster per
+    # extract, which is the old behaviour, so a missing cluster degrades to slow
+    # rather than to wrong.
+    #
+    # Built as one flat array per extract rather than a nested map(), because the
+    # outer `add` only flattens one level and a nested map left arrays where the
+    # build step expected objects: "Cannot index array with string cities".
     | [ .[] | { city: ., cluster: (.cluster // $g[0].extract) } ]
     | group_by(.cluster)
-    | map(
-        . as $cl
+    | [
+        .[] as $cl
         | [ $cl[].city | citypair ] as $all
         | (($all | length) / $per | ceil) as $n
-        | [ range(0; $n) as $i
-            | { extract: $g[0].extract, cities: $all[$i * $per : ($i + 1) * $per] } ]
-      )
+        | range(0; $n) as $i
+        | { extract: $g[0].extract, cities: $all[$i * $per : ($i + 1) * $per] }
+      ]
   )
 | add // []
+
 
 
