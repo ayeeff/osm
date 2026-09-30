@@ -1,7 +1,7 @@
 {
  "$comment": "Every *-city-atlas city, with a bbox, for the neighbourhood-boundary extraction. bbox is [minLng,minLat,maxLng,maxLat]. Sources: layer/registry-cities.json, src/data/atlas-city-centers.json, else a +/-0.25 deg fallback. This feeds the PBF pipeline in ayeeff/osm (extract_city_2d_data.py) run per country over the R2 extracts.",
  "generated": "2026-09-29",
- "count": 1044,
+ "count": 1161,
  "bboxSources": {
   "registry": 1223,
   "center": 31,
@@ -535,8 +535,8 @@
     5.21664,
     52.64997
    ],
-   "country": "NL",
-   "cluster": "netherlands-158"
+   "cluster": "netherlands-158",
+   "country": "NL"
   },
   {
    "slug": "anadia",
@@ -661,6 +661,18 @@
    "country": "NL"
   },
   {
+   "slug": "andorra",
+   "label": "andorra",
+   "extract": "andorra",
+   "bbox": [
+    1.21649,
+    42.2,
+    1.81649,
+    42.8
+   ],
+   "country": "AD"
+  },
+  {
    "slug": "andradina",
    "label": "andradina",
    "extract": "brazil",
@@ -739,6 +751,18 @@
    "country": "TR"
   },
   {
+   "slug": "antananarivo",
+   "label": "antananarivo",
+   "extract": "madagascar",
+   "bbox": [
+    47.21663,
+    -19.21664,
+    47.81663,
+    -18.61664
+   ],
+   "country": "MG"
+  },
+  {
    "slug": "antonina",
    "label": "antonina",
    "extract": "brazil",
@@ -750,6 +774,18 @@
    ],
    "cluster": "brazil-7",
    "country": "BR"
+  },
+  {
+   "slug": "anyang",
+   "label": "anyang",
+   "extract": "south-korea",
+   "bbox": [
+    126.717,
+    37.211,
+    127.217,
+    37.571
+   ],
+   "country": "KR"
   },
   {
    "slug": "aparecida-do-taboado",
@@ -776,6 +812,18 @@
    ],
    "cluster": "netherlands-158",
    "country": "NL"
+  },
+  {
+   "slug": "apia",
+   "label": "apia",
+   "extract": "samoa",
+   "bbox": [
+    -172.03864,
+    -14.14155,
+    -171.43864,
+    -13.54154
+   ],
+   "country": "WS"
   },
   {
    "slug": "apple-valley",
@@ -900,6 +948,18 @@
    "country": "US"
   },
   {
+   "slug": "ashdod",
+   "label": "ashdod",
+   "extract": "israel-and-palestine",
+   "bbox": [
+    34.4,
+    31.62,
+    34.9,
+    31.98
+   ],
+   "country": "IL"
+  },
+  {
    "slug": "asheville",
    "label": "asheville",
    "extract": "us-midwest",
@@ -919,6 +979,30 @@
    "country": "US"
   },
   {
+   "slug": "ashgabat",
+   "label": "ashgabat",
+   "extract": "turkmenistan",
+   "bbox": [
+    58.0833,
+    37.65,
+    58.6833,
+    38.24999
+   ],
+   "country": "TM"
+  },
+  {
+   "slug": "ashkelon",
+   "label": "ashkelon",
+   "extract": "israel-and-palestine",
+   "bbox": [
+    34.32,
+    31.49,
+    34.82,
+    31.85
+   ],
+   "country": "IL"
+  },
+  {
    "slug": "ashland",
    "label": "ashland",
    "extract": "us-midwest",
@@ -936,6 +1020,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "asmara",
+   "label": "asmara",
+   "extract": "eritrea",
+   "bbox": [
+    38.63332,
+    15.03334,
+    39.23332,
+    15.63334
+   ],
+   "country": "ER"
   },
   {
    "slug": "at-lio-vivacqua",
@@ -1110,6 +1206,18 @@
    "country": "BR"
   },
   {
+   "slug": "azzour",
+   "label": "azzour",
+   "extract": "gcc-states",
+   "bbox": [
+    48.06,
+    28.63,
+    48.56,
+    28.99
+   ],
+   "country": "KW"
+  },
+  {
    "slug": "baghdad",
    "label": "baghdad",
    "extract": "iraq",
@@ -1121,6 +1229,18 @@
    ],
    "cluster": "iraq-173",
    "country": "IQ"
+  },
+  {
+   "slug": "baguiocity",
+   "label": "baguiocity",
+   "extract": "philippines",
+   "bbox": [
+    120.26994,
+    16.12999,
+    120.86994,
+    16.72999
+   ],
+   "country": "PH"
   },
   {
    "slug": "bakersfield",
@@ -1187,6 +1307,18 @@
    "country": "US"
   },
   {
+   "slug": "bamako",
+   "label": "bamako",
+   "extract": "mali",
+   "bbox": [
+    -8.30004,
+    12.35001,
+    -7.70004,
+    12.95002
+   ],
+   "country": "ML"
+  },
+  {
    "slug": "bangalore",
    "label": "bangalore",
    "extract": "india",
@@ -1211,6 +1343,30 @@
    ],
    "cluster": "thailand-175",
    "country": "TH"
+  },
+  {
+   "slug": "bangui",
+   "label": "bangui",
+   "extract": "central-african-republic",
+   "bbox": [
+    18.25829,
+    4.06664,
+    18.85829,
+    4.66664
+   ],
+   "country": "CF"
+  },
+  {
+   "slug": "banjul",
+   "label": "banjul",
+   "extract": "senegal-and-gambia",
+   "bbox": [
+    -16.8917,
+    13.15388,
+    -16.2917,
+    13.75388
+   ],
+   "country": "GM"
   },
   {
    "slug": "baraboo",
@@ -1269,6 +1425,18 @@
    ],
    "cluster": "spain-136",
    "country": "ES"
+  },
+  {
+   "slug": "barka",
+   "label": "barka",
+   "extract": "gcc-states",
+   "bbox": [
+    58.28,
+    23.44,
+    58.78,
+    23.8
+   ],
+   "country": "OM"
   },
   {
    "slug": "barra-do-corda",
@@ -1415,8 +1583,8 @@
     116.68829,
     40.22889
    ],
-   "country": "CN",
-   "cluster": "china-190"
+   "cluster": "china-190",
+   "country": "CN"
   },
   {
    "slug": "beirut",
@@ -1464,6 +1632,18 @@
    "country": "US"
   },
   {
+   "slug": "belmopan",
+   "label": "belmopan",
+   "extract": "belize",
+   "bbox": [
+    -89.06707,
+    16.95203,
+    -88.46707,
+    17.55203
+   ],
+   "country": "BZ"
+  },
+  {
    "slug": "belohorizonte",
    "label": "belohorizonte",
    "extract": "brazil",
@@ -1499,8 +1679,8 @@
     20.31859,
     32.36486
    ],
-   "country": "LY",
-   "cluster": "libya-199"
+   "cluster": "libya-199",
+   "country": "LY"
   },
   {
    "slug": "benitojurez",
@@ -1551,8 +1731,8 @@
     13.70155,
     52.82182
    ],
-   "country": "DE",
-   "cluster": "germany-203"
+   "cluster": "germany-203",
+   "country": "DE"
   },
   {
    "slug": "bern",
@@ -1619,6 +1799,18 @@
    "country": "US"
   },
   {
+   "slug": "binningup",
+   "label": "binningup",
+   "extract": "australia",
+   "bbox": [
+    115.45,
+    -33.18,
+    115.95,
+    -32.82
+   ],
+   "country": "AU"
+  },
+  {
    "slug": "birmingham",
    "label": "birmingham",
    "extract": "great-britain",
@@ -1630,6 +1822,18 @@
    ],
    "cluster": "great-britain-205",
    "country": "GB"
+  },
+  {
+   "slug": "bissau",
+   "label": "bissau",
+   "extract": "guinea-bissau",
+   "bbox": [
+    -15.89837,
+    11.56502,
+    -15.29837,
+    12.16502
+   ],
+   "country": "GW"
   },
   {
    "slug": "bl-nod-l-s-pont-mousson",
@@ -1667,8 +1871,8 @@
     35.25854,
     -15.53499
    ],
-   "country": "MW",
-   "cluster": "malawi-206"
+   "cluster": "malawi-206",
+   "country": "MW"
   },
   {
    "slug": "bloemfontein",
@@ -1725,8 +1929,8 @@
     -4.04489,
     11.43064
    ],
-   "country": "BF",
-   "cluster": "burkina-faso-210"
+   "cluster": "burkina-faso-210",
+   "country": "BF"
   },
   {
    "slug": "bogot",
@@ -1817,6 +2021,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "boumerdes",
+   "label": "boumerdes",
+   "extract": "algeria",
+   "bbox": [
+    3.23,
+    36.57,
+    3.73,
+    36.93
+   ],
+   "country": "DZ"
   },
   {
    "slug": "bowling-green",
@@ -2063,6 +2279,18 @@
    "country": "US"
   },
   {
+   "slug": "brussels",
+   "label": "brussels",
+   "extract": "belgium",
+   "bbox": [
+    4.03331,
+    50.53332,
+    4.63331,
+    51.13332
+   ],
+   "country": "BE"
+  },
+  {
    "slug": "bu-je",
    "label": "bu-je",
    "extract": "serbia",
@@ -2156,8 +2384,8 @@
     29.66001,
     -3.07609
    ],
-   "country": "BI",
-   "cluster": "burundi-216"
+   "cluster": "burundi-216",
+   "country": "BI"
   },
   {
    "slug": "burbank",
@@ -2701,6 +2929,18 @@
    "country": "BR"
   },
   {
+   "slug": "centralitaly",
+   "label": "centralitaly",
+   "extract": "italy",
+   "bbox": [
+    12.14781,
+    41.60001,
+    12.74781,
+    42.20001
+   ],
+   "country": "IT"
+  },
+  {
    "slug": "cervo",
    "label": "cervo",
    "extract": "spain",
@@ -2951,6 +3191,30 @@
    "country": "US"
   },
   {
+   "slug": "chiinu",
+   "label": "chiinu",
+   "extract": "moldova",
+   "bbox": [
+    28.55771,
+    46.70502,
+    29.15771,
+    47.30502
+   ],
+   "country": "MD"
+  },
+  {
+   "slug": "chlef",
+   "label": "chlef",
+   "extract": "algeria",
+   "bbox": [
+    1.08,
+    35.99,
+    1.58,
+    36.35
+   ],
+   "country": "DZ"
+  },
+  {
    "slug": "chongqing",
    "label": "chongqing",
    "extract": "china",
@@ -3124,6 +3388,30 @@
    "country": "ES"
   },
   {
+   "slug": "cologne",
+   "label": "cologne",
+   "extract": "germany",
+   "bbox": [
+    6.71,
+    50.76,
+    7.21,
+    51.12
+   ],
+   "country": "DE"
+  },
+  {
+   "slug": "colombo",
+   "label": "colombo",
+   "extract": "sri-lanka",
+   "bbox": [
+    79.55775,
+    6.63197,
+    80.15775,
+    7.23197
+   ],
+   "country": "LK"
+  },
+  {
    "slug": "coloradosprings",
    "label": "coloradosprings",
    "extract": "us-west",
@@ -3179,6 +3467,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "conakry",
+   "label": "conakry",
+   "extract": "guinea",
+   "bbox": [
+    -13.98024,
+    9.23152,
+    -13.38023,
+    9.83152
+   ],
+   "country": "GN"
   },
   {
    "slug": "concei-o-do-araguaia",
@@ -3296,6 +3596,18 @@
    "country": "US"
   },
   {
+   "slug": "cotonou",
+   "label": "cotonou",
+   "extract": "benin",
+   "bbox": [
+    2.21999,
+    6.10001,
+    2.81999,
+    6.70001
+   ],
+   "country": "BJ"
+  },
+  {
    "slug": "councilbluffs",
    "label": "councilbluffs",
    "extract": "us-midwest",
@@ -3332,6 +3644,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "crete",
+   "label": "crete",
+   "extract": "greece",
+   "bbox": [
+    23.776,
+    35.336,
+    24.276,
+    35.696
+   ],
+   "country": "GR"
   },
   {
    "slug": "cuauhtmoc",
@@ -3463,6 +3787,18 @@
    "country": "US"
   },
   {
+   "slug": "dalyston",
+   "label": "dalyston",
+   "extract": "australia",
+   "bbox": [
+    145.18,
+    -38.74,
+    145.68,
+    -38.38
+   ],
+   "country": "AU"
+  },
+  {
    "slug": "damascus",
    "label": "damascus",
    "extract": "us-northeast",
@@ -3536,8 +3872,8 @@
     39.51951,
     -6.57349
    ],
-   "country": "TZ",
-   "cluster": "tanzania-221"
+   "cluster": "tanzania-221",
+   "country": "TZ"
   },
   {
    "slug": "darwin-city",
@@ -3873,6 +4209,18 @@
    "country": "BR"
   },
   {
+   "slug": "dodoma",
+   "label": "dodoma",
+   "extract": "tanzania",
+   "bbox": [
+    35.45001,
+    -6.48331,
+    36.05,
+    -5.88331
+   ],
+   "country": "TZ"
+  },
+  {
    "slug": "dom-le-mesnil",
    "label": "dom-le-mesnil",
    "extract": "france",
@@ -3947,8 +4295,8 @@
     9.95428,
     4.29827
    ],
-   "country": "CM",
-   "cluster": "cameroon-225"
+   "cluster": "cameroon-225",
+   "country": "CM"
   },
   {
    "slug": "dourados",
@@ -4018,8 +4366,8 @@
     31.2792,
     -29.6079
    ],
-   "country": "ZA",
-   "cluster": "south-africa-207"
+   "cluster": "south-africa-207",
+   "country": "ZA"
   },
   {
    "slug": "durham",
@@ -4039,6 +4387,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "dushanbe",
+   "label": "dushanbe",
+   "extract": "tajikistan",
+   "bbox": [
+    68.47388,
+    38.26004,
+    69.07388,
+    38.86003
+   ],
+   "country": "TJ"
   },
   {
    "slug": "dzki-wschodni",
@@ -4135,6 +4495,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "eltarf",
+   "label": "eltarf",
+   "extract": "algeria",
+   "bbox": [
+    8.06,
+    36.59,
+    8.56,
+    36.95
+   ],
+   "country": "DZ"
   },
   {
    "slug": "elx-elche",
@@ -4572,6 +4944,18 @@
    "country": "CN"
   },
   {
+   "slug": "frankfurt",
+   "label": "frankfurt",
+   "extract": "germany",
+   "bbox": [
+    8.43,
+    49.93,
+    8.93,
+    50.29
+   ],
+   "country": "DE"
+  },
+  {
    "slug": "frankston-south",
    "label": "frankston-south",
    "extract": "australia",
@@ -4621,6 +5005,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "freetown",
+   "label": "freetown",
+   "extract": "sierra-leone",
+   "bbox": [
+    -13.53421,
+    8.17001,
+    -12.93421,
+    8.77001
+   ],
+   "country": "SL"
   },
   {
    "slug": "fremont",
@@ -4730,6 +5126,18 @@
    ],
    "cluster": "japan-230",
    "country": "JP"
+  },
+  {
+   "slug": "funafuti",
+   "label": "funafuti",
+   "extract": "tuvalu",
+   "bbox": [
+    178.91664,
+    -8.81665,
+    179.51665,
+    -8.21665
+   ],
+   "country": "TV"
   },
   {
    "slug": "funchal",
@@ -4867,6 +5275,18 @@
    "country": "US"
   },
   {
+   "slug": "ghent",
+   "label": "ghent",
+   "extract": "belgium",
+   "bbox": [
+    3.47,
+    50.87,
+    3.97,
+    51.23
+   ],
+   "country": "BE"
+  },
+  {
    "slug": "gilbert",
    "label": "gilbert",
    "extract": "us-west",
@@ -4908,8 +5328,8 @@
     30.17463,
     -3.17708
    ],
-   "country": "BI",
-   "cluster": "burundi-216"
+   "cluster": "burundi-216",
+   "country": "BI"
   },
   {
    "slug": "glasgow",
@@ -5285,6 +5705,30 @@
    "country": "BR"
   },
   {
+   "slug": "guatemala",
+   "label": "guatemala",
+   "extract": "guatemala",
+   "bbox": [
+    -90.82697,
+    14.32113,
+    -90.22697,
+    14.92114
+   ],
+   "country": "GT"
+  },
+  {
+   "slug": "guatemalacity",
+   "label": "guatemalacity",
+   "extract": "guatemala",
+   "bbox": [
+    -90.4,
+    15.35,
+    -90.1,
+    15.65
+   ],
+   "country": "GT"
+  },
+  {
    "slug": "guerrero",
    "label": "guerrero",
    "extract": "mexico",
@@ -5296,6 +5740,18 @@
    ],
    "cluster": "mexico-78",
    "country": "MX"
+  },
+  {
+   "slug": "guian",
+   "label": "guian",
+   "extract": "china",
+   "bbox": [
+    106.416,
+    26.153,
+    106.916,
+    26.513
+   ],
+   "country": "CN"
   },
   {
    "slug": "guilas",
@@ -5333,8 +5789,8 @@
     106.96667,
     26.83333
    ],
-   "country": "CN",
-   "cluster": "china-180"
+   "cluster": "china-180",
+   "country": "CN"
   },
   {
    "slug": "gulfport",
@@ -5367,6 +5823,18 @@
    ],
    "cluster": "finland-227",
    "country": "FI"
+  },
+  {
+   "slug": "hadera",
+   "label": "hadera",
+   "extract": "israel-and-palestine",
+   "bbox": [
+    34.63,
+    32.26,
+    35.13,
+    32.62
+   ],
+   "country": "IL"
   },
   {
    "slug": "halifax",
@@ -5492,6 +5960,18 @@
    "country": "CN"
   },
   {
+   "slug": "hargeysa",
+   "label": "hargeysa",
+   "extract": "somalia",
+   "bbox": [
+    43.76531,
+    9.26002,
+    44.36531,
+    9.86002
+   ],
+   "country": "SO"
+  },
+  {
    "slug": "harnes",
    "label": "harnes",
    "extract": "france",
@@ -5522,6 +6002,30 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "hasselt",
+   "label": "hasselt",
+   "extract": "belgium",
+   "bbox": [
+    5.03025,
+    50.7114,
+    5.63025,
+    51.1514
+   ],
+   "country": "BE"
+  },
+  {
+   "slug": "havana",
+   "label": "havana",
+   "extract": "cuba",
+   "bbox": [
+    -82.66418,
+    22.83196,
+    -82.06418,
+    23.43196
+   ],
+   "country": "CU"
   },
   {
    "slug": "haverhill",
@@ -5710,6 +6214,18 @@
    "country": "US"
   },
   {
+   "slug": "honiara",
+   "label": "honiara",
+   "extract": "solomon-islands",
+   "bbox": [
+    159.64977,
+    -9.73799,
+    160.24977,
+    -9.13799
+   ],
+   "country": "SB"
+  },
+  {
    "slug": "honolulu",
    "label": "honolulu",
    "extract": "us-pacific",
@@ -5819,6 +6335,18 @@
    "country": "GB"
   },
   {
+   "slug": "hulshout",
+   "label": "hulshout",
+   "extract": "belgium",
+   "bbox": [
+    4.49985,
+    50.8541,
+    5.09985,
+    51.2941
+   ],
+   "country": "BE"
+  },
+  {
    "slug": "humble",
    "label": "humble",
    "extract": "us-midwest",
@@ -5879,8 +6407,8 @@
     4.15591,
     7.62756
    ],
-   "country": "NG",
-   "cluster": "nigeria-46"
+   "cluster": "nigeria-46",
+   "country": "NG"
   },
   {
    "slug": "ibagu",
@@ -6081,6 +6609,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "isfahan",
+   "label": "isfahan",
+   "extract": "iran",
+   "bbox": [
+    51.42,
+    32.47,
+    51.92,
+    32.83
+   ],
+   "country": "IR"
   },
   {
    "slug": "islamabad",
@@ -6309,6 +6849,30 @@
    "country": "SA"
   },
   {
+   "slug": "jeju",
+   "label": "jeju",
+   "extract": "south-korea",
+   "bbox": [
+    126.28,
+    33.31,
+    126.78,
+    33.67
+   ],
+   "country": "KR"
+  },
+  {
+   "slug": "jerusalem",
+   "label": "jerusalem",
+   "extract": "israel-and-palestine",
+   "bbox": [
+    34.90663,
+    31.47841,
+    35.50662,
+    32.07841
+   ],
+   "country": "IL"
+  },
+  {
    "slug": "jiangyin",
    "label": "jiangyin",
    "extract": "china",
@@ -6331,8 +6895,8 @@
     117.24722,
     36.91833
    ],
-   "country": "CN",
-   "cluster": "china-189"
+   "cluster": "china-189",
+   "country": "CN"
   },
   {
    "slug": "jind-ich-v-hradec-ii",
@@ -6402,8 +6966,8 @@
     9.14212,
     10.17849
    ],
-   "country": "NG",
-   "cluster": "nigeria-46"
+   "cluster": "nigeria-46",
+   "country": "NG"
   },
   {
    "slug": "jp-cand",
@@ -6417,6 +6981,30 @@
    ],
    "cluster": "japan-231",
    "country": "JP"
+  },
+  {
+   "slug": "juba",
+   "label": "juba",
+   "extract": "south-sudan",
+   "bbox": [
+    31.28002,
+    4.52998,
+    31.88002,
+    5.12997
+   ],
+   "country": "SS"
+  },
+  {
+   "slug": "jubail",
+   "label": "jubail",
+   "extract": "gcc-states",
+   "bbox": [
+    49.41,
+    26.84,
+    49.91,
+    27.2
+   ],
+   "country": "KW"
   },
   {
    "slug": "juiz-de-fora",
@@ -6490,6 +7078,18 @@
    "country": "AF"
   },
   {
+   "slug": "kairouan",
+   "label": "kairouan",
+   "extract": "tunisia",
+   "bbox": [
+    9.85,
+    35.5,
+    10.35,
+    35.86
+   ],
+   "country": "TN"
+  },
+  {
    "slug": "kananga",
    "label": "kananga",
    "extract": "congo-democratic-republic",
@@ -6499,8 +7099,8 @@
     22.66659,
     -5.64624
    ],
-   "country": "CD",
-   "cluster": "congo-democratic-republic-244"
+   "cluster": "congo-democratic-republic-244",
+   "country": "CD"
   },
   {
    "slug": "kano",
@@ -6512,8 +7112,8 @@
     8.76672,
     12.25012
    ],
-   "country": "NG",
-   "cluster": "nigeria-46"
+   "cluster": "nigeria-46",
+   "country": "NG"
   },
   {
    "slug": "kansascity",
@@ -6574,6 +7174,18 @@
    "country": "FI"
   },
   {
+   "slug": "kashgar",
+   "label": "kashgar",
+   "extract": "china",
+   "bbox": [
+    75.74,
+    39.29,
+    76.24,
+    39.65
+   ],
+   "country": "CN"
+  },
+  {
    "slug": "katowice",
    "label": "katowice",
    "extract": "poland",
@@ -6606,6 +7218,18 @@
    "country": "US"
   },
   {
+   "slug": "kbenhavn",
+   "label": "kbenhavn",
+   "extract": "denmark",
+   "bbox": [
+    12.26348,
+    55.37856,
+    12.86349,
+    55.97856
+   ],
+   "country": "DK"
+  },
+  {
    "slug": "khartoum",
    "label": "khartoum",
    "extract": "sudan",
@@ -6630,6 +7254,30 @@
    ],
    "cluster": "gcc-states-45",
    "country": "SA"
+  },
+  {
+   "slug": "kiev",
+   "label": "kiev",
+   "extract": "ukraine",
+   "bbox": [
+    30.21663,
+    50.13337,
+    30.81663,
+    50.73337
+   ],
+   "country": "UA"
+  },
+  {
+   "slug": "kigali",
+   "label": "kigali",
+   "extract": "rwanda",
+   "bbox": [
+    29.76053,
+    -2.25359,
+    30.36053,
+    -1.65359
+   ],
+   "country": "RW"
   },
   {
    "slug": "kingston",
@@ -6754,6 +7402,18 @@
    "country": "PL"
   },
   {
+   "slug": "krakow",
+   "label": "krakow",
+   "extract": "poland",
+   "bbox": [
+    19.69,
+    49.88,
+    20.19,
+    50.24
+   ],
+   "country": "PL"
+  },
+  {
    "slug": "kristiansand-s",
    "label": "kristiansand-s",
    "extract": "norway",
@@ -6802,8 +7462,8 @@
     102.96833,
     25.28889
    ],
-   "country": "CN",
-   "cluster": "china-180"
+   "cluster": "china-180",
+   "country": "CN"
   },
   {
    "slug": "kuusamo",
@@ -6817,6 +7477,18 @@
    ],
    "cluster": "finland-228",
    "country": "FI"
+  },
+  {
+   "slug": "kuwait",
+   "label": "kuwait",
+   "extract": "gcc-states",
+   "bbox": [
+    47.67831,
+    29.06972,
+    48.2783,
+    29.66972
+   ],
+   "country": "KW"
   },
   {
    "slug": "kyiv",
@@ -6953,6 +7625,18 @@
    ],
    "cluster": "austria-40",
    "country": "AT"
+  },
+  {
+   "slug": "laayoune",
+   "label": "laayoune",
+   "extract": "morocco",
+   "bbox": [
+    -13.50001,
+    26.84998,
+    -12.90001,
+    27.44998
+   ],
+   "country": "MA"
   },
   {
    "slug": "lafayette",
@@ -7274,6 +7958,18 @@
    "country": "FR"
   },
   {
+   "slug": "leamingtonspa",
+   "label": "leamingtonspa",
+   "extract": "great-britain",
+   "bbox": [
+    -1.79,
+    52.11,
+    -1.29,
+    52.47
+   ],
+   "country": "GB"
+  },
+  {
    "slug": "lebanon",
    "label": "lebanon",
    "extract": "us-midwest",
@@ -7425,8 +8121,8 @@
     34.0833,
     -13.68329
    ],
-   "country": "MW",
-   "cluster": "malawi-206"
+   "cluster": "malawi-206",
+   "country": "MW"
   },
   {
    "slug": "lima",
@@ -7599,8 +8295,8 @@
     1.47154,
     6.37874
    ],
-   "country": "TG",
-   "cluster": "togo-250"
+   "cluster": "togo-250",
+   "country": "TG"
   },
   {
    "slug": "london",
@@ -7804,8 +8500,8 @@
     27.72938,
     -11.41089
    ],
-   "country": "CD",
-   "cluster": "congo-democratic-republic-244"
+   "cluster": "congo-democratic-republic-244",
+   "country": "CD"
   },
   {
    "slug": "lucena",
@@ -7843,8 +8539,8 @@
     112.6977,
     34.86965
    ],
-   "country": "CN",
-   "cluster": "china-188"
+   "cluster": "china-188",
+   "country": "CN"
   },
   {
    "slug": "lusaka",
@@ -8028,6 +8724,18 @@
    "country": "FI"
   },
   {
+   "slug": "majuro",
+   "label": "majuro",
+   "extract": "marshall-islands",
+   "bbox": [
+    171.08,
+    6.803,
+    171.68,
+    7.403
+   ],
+   "country": "MH"
+  },
+  {
    "slug": "makaticity",
    "label": "makaticity",
    "extract": "philippines",
@@ -8039,6 +8747,30 @@
    ],
    "cluster": "philippines-254",
    "country": "PH"
+  },
+  {
+   "slug": "mal",
+   "label": "mal",
+   "extract": "maldives",
+   "bbox": [
+    73.19994,
+    3.86671,
+    73.79994,
+    4.46671
+   ],
+   "country": "MV"
+  },
+  {
+   "slug": "malabo",
+   "label": "malabo",
+   "extract": "equatorial-guinea",
+   "bbox": [
+    8.48327,
+    3.45002,
+    9.08328,
+    4.05002
+   ],
+   "country": "GQ"
   },
   {
    "slug": "malente",
@@ -8344,6 +9076,18 @@
    "country": "US"
   },
   {
+   "slug": "mashhad",
+   "label": "mashhad",
+   "extract": "iran",
+   "bbox": [
+    59.32,
+    36.13,
+    59.82,
+    36.49
+   ],
+   "country": "IR"
+  },
+  {
    "slug": "massaranduba",
    "label": "massaranduba",
    "extract": "brazil",
@@ -8398,8 +9142,8 @@
     23.83979,
     -5.88603
    ],
-   "country": "CD",
-   "cluster": "congo-democratic-republic-244"
+   "cluster": "congo-democratic-republic-244",
+   "country": "CD"
   },
   {
    "slug": "mckinney",
@@ -8419,6 +9163,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "mecca",
+   "label": "mecca",
+   "extract": "gcc-states",
+   "bbox": [
+    39.58,
+    21.21,
+    40.08,
+    21.57
+   ],
+   "country": "SA"
   },
   {
    "slug": "medell-n",
@@ -8507,8 +9263,8 @@
     145.27501,
     -37.52003
    ],
-   "country": "AU",
-   "cluster": "australia-55"
+   "cluster": "australia-55",
+   "country": "AU"
   },
   {
    "slug": "melchtal",
@@ -8522,6 +9278,18 @@
    ],
    "cluster": "switzerland-204",
    "country": "CH"
+  },
+  {
+   "slug": "melekeok",
+   "label": "melekeok",
+   "extract": "palau",
+   "bbox": [
+    134.32655,
+    7.1874,
+    134.92655,
+    7.7874
+   ],
+   "country": "PW"
   },
   {
    "slug": "memphis",
@@ -8913,6 +9681,18 @@
    "country": "US"
   },
   {
+   "slug": "mogadishu",
+   "label": "mogadishu",
+   "extract": "somalia",
+   "bbox": [
+    45.06668,
+    1.76668,
+    45.66667,
+    2.36668
+   ],
+   "country": "SO"
+  },
+  {
    "slug": "moju-dos-campos",
    "label": "moju-dos-campos",
    "extract": "brazil",
@@ -8961,8 +9741,8 @@
     39.91359,
     -3.80466
    ],
-   "country": "KE",
-   "cluster": "kenya-256"
+   "cluster": "kenya-256",
+   "country": "KE"
   },
   {
    "slug": "monroe",
@@ -9152,6 +9932,18 @@
    "country": "BR"
   },
   {
+   "slug": "mostaganem",
+   "label": "mostaganem",
+   "extract": "algeria",
+   "bbox": [
+    -0.16,
+    35.75,
+    0.34,
+    36.11
+   ],
+   "country": "DZ"
+  },
+  {
    "slug": "mount-olive",
    "label": "mount-olive",
    "extract": "us-midwest",
@@ -9325,6 +10117,30 @@
    "country": "BR"
   },
   {
+   "slug": "muscat",
+   "label": "muscat",
+   "extract": "gcc-states",
+   "bbox": [
+    58.29332,
+    23.31333,
+    58.89332,
+    23.91333
+   ],
+   "country": "OM"
+  },
+  {
+   "slug": "mykonos",
+   "label": "mykonos",
+   "extract": "greece",
+   "bbox": [
+    25.08,
+    37.27,
+    25.58,
+    37.63
+   ],
+   "country": "GR"
+  },
+  {
    "slug": "myrtlebeach",
    "label": "myrtlebeach",
    "extract": "us-northeast",
@@ -9389,6 +10205,18 @@
    "country": "KE"
   },
   {
+   "slug": "namur",
+   "label": "namur",
+   "extract": "belgium",
+   "bbox": [
+    4.5709,
+    50.2266,
+    5.1709,
+    50.6666
+   ],
+   "country": "BE"
+  },
+  {
    "slug": "nanchang",
    "label": "nanchang",
    "extract": "china",
@@ -9398,8 +10226,8 @@
     116.10306,
     28.93396
    ],
-   "country": "CN",
-   "cluster": "china-183"
+   "cluster": "china-183",
+   "country": "CN"
   },
   {
    "slug": "nanjing",
@@ -9424,8 +10252,8 @@
     108.56667,
     23.06667
    ],
-   "country": "CN",
-   "cluster": "china-178"
+   "cluster": "china-178",
+   "country": "CN"
   },
   {
    "slug": "napa",
@@ -9517,6 +10345,18 @@
    "country": "US"
   },
   {
+   "slug": "naypyidaw",
+   "label": "naypyidaw",
+   "extract": "myanmar",
+   "bbox": [
+    95.81862,
+    19.46656,
+    96.41862,
+    20.06656
+   ],
+   "country": "MM"
+  },
+  {
    "slug": "nazar",
    "label": "nazar",
    "extract": "brazil",
@@ -9528,6 +10368,18 @@
    ],
    "cluster": "brazil-27",
    "country": "BR"
+  },
+  {
+   "slug": "ndjamena",
+   "label": "ndjamena",
+   "extract": "chad",
+   "bbox": [
+    14.74915,
+    11.8131,
+    15.34915,
+    12.4131
+   ],
+   "country": "TD"
   },
   {
    "slug": "neukirchen-erzgeb",
@@ -9715,6 +10567,18 @@
    "country": "US"
   },
   {
+   "slug": "niamey",
+   "label": "niamey",
+   "extract": "niger",
+   "bbox": [
+    1.81666,
+    13.21671,
+    2.41665,
+    13.81671
+   ],
+   "country": "NE"
+  },
+  {
    "slug": "nicosia",
    "label": "nicosia",
    "extract": "cyprus",
@@ -9875,6 +10739,18 @@
    "country": "GB"
   },
   {
+   "slug": "nouakchott",
+   "label": "nouakchott",
+   "extract": "mauritania",
+   "bbox": [
+    -16.27534,
+    17.78643,
+    -15.67534,
+    18.38643
+   ],
+   "country": "MR"
+  },
+  {
    "slug": "noum-a",
    "label": "noum-a",
    "extract": "france",
@@ -9951,6 +10827,18 @@
    ],
    "cluster": "poland-220",
    "country": "PL"
+  },
+  {
+   "slug": "nukualofa",
+   "label": "nukualofa",
+   "extract": "tonga",
+   "bbox": [
+    -175.52057,
+    -21.43851,
+    -174.92056,
+    -20.83851
+   ],
+   "country": "TO"
   },
   {
    "slug": "ocala",
@@ -10299,6 +11187,18 @@
    "country": "CA"
   },
   {
+   "slug": "ouagadougou",
+   "label": "ouagadougou",
+   "extract": "burkina-faso",
+   "bbox": [
+    -1.82473,
+    12.07032,
+    -1.22473,
+    12.67032
+   ],
+   "country": "BF"
+  },
+  {
    "slug": "overlandpark",
    "label": "overlandpark",
    "extract": "us-midwest",
@@ -10412,6 +11312,30 @@
    ],
    "cluster": "spain-132",
    "country": "ES"
+  },
+  {
+   "slug": "palikir",
+   "label": "palikir",
+   "extract": "micronesia",
+   "bbox": [
+    157.84998,
+    6.61664,
+    158.44998,
+    7.21664
+   ],
+   "country": "FM"
+  },
+  {
+   "slug": "palmachim",
+   "label": "palmachim",
+   "extract": "israel-and-palestine",
+   "bbox": [
+    34.47,
+    31.75,
+    34.97,
+    32.11
+   ],
+   "country": "IL"
   },
   {
    "slug": "palos-de-la-frontera",
@@ -10599,6 +11523,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "pedroabad",
+   "label": "pedroabad",
+   "extract": "spain",
+   "bbox": [
+    -5.08,
+    37.69,
+    -4.58,
+    38.05
+   ],
+   "country": "ES"
   },
   {
    "slug": "pello",
@@ -10948,6 +11884,18 @@
    "country": "BR"
   },
   {
+   "slug": "podgorica",
+   "label": "podgorica",
+   "extract": "montenegro",
+   "bbox": [
+    18.96631,
+    42.16597,
+    19.56631,
+    42.76597
+   ],
+   "country": "ME"
+  },
+  {
    "slug": "pointe-noire",
    "label": "pointe-noire",
    "extract": "congo-brazzaville",
@@ -10957,8 +11905,8 @@
     12.11352,
     -4.52609
    ],
-   "country": "CG",
-   "cluster": "congo-brazzaville-212"
+   "cluster": "congo-brazzaville-212",
+   "country": "CG"
   },
   {
    "slug": "poitiers",
@@ -11126,8 +12074,8 @@
     25.86494,
     -33.71109
    ],
-   "country": "ZA",
-   "cluster": "south-africa-209"
+   "cluster": "south-africa-209",
+   "country": "ZA"
   },
   {
    "slug": "portland",
@@ -11147,6 +12095,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "portmoresby",
+   "label": "portmoresby",
+   "extract": "papua-new-guinea",
+   "bbox": [
+    146.8925,
+    -9.76471,
+    147.4925,
+    -9.16471
+   ],
+   "country": "PG"
   },
   {
    "slug": "porto-seguro",
@@ -11173,6 +12133,30 @@
    ],
    "cluster": "brazil-24",
    "country": "BR"
+  },
+  {
+   "slug": "portonovo",
+   "label": "portonovo",
+   "extract": "benin",
+   "bbox": [
+    2.31663,
+    6.18331,
+    2.91663,
+    6.78331
+   ],
+   "country": "BJ"
+  },
+  {
+   "slug": "portvila",
+   "label": "portvila",
+   "extract": "vanuatu",
+   "bbox": [
+    168.01664,
+    -18.03335,
+    168.61664,
+    -17.43335
+   ],
+   "country": "VU"
   },
   {
    "slug": "posterholt",
@@ -11225,6 +12209,18 @@
    ],
    "cluster": "czech-republic-214",
    "country": "CZ"
+  },
+  {
+   "slug": "praia",
+   "label": "praia",
+   "extract": "cape-verde",
+   "bbox": [
+    -23.81669,
+    14.6167,
+    -23.21669,
+    15.2167
+   ],
+   "country": "CV"
   },
   {
    "slug": "praia-grande",
@@ -11408,6 +12404,18 @@
    "country": "MY"
   },
   {
+   "slug": "pyongyang",
+   "label": "pyongyang",
+   "extract": "north-korea",
+   "bbox": [
+    125.45469,
+    38.71944,
+    126.05469,
+    39.31944
+   ],
+   "country": "KP"
+  },
+  {
    "slug": "qingdao",
    "label": "qingdao",
    "extract": "china",
@@ -11431,6 +12439,18 @@
     20.7845
    ],
    "cluster": "mexico-82",
+   "country": "MX"
+  },
+  {
+   "slug": "queretaro",
+   "label": "queretaro",
+   "extract": "mexico",
+   "bbox": [
+    -100.64,
+    20.41,
+    -100.14,
+    20.77
+   ],
    "country": "MX"
   },
   {
@@ -11486,6 +12506,18 @@
    "country": "MA"
   },
   {
+   "slug": "rabigh",
+   "label": "rabigh",
+   "extract": "gcc-states",
+   "bbox": [
+    38.79,
+    22.58,
+    39.29,
+    22.94
+   ],
+   "country": "SA"
+  },
+  {
    "slug": "raleigh",
    "label": "raleigh",
    "extract": "us-northeast",
@@ -11503,6 +12535,42 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "rangoon",
+   "label": "rangoon",
+   "extract": "myanmar",
+   "bbox": [
+    95.86668,
+    16.48335,
+    96.46668,
+    17.08335
+   ],
+   "country": "MM"
+  },
+  {
+   "slug": "rasalkhair",
+   "label": "rasalkhair",
+   "extract": "gcc-states",
+   "bbox": [
+    48.95,
+    27.34,
+    49.45,
+    27.7
+   ],
+   "country": "AE"
+  },
+  {
+   "slug": "raslaffan",
+   "label": "raslaffan",
+   "extract": "gcc-states",
+   "bbox": [
+    51.37,
+    25.73,
+    51.87,
+    26.09
+   ],
+   "country": "AE"
   },
   {
    "slug": "ravenna",
@@ -12408,6 +13476,30 @@
    "country": "CA"
   },
   {
+   "slug": "saintghislain",
+   "label": "saintghislain",
+   "extract": "belgium",
+   "bbox": [
+    3.66,
+    50.27,
+    4.16,
+    50.63
+   ],
+   "country": "BE"
+  },
+  {
+   "slug": "saka",
+   "label": "saka",
+   "extract": "japan",
+   "bbox": [
+    135.16014,
+    34.45003,
+    135.76015,
+    35.05003
+   ],
+   "country": "JP"
+  },
+  {
    "slug": "salazie",
    "label": "salazie",
    "extract": "france",
@@ -12638,6 +13730,18 @@
    "country": "US"
   },
   {
+   "slug": "sanmarino",
+   "label": "sanmarino",
+   "extract": "italy",
+   "bbox": [
+    12.16667,
+    43.61715,
+    12.76667,
+    44.21715
+   ],
+   "country": "IT"
+  },
+  {
    "slug": "santa-b-rbara",
    "label": "santa-b-rbara",
    "extract": "spain",
@@ -12764,6 +13868,18 @@
     -0.9032
    ],
    "cluster": "brazil-10",
+   "country": "BR"
+  },
+  {
+   "slug": "saopaulo",
+   "label": "saopaulo",
+   "extract": "brazil",
+   "bbox": [
+    -46.78,
+    -23.7,
+    -46.48,
+    -23.48
+   ],
    "country": "BR"
   },
   {
@@ -13024,6 +14140,18 @@
    "country": "BR"
   },
   {
+   "slug": "sg",
+   "label": "sg",
+   "extract": "mexico",
+   "bbox": [
+    -98.59152,
+    25.85884,
+    -98.29152,
+    26.15884
+   ],
+   "country": "MX"
+  },
+  {
    "slug": "shahalam",
    "label": "shahalam",
    "extract": "malaysia-singapore-brunei",
@@ -13117,8 +14245,8 @@
     114.75884,
     38.29297
    ],
-   "country": "CN",
-   "cluster": "china-190"
+   "cluster": "china-190",
+   "country": "CN"
   },
   {
    "slug": "shinjuku",
@@ -13259,8 +14387,8 @@
     21.73346,
     42.30001
    ],
-   "country": "MK",
-   "cluster": "north-macedonia-266"
+   "cluster": "north-macedonia-266",
+   "country": "MK"
   },
   {
    "slug": "sliema",
@@ -13306,6 +14434,18 @@
    ],
    "cluster": "brazil-12",
    "country": "BR"
+  },
+  {
+   "slug": "sohar",
+   "label": "sohar",
+   "extract": "gcc-states",
+   "bbox": [
+    56.52,
+    24.34,
+    57.02,
+    24.7
+   ],
+   "country": "OM"
   },
   {
    "slug": "sonoma",
@@ -13377,6 +14517,18 @@
    ],
    "cluster": "spain-136",
    "country": "ES"
+  },
+  {
+   "slug": "sotom",
+   "label": "sotom",
+   "extract": "gcc-states",
+   "bbox": [
+    6.43332,
+    0.0334,
+    7.03332,
+    0.6334
+   ],
+   "country": "AE"
   },
   {
    "slug": "souppes-sur-loing",
@@ -13479,6 +14631,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "srijawewardenepurakotte",
+   "label": "srijawewardenepurakotte",
+   "extract": "sri-lanka",
+   "bbox": [
+    79.65,
+    6.6,
+    80.24999,
+    7.2
+   ],
+   "country": "LK"
   },
   {
    "slug": "st-andr",
@@ -13607,6 +14771,30 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "subiya",
+   "label": "subiya",
+   "extract": "gcc-states",
+   "bbox": [
+    47.91,
+    29.07,
+    48.41,
+    29.43
+   ],
+   "country": "AE"
+  },
+  {
+   "slug": "sucre",
+   "label": "sucre",
+   "extract": "bolivia",
+   "bbox": [
+    -65.55951,
+    -19.34097,
+    -64.95951,
+    -18.74097
+   ],
+   "country": "BO"
   },
   {
    "slug": "surabaya",
@@ -13786,8 +14974,8 @@
     112.79371,
     38.11999
    ],
-   "country": "CN",
-   "cluster": "china-188"
+   "cluster": "china-188",
+   "country": "CN"
   },
   {
    "slug": "tallahassee",
@@ -13867,6 +15055,18 @@
    "country": "BR"
   },
   {
+   "slug": "tarawa",
+   "label": "tarawa",
+   "extract": "kiribati",
+   "bbox": [
+    172.71757,
+    1.03819,
+    173.31757,
+    1.63819
+   ],
+   "country": "KI"
+  },
+  {
    "slug": "tartu-maakond",
    "label": "tartu-maakond",
    "extract": "estonia",
@@ -13917,6 +15117,18 @@
    ],
    "cluster": "iran-269",
    "country": "IR"
+  },
+  {
+   "slug": "telavivyafo",
+   "label": "telavivyafo",
+   "extract": "israel-and-palestine",
+   "bbox": [
+    34.47002,
+    31.77999,
+    35.07001,
+    32.37999
+   ],
+   "country": "IL"
   },
   {
    "slug": "tempe",
@@ -13996,6 +15208,30 @@
    "country": "NL"
   },
   {
+   "slug": "thessaloniki",
+   "label": "thessaloniki",
+   "extract": "greece",
+   "bbox": [
+    22.69,
+    40.46,
+    23.19,
+    40.82
+   ],
+   "country": "GR"
+  },
+  {
+   "slug": "thimphu",
+   "label": "thimphu",
+   "extract": "bhutan",
+   "bbox": [
+    89.33902,
+    27.17299,
+    89.93901,
+    27.77299
+   ],
+   "country": "BT"
+  },
+  {
    "slug": "tianjin",
    "label": "tianjin",
    "extract": "china",
@@ -14048,6 +15284,18 @@
    "country": "BR"
   },
   {
+   "slug": "tipaza",
+   "label": "tipaza",
+   "extract": "algeria",
+   "bbox": [
+    2.2,
+    36.41,
+    2.7,
+    36.77
+   ],
+   "country": "DZ"
+  },
+  {
    "slug": "tirana",
    "label": "tirana",
    "extract": "albania",
@@ -14059,6 +15307,18 @@
    ],
    "cluster": "albania-270",
    "country": "AL"
+  },
+  {
+   "slug": "tlemcen",
+   "label": "tlemcen",
+   "extract": "algeria",
+   "bbox": [
+    -1.57,
+    34.71,
+    -1.07,
+    35.07
+   ],
+   "country": "DZ"
   },
   {
    "slug": "tokyo",
@@ -14110,6 +15370,18 @@
     "us-pacific"
    ],
    "country": "US"
+  },
+  {
+   "slug": "torhout",
+   "label": "torhout",
+   "extract": "belgium",
+   "bbox": [
+    2.7897,
+    50.849,
+    3.3897,
+    51.289
+   ],
+   "country": "BE"
   },
   {
    "slug": "toronto",
@@ -14332,6 +15604,18 @@
    "country": "US"
   },
   {
+   "slug": "tunis",
+   "label": "tunis",
+   "extract": "tunisia",
+   "bbox": [
+    9.87968,
+    36.50278,
+    10.47968,
+    37.10278
+   ],
+   "country": "TN"
+  },
+  {
    "slug": "tunja",
    "label": "tunja",
    "extract": "colombia",
@@ -14356,6 +15640,18 @@
    ],
    "cluster": "taiwan-245",
    "country": "TW"
+  },
+  {
+   "slug": "twycross",
+   "label": "twycross",
+   "extract": "great-britain",
+   "bbox": [
+    -1.78,
+    52.44,
+    -1.28,
+    52.8
+   ],
+   "country": "GB"
   },
   {
    "slug": "tx",
@@ -14448,6 +15744,18 @@
    "country": "BR"
   },
   {
+   "slug": "ulaanbaatar",
+   "label": "ulaanbaatar",
+   "extract": "mongolia",
+   "bbox": [
+    106.61662,
+    47.61667,
+    107.21662,
+    48.21667
+   ],
+   "country": "MN"
+  },
+  {
    "slug": "umbria",
    "label": "umbria",
    "extract": "italy",
@@ -14459,6 +15767,18 @@
    ],
    "cluster": "italy-38",
    "country": "IT"
+  },
+  {
+   "slug": "ummalquwain",
+   "label": "ummalquwain",
+   "extract": "gcc-states",
+   "bbox": [
+    55.3,
+    25.37,
+    55.8,
+    25.73
+   ],
+   "country": "AE"
   },
   {
    "slug": "upton",
@@ -14621,6 +15941,18 @@
    ],
    "cluster": "brazil-0",
    "country": "BR"
+  },
+  {
+   "slug": "vaticancity",
+   "label": "vaticancity",
+   "extract": "italy",
+   "bbox": [
+    12.4,
+    41.86,
+    12.51,
+    41.94
+   ],
+   "country": "IT"
   },
   {
    "slug": "vaughan",
@@ -15070,8 +16402,8 @@
     119.35194,
     36.96
    ],
-   "country": "CN",
-   "cluster": "china-189"
+   "cluster": "china-189",
+   "country": "CN"
   },
   {
    "slug": "wellington",
@@ -15335,6 +16667,18 @@
    "country": "US"
   },
   {
+   "slug": "wroclaw",
+   "label": "wroclaw",
+   "extract": "poland",
+   "bbox": [
+    16.79,
+    50.93,
+    17.29,
+    51.29
+   ],
+   "country": "PL"
+  },
+  {
    "slug": "wuenheim",
    "label": "wuenheim",
    "extract": "france",
@@ -15387,6 +16731,30 @@
    "country": "CN"
   },
   {
+   "slug": "xianning",
+   "label": "xianning",
+   "extract": "china",
+   "bbox": [
+    114.08,
+    29.66,
+    114.58,
+    30.02
+   ],
+   "country": "CN"
+  },
+  {
+   "slug": "yamoussoukro",
+   "label": "yamoussoukro",
+   "extract": "ivory-coast",
+   "bbox": [
+    -5.5755,
+    6.51838,
+    -4.9755,
+    7.11838
+   ],
+   "country": "CI"
+  },
+  {
    "slug": "yangon",
    "label": "yangon",
    "extract": "myanmar",
@@ -15409,8 +16777,20 @@
     121.69081,
     37.72649
    ],
-   "country": "CN",
-   "cluster": "china-189"
+   "cluster": "china-189",
+   "country": "CN"
+  },
+  {
+   "slug": "yaounde",
+   "label": "yaounde",
+   "extract": "cameroon",
+   "bbox": [
+    11.21665,
+    3.5667,
+    11.81665,
+    4.1667
+   ],
+   "country": "CM"
   },
   {
    "slug": "yepes",
@@ -15519,8 +16899,8 @@
     39.44793,
     -5.91394
    ],
-   "country": "TZ",
-   "cluster": "tanzania-221"
+   "cluster": "tanzania-221",
+   "country": "TZ"
   },
   {
    "slug": "zapopan",
@@ -15536,6 +16916,18 @@
    "country": "MX"
   },
   {
+   "slug": "zhaoqing",
+   "label": "zhaoqing",
+   "extract": "china",
+   "bbox": [
+    112.22,
+    22.87,
+    112.72,
+    23.23
+   ],
+   "country": "CN"
+  },
+  {
    "slug": "zhengzhou",
    "label": "zhengzhou",
    "extract": "china",
@@ -15547,13 +16939,18 @@
    ],
    "cluster": "china-188",
    "country": "CN"
+  },
+  {
+   "slug": "zurich",
+   "label": "zurich",
+   "extract": "switzerland",
+   "bbox": [
+    8.2555,
+    47.1956,
+    8.8555,
+    47.7206
+   ],
+   "country": "CH"
   }
- ],
- "clusters": {
-  "per": 40,
-  "span": 6,
-  "generated": "2026-09-29",
-  "count": 272,
-  "$comment": "Cities are grouped by geography so a job cuts one compact region instead of scanning a whole country file per city. The plan job groups by (extract, cluster); the build step cuts the union bbox once and then each city from it."
- }
+ ]
 }
