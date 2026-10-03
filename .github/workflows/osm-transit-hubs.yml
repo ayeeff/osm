@@ -1,0 +1,174 @@
+name: osm-transit-hubs
+
+# Pilot: how well does OSM tag transit stations, per city?
+#
+# This answers one question and deliberately does nothing else: is OSM station
+# coverage good enough to justify a mobility atlas page for that city? It emits
+# genuine coordinates and tags, and it does NOT rank hubs. OSM carries no
+# ridership or station prominence, so "top 20 most important" needs an attributed
+# external seed that does not exist yet.
+#
+# It is a pilot: artifacts only, nothing published, no site data touched.
+# The 4,398 stations currently on the 439 metro-train atlas pages carry a
+# fabricated `ridership` field (91% have invented "est. YYYY" notes). Fixing that
+# needs this coverage data plus a real ranking source, in that order.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Restrict to one city slug (default: all with an extract)"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      cities: ${{ steps.plan.outputs.cities }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        run: |
+          set -euo pipefail
+          ALL=$(jq -c '[.cities[] | select(.extract != null and .extract != "")]' cities.json)
+          if [ -n "${{ inputs.slug }}" ]; then
+            PICK=$(jq -c --arg s "${{ inputs.slug }}" '[.[] | select(.slug == $s)]' <<<"$ALL")
+            if [ "$(jq 'length' <<<"$PICK")" -eq 0 ]; then
+              echo "::error::slug '${{ inputs.slug }}' unknown or has no 'extract' in cities.json"
+              exit 1
+            fi
+            ALL="$PICK"
+          fi
+          echo "cities=$ALL" >> "$GITHUB_OUTPUT"
+          jq -r '.[] | "  \(.slug) -> \(.extract)"' <<<"$ALL"
+
+  coverage:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        city: ${{ fromJSON(needs.plan.outputs.cities) }}
+    env:
+      SLUG: ${{ matrix.city.slug }}
+      EXTRACT: ${{ matrix.city.extract }}
+      # osmium -b wants minLng,minLat,maxLng,maxLat; matrix.city.bbox already is.
+      BBOX: ${{ join(matrix.city.bbox, ',') }}
+      R2_BUCKET: geo-datalake
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      AWS_ENDPOINT_URL: https://${{ secrets.CF_ACCOUNT_ID }}.r2.cloudflarestorage.com
+      AWS_DEFAULT_REGION: auto
+      AWS_REQUEST_CHECKSUM_CALCULATION: WHEN_REQUIRED
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pyosmium
+        run: |
+          set -euo pipefail
+          pip3 install --break-system-packages --quiet osmium
+
+      - name: Configure R2
+        run: |
+          set -euo pipefail
+          aws configure set aws_access_key_id "$R2_ACCESS_KEY_ID"
+          aws configure set aws_secret_access_key "$R2_SECRET_ACCESS_KEY"
+
+      - name: Fetch the country extract
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          SOURCE_KEY="sources/osm/${EXTRACT}-latest.osm.pbf"
+          SIZE=$(aws s3api head-object --bucket "$R2_BUCKET" --key "$SOURCE_KEY" \
+            --query 'ContentLength' --output text 2>/dev/null) || SIZE=""
+          if [ -z "$SIZE" ] || [ "$SIZE" = "None" ]; then
+            echo "::error::s3://$R2_BUCKET/$SOURCE_KEY not found."
+            echo "::error::Stage the extract first. Do NOT fall back to public Overpass."
+            exit 1
+          fi
+          printf 'source=s3://%s/%s (%s bytes)\n' "$R2_BUCKET" "$SOURCE_KEY" "$SIZE"
+          aws s3 cp "s3://$R2_BUCKET/$SOURCE_KEY" work/source.osm.pbf \
+            --no-progress --only-show-errors
+
+      - name: Cut the city with osmium (C++)
+        run: |
+          set -euo pipefail
+          # Essential. Parsing a whole country extract in pyosmium took 40+ min for
+          # netherlands and never finished for germany (4.6GB). osmium extract is
+          # two orders of magnitude faster and leaves a small city file, so the
+          # Python pass is cheap.
+          time osmium extract -b "$BBOX" -s complete_ways -F pbf \
+            -o work/city.osm.pbf work/source.osm.pbf
+          osmium fileinfo -e work/city.osm.pbf 2>&1 | head -n 6
+          rm -f work/source.osm.pbf
+
+      - name: Extract transit hubs
+        run: |
+          set -euo pipefail
+          # Per-city network/operator rules, e.g. Hong Kong must exclude Shenzhen.
+          mapfile -t ARGS < <(jq -r --arg c "$SLUG" '
+            (. as $all | $all[$c] // {}) as $r
+            | (($r.keepNetworks // [])[] | "--network", .),
+              (($r.keepOperators // [])[] | "--operator", .)
+          ' transit-hub-filters.json)
+          printf 'filters for %s: %s\n' "$SLUG" "${ARGS[*]:-none}"
+          time python scripts/extract_transit_hubs.py \
+            --city "$SLUG" --extract "$EXTRACT" \
+            --pbf work/city.osm.pbf --bbox "$BBOX" \
+            "${ARGS[@]}" \
+            --out "work/${SLUG}-transit-hubs.json"
+          jq -c '.coverage' "work/${SLUG}-transit-hubs.json"
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: transit-hubs-${{ matrix.city.slug }}
+          path: work/${{ matrix.city.slug }}-transit-hubs.json
+          retention-days: 30
+
+  report:
+    needs: coverage
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        if: always()
+        with:
+          pattern: transit-hubs-*
+          merge-multiple: true
+          path: coverage
+
+      - name: Coverage across cities
+        run: |
+          set -euo pipefail
+          {
+            echo "| city | distinct stations | kinds | ranked? |"
+            echo "| --- | --- | --- | --- |"
+            for f in coverage/*-transit-hubs.json; do
+              [ -e "$f" ] || continue
+              jq -r '"| \(.city) | \(.coverage.distinctStations) | \(.coverage.byKind|to_entries|map("\(.key):\(.value)")|join(", ")) | \(.ranked) |"' "$f"
+            done
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+          echo
+          echo "OSM carries no ridership, so nothing here is ranked. A 'top N hubs'"
+          echo "page needs an attributed external seed; these numbers only say"
+          echo "whether the tagging is good enough to build one."
+
+      - uses: actions/download-artifact@v4
+        if: always()
+        with:
+          pattern: transit-hubs-*
+          merge-multiple: true
+          path: coverage
