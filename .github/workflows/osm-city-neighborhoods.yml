@@ -131,7 +131,8 @@ jobs:
       CITIES: ${{ join(matrix.group.cities, ' ') }}
       PUBLISH: ${{ github.event_name == 'workflow_dispatch' && inputs.publish == false && 'false' || 'true' }}
       FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.overwrite_enriched == true && 'true' || 'false' }}
-    DIAGNOSE: ${{ github.event_name == 'workflow_dispatch' && inputs.diagnose == true && '1' || '' }}
+      # Empty string = off. Expands to --diagnose only when the input is set.
+      DIAGNOSE: ${{ github.event_name == 'workflow_dispatch' && inputs.diagnose == true && '1' || '' }}
       # The only sanctioned OSM source. Never reach for a public Overpass mirror.
       # See AGENTS.md "CRITICAL -- No public Overpass API. Ever."
       R2_BUCKET: geo-datalake
@@ -310,7 +311,7 @@ jobs:
               curl -fsS --max-time 60 -o "work/streets-$slug.json" \
                 "https://preview-geo-astro-site.foodstarmelbourne.workers.dev/api/city-streets.json?city=$slug-city-atlas" \
                 || echo '{}' > "work/streets-$slug.json"
-if SG=$(python scripts/extract_street_geoms.py \
+              if SG=$(python scripts/extract_street_geoms.py \
                         --slug "$slug" --pbf "$pbf" \
                         --streets "work/streets-$slug.json" \
                         ${DIAGNOSE:+--diagnose} \
