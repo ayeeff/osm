@@ -59,8 +59,12 @@ jobs:
     env:
       SLUG: ${{ matrix.city.slug }}
       EXTRACT: ${{ matrix.city.extract }}
-      # osmium -b wants minLng,minLat,maxLng,maxLat; matrix.city.bbox already is.
+      # osmium -b wants minLng,minLat,maxLng,maxLat, and matrix.city.bbox is in
+      # that order. The Python extractors take minLat,minLon,maxLat,maxLon, so they
+      # get BBOX_LL. Passing BBOX straight through silently matched nothing: the
+      # first green run reported 0 stations in all five cities.
       BBOX: ${{ join(matrix.city.bbox, ',') }}
+      BBOX_LL: ${{ matrix.city.bbox[1] }},${{ matrix.city.bbox[0] }},${{ matrix.city.bbox[3] }},${{ matrix.city.bbox[2] }}
       R2_BUCKET: geo-datalake
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
@@ -130,7 +134,7 @@ jobs:
           printf 'filters for %s: %s\n' "$SLUG" "${ARGS[*]:-none}"
           time python scripts/extract_transit_hubs.py \
             --city "$SLUG" --extract "$EXTRACT" \
-            --pbf work/city.osm.pbf --bbox "$BBOX" \
+            --pbf work/city.osm.pbf --bbox "$BBOX_LL" \
             "${ARGS[@]}" \
             --out "work/${SLUG}-transit-hubs.json"
           jq -c '.coverage' "work/${SLUG}-transit-hubs.json"
@@ -148,7 +152,7 @@ jobs:
           ' transit-hub-filters.json)
           time python scripts/extract_transit_lines.py \
             --city "$SLUG" --extract "$EXTRACT" \
-            --pbf work/city.osm.pbf --bbox "$BBOX" \
+            --pbf work/city.osm.pbf --bbox "$BBOX_LL" \
             "${ARGS[@]}" \
             --out "work/${SLUG}-transit-lines.json"
           jq -c '.coverage' "work/${SLUG}-transit-lines.json"
