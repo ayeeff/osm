@@ -74,10 +74,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install pyosmium
+      - name: Install osmium (C++ CLI) + pyosmium
         run: |
           set -euo pipefail
+          # Both are needed: the C++ `osmium` does the bbox cut, and pyosmium
+          # reads the cut file. Installing only pyosmium fails at the cut step.
+          sudo apt-get update
+          sudo apt-get install -y osmium-tool
           pip3 install --break-system-packages --quiet osmium
+          osmium --version | head -n 1
 
       - name: Configure R2
         run: |
