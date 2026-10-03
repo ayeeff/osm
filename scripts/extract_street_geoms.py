@@ -68,6 +68,11 @@ ROUND = 6
 # a tiny bbox for the same reason; this is the offline equivalent.
 SEED_RADIUS_M = 2500.0
 
+# Diagnostic sweep radius, deliberately wider than SEED_RADIUS_M: a name that
+# missed at 2.5 km may well exist at 4 km, and that is exactly the distinction
+# the report exists to draw between "named differently" and "not there".
+DIAG_RADIUS_M = 4000.0
+
 # Address datasets and OSM spell the same street differently often enough to
 # matter: "Tiergartenstrasse" vs "TiergartenstraÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â¸e", "GÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶teborgsgatan" vs
 # "Goteborgsgatan". Folding these before matching recovered most of the misses.
@@ -216,6 +221,71 @@ class WayCollector(osmium.SimpleHandler):
         return True
 
 
+class DiagnoseCollector(osmium.SimpleHandler):
+    """Report what OSM actually calls the roads a city failed to match.
+
+    A miss is ambiguous on its own. "The Peak Road" not matching could mean it
+    is unmapped, named only in Chinese, spelled differently, or mapped several
+    kilometres from the seed. Guessing between those is how a street ends up
+    with invented geometry, so this collects the ground truth instead: for every
+    unresolved seed, the names of real named roads within DIAG_RADIUS_M, and
+    which tag carried each name.
+
+    That distinction matters more than it looks. Hong Kong's 10 rural misses
+    (Ting Kok, The Peak Road, Repulse Bay Road) sit in exactly the territory
+    where `name` is Chinese and `name:en` romanised, so the fix that took the
+    city from 0 to 7 was correct but not sufficient - and only the PBF knows
+    what is actually there.
+    """
+
+    def __init__(self, seeds, resolved):
+        super().__init__()
+        self.pending = [(k, la, lo) for (k, _n, la, lo) in seeds if k not in resolved]
+        self.seeds = {(la, lo): k for k, la, lo in self.pending}
+        self.found = {k: {} for k, _la, _lo in self.pending}
+
+    def way(self, w):
+        if not self.pending:
+            return
+        tags = w.tags
+        if not tags:
+            return
+        names = {t: tags.get(t) for t in ("name", "name:en", "name:latin", "int_name")}
+        names = {t: v for t, v in names.items() if v}
+        if not names:
+            return
+        coords = []
+        for nd in w.nodes:
+            if nd.location.valid():
+                coords.append((nd.location.lon, nd.location.lat))
+        if len(coords) < 2:
+            return
+        lon, lat = coords[len(coords) // 2]
+        for skey, slat, slon in self.pending:
+            mx = 111320.0 * max(0.05, math.cos(math.radians(slat)))
+            dx = (lon - slon) * mx
+            dy = (lat - slat) * 110574.0
+            d = math.hypot(dx, dy)
+            if d > DIAG_RADIUS_M:
+                continue
+            for tag, val in names.items():
+                self.found[skey].setdefault(str(val), []).append(
+                    {"tag": tag, "m": int(d)}
+                )
+
+    def report(self):
+        out = {}
+        for key, entries in self.found.items():
+            rows = []
+            for name, locs in entries.items():
+                tag = min(locs, key=lambda r: r["m"])["tag"]
+                near = min(r["m"] for r in locs)
+                rows.append({"osmName": name, "viaTag": tag, "nearestM": near})
+            rows.sort(key=lambda r: r["nearestM"])
+            out[key] = rows[:4]
+        return out
+
+
 def fetch_street_payload(slug, explicit=None, timeout=60):
     """The list of streets to resolve. Prefers a local file, else the public API."""
     if explicit:
@@ -234,6 +304,8 @@ def main():
     ap.add_argument("--streets", help="city-streets JSON; fetched from the API if omitted")
     ap.add_argument("--limit", type=int, default=4000)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--diagnose", action="store_true",
+                    help="also report the real OSM names near any street that did not match")
     args = ap.parse_args()
 
     payload = fetch_street_payload(args.slug, args.streets)
@@ -245,6 +317,12 @@ def main():
 
     collector = WayCollector(seeds)
     collector.apply_file(args.pbf, locations=True)
+
+    diagnosis = None
+    if args.diagnose:
+        diag = DiagnoseCollector(seeds, collector.matched)
+        diag.apply_file(args.pbf, locations=True)
+        diagnosis = diag.report()
 
     geoms = {}
     for key, lines in collector.geoms.items():
@@ -266,14 +344,22 @@ def main():
 
     missing = [n for k, n, _la, _lo in seeds if k not in geoms]
     size = os.path.getsize(args.out)
-    print(json.dumps({
+    summary = {
         "slug": args.slug,
         "wanted": len(seeds),
         "matched": len(geoms),
         "missing": len(missing),
         "bytes": size,
         "sampleMissing": missing[:5],
-    }, ensure_ascii=False))
+    }
+    if diagnosis is not None:
+        summary["diagnosis"] = {
+            collector.display.get(k, k): v for k, v in diagnosis.items() if v
+        }
+        summary["unexplained"] = [
+            collector.display.get(k, k) for k, v in diagnosis.items() if not v
+        ]
+    print(json.dumps(summary, ensure_ascii=False))
     return 0
 
 
