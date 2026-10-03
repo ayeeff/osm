@@ -446,7 +446,14 @@ jobs:
                 # "keep neighborhoods.json", not "publish nothing".
                 if [ "$PUBLISH" = "true" ]; then
                   for F in street-geoms.json; do
-                    [ -f "$D/$F" ] && aws s3 cp "$D/$F" "s3://globe/data/${SLUG}-2d/$F" \
+                    [ -f "$D/$F" ] || continue
+                    aws s3 cp "$D/$F" "s3://globe/data/${SLUG}-2d/$F" \
+                      --no-progress --only-show-errors
+                    # Durable copy too, as the normal path does. Writing only
+                    # globe/ here would leave the datalake without the file
+                    # while the site served it, which is the reverse of the
+                    # split that made this confusing to begin with.
+                    aws s3 cp "$D/$F" "s3://$R2_BUCKET/sources/osm/places/${SLUG}/$F" \
                       --no-progress --only-show-errors
                   done
                 fi
