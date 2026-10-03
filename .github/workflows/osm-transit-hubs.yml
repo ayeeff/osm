@@ -134,7 +134,7 @@ jobs:
           printf 'filters for %s: %s\n' "$SLUG" "${ARGS[*]:-none}"
           time python scripts/extract_transit_hubs.py \
             --city "$SLUG" --extract "$EXTRACT" \
-            --pbf work/city.osm.pbf --bbox "$BBOX_LL" \
+            --pbf work/city.osm.pbf --bbox="$BBOX_LL" \
             "${ARGS[@]}" \
             --out "work/${SLUG}-transit-hubs.json"
           jq -c '.coverage' "work/${SLUG}-transit-hubs.json"
@@ -152,7 +152,7 @@ jobs:
           ' transit-hub-filters.json)
           time python scripts/extract_transit_lines.py \
             --city "$SLUG" --extract "$EXTRACT" \
-            --pbf work/city.osm.pbf --bbox "$BBOX_LL" \
+            --pbf work/city.osm.pbf --bbox="$BBOX_LL" \
             "${ARGS[@]}" \
             --out "work/${SLUG}-transit-lines.json"
           jq -c '.coverage' "work/${SLUG}-transit-lines.json"
