@@ -189,11 +189,38 @@ class WayCollector(osmium.SimpleHandler):
             raw = tags.get(tag)
             if not raw:
                 continue
-            key = canonical_street_key(raw)
-            seed = self.seeds.get(key)
-            if seed is None:
-                continue
-            if self._take(key, seed, w):
+            for key, seed in self.lookup_keys(raw):
+                if self._take(key, seed, w):
+                    return
+
+    def lookup_keys(self, raw):
+        """Yield (canonical key, seed) candidates for one OSM name.
+
+        Exact match only was not enough. Hong Kong's list says "The Peak Road"
+        while OSM's own `name:en` says "Peak Road" - the same road, described by
+        an address database that keeps the definite article and an OSM mapper
+        who did not. Requiring equality missed it by one word.
+
+        So after the exact key fails, retry dropping leading words one at a
+        time. The seed requirement still pins each match to within 2.5 km of the
+        street's own point, which is what keeps this from becoming the fuzzy
+        substring matching that makes "Hauptstrasse" collect fragments across a
+        whole city: dropping a word is a bounded, explainable edit, and every
+        candidate is still rejected unless a road of that name runs near the
+        seed. A name with two or three words is not ambiguous once the geography
+        is applied.
+        """
+        key = canonical_street_key(raw)
+        seed = self.seeds.get(key)
+        if seed is not None:
+            yield key, seed
+            return
+        words = key.split(" ")
+        for cut in range(1, len(words)):
+            shorter = " ".join(words[cut:])
+            s = self.seeds.get(shorter)
+            if s is not None:
+                yield shorter, s
                 return
 
     def _take(self, key, seed, w):
