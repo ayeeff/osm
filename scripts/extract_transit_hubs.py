@@ -25,7 +25,6 @@ import unicodedata
 from collections import Counter, defaultdict
 
 import osmium
-from botocore.config import Config
 
 # station=<kind> values that represent a stop a passenger boards.
 STATION_KINDS = {
@@ -111,7 +110,8 @@ class Collector(osmium.SimpleHandler):
 def open_stream(bucket, key_name):
     """Stream an R2 object as a file object osmium can read."""
     import os as _os
-    import boto3  # lazy: only needed for the --extract path, not --pbf
+    import boto3  # lazy: only the --extract path needs AWS, so a --pbf
+    from botocore.config import Config  # run (which is what CI does) needs neither.
     home = _os.path.join(_os.path.expanduser("~"), ".geo-r2.env")
     env = {}
     for path in (home, ".env"):
