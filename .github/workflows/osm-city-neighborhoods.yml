@@ -298,14 +298,21 @@ jobs:
               #
               # Best-effort: a city with no street list yet just gets no file and
               # the atlas falls back, so this must never fail the outline build.
+              # But it must not fail *silently* either - the first run of this
+              # step discarded a perfectly good file and the only symptom was a
+              # 404 much later. Report what happened either way.
               curl -fsS --max-time 60 -o "work/streets-$slug.json" \
                 "https://preview-geo-astro-site.foodstarmelbourne.workers.dev/api/city-streets.json?city=$slug-city-atlas" \
-                2>/dev/null || echo '{}' > "work/streets-$slug.json"
-              python scripts/extract_street_geoms.py \
-                --slug "$slug" --pbf "$pbf" \
-                --streets "work/streets-$slug.json" \
-                --out "work/out/$slug/street-geoms.json" >/dev/null 2>&1 \
-                || rm -f "work/out/$slug/street-geoms.json"
+                || echo '{}' > "work/streets-$slug.json"
+              if SG=$(python scripts/extract_street_geoms.py \
+                        --slug "$slug" --pbf "$pbf" \
+                        --streets "work/streets-$slug.json" \
+                        --out "work/out/$slug/street-geoms.json" 2>&1); then
+                echo "::notice::street-geoms $slug: $SG"
+              else
+                echo "::warning::street-geoms $slug failed, atlas will fall back: $SG"
+                rm -f "work/out/$slug/street-geoms.json"
+              fi
               rm -f "work/streets-$slug.json"
 
               rm -f "$pbf"
@@ -430,6 +437,19 @@ jobs:
                    work/live.json >/dev/null 2>&1; then
                 echo "::notice::$SLUG is already enriched; keeping the published file (set overwrite_enriched to replace it)"
                 rm -f work/live.json
+                # The guard above protects one file: neighborhoods.json, which
+                # carries Wikidata population and photos. It must not block the
+                # others. It did, and silently: Hong Kong is enriched, so its
+                # run skipped straight past publishing and the street geometry
+                # built earlier in this loop was thrown away. That is precisely
+                # the tab that was broken, so "already enriched" has to mean
+                # "keep neighborhoods.json", not "publish nothing".
+                if [ "$PUBLISH" = "true" ]; then
+                  for F in street-geoms.json; do
+                    [ -f "$D/$F" ] && aws s3 cp "$D/$F" "s3://globe/data/${SLUG}-2d/$F" \
+                      --no-progress --only-show-errors
+                  done
+                fi
                 echo "{\"slug\":\"$SLUG\",\"features\":$N,\"extract\":\"$EXTRACT\",\"skipped\":\"already-enriched\"}" >> artifact/manifest.jsonl
                 continue
               fi
