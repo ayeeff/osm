@@ -81,7 +81,7 @@ jobs:
           # reads the cut file. Installing only pyosmium fails at the cut step.
           sudo apt-get update
           sudo apt-get install -y osmium-tool
-          pip3 install --break-system-packages --quiet osmium
+          pip3 install --break-system-packages --quiet osmium boto3
           osmium --version | head -n 1
 
       - name: Configure R2
@@ -135,11 +135,31 @@ jobs:
             --out "work/${SLUG}-transit-hubs.json"
           jq -c '.coverage' "work/${SLUG}-transit-hubs.json"
 
+      - name: Extract transit lines
+        run: |
+          set -euo pipefail
+          # Same per-city rules as the stations. They matter MORE here: a bbox does
+          # not bound route-relation geometry, so without the operator rule a
+          # Shenzhen route in the hongkong extract comes through whole.
+          mapfile -t ARGS < <(jq -r --arg c "$SLUG" '
+            (. as $all | $all[$c] // {}) as $r
+            | (($r.keepNetworks // [])[] | "--network", .),
+              (($r.keepOperators // [])[] | "--operator", .)
+          ' transit-hub-filters.json)
+          time python scripts/extract_transit_lines.py \
+            --city "$SLUG" --extract "$EXTRACT" \
+            --pbf work/city.osm.pbf --bbox "$BBOX" \
+            "${ARGS[@]}" \
+            --out "work/${SLUG}-transit-lines.json"
+          jq -c '.coverage' "work/${SLUG}-transit-lines.json"
+
       - name: Upload coverage
         uses: actions/upload-artifact@v4
         with:
-          name: transit-hubs-${{ matrix.city.slug }}
-          path: work/${{ matrix.city.slug }}-transit-hubs.json
+          name: transit-${{ matrix.city.slug }}
+          path: |
+            work/${{ matrix.city.slug }}-transit-hubs.json
+            work/${{ matrix.city.slug }}-transit-lines.json
           retention-days: 30
 
   report:
@@ -151,7 +171,7 @@ jobs:
       - uses: actions/download-artifact@v4
         if: always()
         with:
-          pattern: transit-hubs-*
+          pattern: transit-*
           merge-multiple: true
           path: coverage
 
@@ -174,6 +194,6 @@ jobs:
       - uses: actions/download-artifact@v4
         if: always()
         with:
-          pattern: transit-hubs-*
+          pattern: transit-*
           merge-multiple: true
           path: coverage
