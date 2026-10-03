@@ -164,6 +164,20 @@ class WayCollector(osmium.SimpleHandler):
         self.wanted = set(self.seeds)
         self.geoms = {}
         self.matched = set()
+        # Index of the seed keys with leading words dropped, so an OSM name can
+        # find a seed whose key merely has extra words in front.
+        #
+        # This is the other half of lookup_keys(). That one shortens the OSM
+        # name; this shortens the seed. Hong Kong needs this side: the street
+        # list says "The Peak Road" and OSM says "Peak Road", so the OSM name
+        # has nothing to drop and the seed is the one carrying the extra word.
+        # Shortening both sides in isolation misses the pair, which is what
+        # happened - the first attempt took Hong Kong 0 -> 7 and then stalled.
+        self.by_short = {}
+        for key, (lat, lon) in self.seeds.items():
+            words = key.split(" ")
+            for cut in range(1, len(words)):
+                self.by_short.setdefault(" ".join(words[cut:]), (key, (lat, lon)))
 
     def way(self, w):
         tags = w.tags
@@ -215,12 +229,23 @@ class WayCollector(osmium.SimpleHandler):
         if seed is not None:
             yield key, seed
             return
+        # The OSM name is shorter than the seed's: "Peak Road" should find the
+        # seed "The Peak Road". Yield the SEED's key, not the shortened one, so
+        # the geometry lands under the name the client looks up.
+        found = self.by_short.get(key)
+        if found is not None:
+            yield found[0], found[1]
+            return
         words = key.split(" ")
         for cut in range(1, len(words)):
             shorter = " ".join(words[cut:])
             s = self.seeds.get(shorter)
             if s is not None:
                 yield shorter, s
+                return
+            found = self.by_short.get(shorter)
+            if found is not None:
+                yield found[0], found[1]
                 return
 
     def _take(self, key, seed, w):
@@ -232,10 +257,25 @@ class WayCollector(osmium.SimpleHandler):
             return False
         seed_lat, seed_lon = seed
         mx = 111320.0 * max(0.05, math.cos(math.radians(seed_lat)))
-        mid = coords[len(coords) // 2]
-        dx = (mid[0] - seed_lon) * mx
-        dy = (mid[1] - seed_lat) * 110574.0
-        if (dx * dx + dy * dy) > SEED_RADIUS_M * SEED_RADIUS_M:
+        # Distance to the CLOSEST point of the way, not to its midpoint node.
+        #
+        # Measuring to the midpoint let a long way qualify on the strength of
+        # one node being near the seed: Berlin's Pariser Platz matched geometry
+        # whose nearest point is 2.2 km from the seed, because some mid-node
+        # happened to fall inside the radius. The seed is a point of interest
+        # ON the street, so the street has to come to the point. This also makes
+        # long fragmented roads behave like short ones instead of matching on
+        # whichever fragment happens to be nearest.
+        best = float("inf")
+        for pt in coords:
+            dx = (pt[0] - seed_lon) * mx
+            dy = (pt[1] - seed_lat) * 110574.0
+            d2 = dx * dx + dy * dy
+            if d2 < best:
+                best = d2
+                if best <= 0.0:
+                    break
+        if best > SEED_RADIUS_M * SEED_RADIUS_M:
             return False
         coords = simplify(coords)
         if len(coords) < 2:
