@@ -1,4 +1,4 @@
-﻿name: OSM city neighbourhood boundaries
+name: OSM city neighbourhood boundaries
 
 # Builds neighborhoods.json ONLY (no places.json / demand-streets.json) for every
 # city in cities-neighborhoods.json that names a geofabrik extract, from the per-country OSM
@@ -284,6 +284,30 @@ jobs:
                 --pbf "$pbf" --bbox="$bbox" \
                 --out-dir "work/out/$slug" >/dev/null 2>&1 \
                 || { rm -f "$pbf"; echo -1; return; }
+
+              # Real OSM road geometry for the atlas Popular Streets tab, cut
+              # from the same city PBF the boundaries came from.
+              #
+              # This replaces /api/street-geoms.json, which sourced geometry
+              # live from public Overpass mirrors - banned by AGENTS.md. Where
+              # it had nothing cached it answered count:0, and the atlas drew a
+              # stand-in: Hong Kong's 30 popular streets all rendered as
+              # identical short diagonal stubs. Melbourne only looked correct
+              # because its geometry had been cached from an earlier Overpass
+              # run, so whether a city looked right was a cache lottery.
+              #
+              # Best-effort: a city with no street list yet just gets no file and
+              # the atlas falls back, so this must never fail the outline build.
+              curl -fsS --max-time 60 -o "work/streets-$slug.json" \
+                "https://preview-geo-astro-site.foodstarmelbourne.workers.dev/api/city-streets.json?city=$slug-city-atlas" \
+                2>/dev/null || echo '{}' > "work/streets-$slug.json"
+              python scripts/extract_street_geoms.py \
+                --slug "$slug" --pbf "$pbf" \
+                --streets "work/streets-$slug.json" \
+                --out "work/out/$slug/street-geoms.json" >/dev/null 2>&1 \
+                || rm -f "work/out/$slug/street-geoms.json"
+              rm -f "work/streets-$slug.json"
+
               rm -f "$pbf"
               jq '.features | length' "work/out/$slug/neighborhoods.json" 2>/dev/null || echo 0
             }
@@ -431,14 +455,14 @@ jobs:
             # request 404s. The durable copies below go to geo-datalake on
             # purpose, because that is the datalake.
             if [ "$PUBLISH" = "true" ]; then
-              for F in places.json demand-streets.json neighborhoods.json; do
+              for F in places.json demand-streets.json neighborhoods.json street-geoms.json; do
                 [ -f "$D/$F" ] || { echo "  no $F for $SLUG"; continue; }
                 aws s3 cp "$D/$F" "s3://globe/data/${SLUG}-2d/$F" \
                   --no-progress --only-show-errors
               done
             fi
             # Durable copy alongside the extractor manifest.
-            for F in places.json demand-streets.json neighborhoods.json; do
+            for F in places.json demand-streets.json neighborhoods.json street-geoms.json; do
               [ -f "$D/$F" ] || continue
               aws s3 cp "$D/$F" "s3://$R2_BUCKET/sources/osm/places/${SLUG}/$F" \
                 --no-progress --only-show-errors
