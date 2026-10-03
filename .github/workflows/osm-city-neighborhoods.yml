@@ -311,16 +311,26 @@ jobs:
               curl -fsS --max-time 60 -o "work/streets-$slug.json" \
                 "https://preview-geo-astro-site.foodstarmelbourne.workers.dev/api/city-streets.json?city=$slug-city-atlas" \
                 || echo '{}' > "work/streets-$slug.json"
+              # Status captured separately from the text. Using the assignment
+              # itself as the condition made bash evaluate the captured notice
+              # as a test operand, warning "[: ::notice::street-geoms ...:
+              # unary operator expected" twice per city. Splitting the two
+              # removes the whole class of problem, whichever shell runs it.
               if SG=$(python scripts/extract_street_geoms.py \
                         --slug "$slug" --pbf "$pbf" \
                         --streets "work/streets-$slug.json" \
                         ${DIAGNOSE:+--diagnose} \
                         --out "work/out/$slug/street-geoms.json" 2>&1); then
-                  echo "::notice::street-geoms $slug: $SG"
+                  RC=0
                 else
-                  echo "::warning::street-geoms $slug failed, atlas will fall back: $SG"
-                  rm -f "work/out/$slug/street-geoms.json"
+                  RC=$?
                 fi
+              if [ "$RC" -eq 0 ]; then
+                echo "::notice::street-geoms $slug: $SG"
+              else
+                echo "::warning::street-geoms $slug failed (rc=$RC), atlas will fall back: $SG"
+                rm -f "work/out/$slug/street-geoms.json"
+              fi
               rm -f "work/streets-$slug.json"
 
               rm -f "$pbf"
