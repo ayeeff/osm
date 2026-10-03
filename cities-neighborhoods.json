@@ -1,7 +1,7 @@
 {
  "$comment": "Every *-city-atlas city, with a bbox, for the neighbourhood-boundary extraction. bbox is [minLng,minLat,maxLng,maxLat]. Sources: layer/registry-cities.json, src/data/atlas-city-centers.json, else a +/-0.25 deg fallback. This feeds the PBF pipeline in ayeeff/osm (extract_city_2d_data.py) run per country over the R2 extracts.",
  "generated": "2026-09-29",
- "count": 1206,
+ "count": 1207,
  "bboxSources": {
   "registry": 1223,
   "center": 31,
@@ -17491,6 +17491,19 @@
     47.7206
    ],
    "country": "CH"
+  },
+  {
+   "slug": "hongkong",
+   "label": "hongkong",
+   "extract": "hongkong",
+   "bbox": [
+    113.69813,
+    21.85453,
+    114.67189,
+    22.75543
+   ],
+   "cluster": "hongkong-1",
+   "country": "HK"
   }
  ]
 }
