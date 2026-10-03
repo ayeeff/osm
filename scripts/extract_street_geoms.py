@@ -164,34 +164,56 @@ class WayCollector(osmium.SimpleHandler):
         tags = w.tags
         if not tags:
             return
-        raw = tags.get("name")
-        if not raw:
-            return
-        key = canonical_street_key(raw)
-        seed = self.seeds.get(key)
-        if seed is None:
-            return
+        # Every name a way is known by, Latin script first.
+        #
+        # Hong Kong matched 0 of 17 streets reading only `name`, which looks
+        # impossible: Nathan Road and Shanghai Street are among the busiest
+        # roads in the territory and are plainly in the extract. The reason is
+        # that Hong Kong is mapped bilingually. Most of its roads carry the
+        # Chinese name in `name` and the romanised name in `name:en`, so an
+        # English street list compared against `name` never meets its own
+        # roads. Berlin matched 63 of 93 on `name` alone for the opposite
+        # reason - Germany has no second name to prefer.
+        #
+        # `name:latin` and `int_name` cover the same ground elsewhere: Taiwan
+        # and parts of Central Asia and the Balkans put the Latin form in
+        # `name:latin`, and `int_name` is the international fallback. Checking
+        # all of them costs three dict lookups and makes the city work by tag
+        # convention rather than by which languages a country happens to map.
+        for tag in ("name", "name:en", "name:latin", "int_name"):
+            raw = tags.get(tag)
+            if not raw:
+                continue
+            key = canonical_street_key(raw)
+            seed = self.seeds.get(key)
+            if seed is None:
+                continue
+            if self._take(key, seed, w):
+                return
+
+    def _take(self, key, seed, w):
         coords = []
         for nd in w.nodes:
             if nd.location.valid():
                 coords.append([round(nd.location.lon, ROUND), round(nd.location.lat, ROUND)])
         if len(coords) < 2:
-            return
+            return False
         seed_lat, seed_lon = seed
         mx = 111320.0 * max(0.05, math.cos(math.radians(seed_lat)))
         mid = coords[len(coords) // 2]
         dx = (mid[0] - seed_lon) * mx
         dy = (mid[1] - seed_lat) * 110574.0
         if (dx * dx + dy * dy) > SEED_RADIUS_M * SEED_RADIUS_M:
-            return
+            return False
         coords = simplify(coords)
         if len(coords) < 2:
-            return
+            return False
         self.matched.add(key)
         if key not in self.geoms:
             self.geoms[key] = []
         if len(self.geoms[key]) < MAX_COORDS_PER_STREET:
             self.geoms[key].append(coords)
+        return True
 
 
 def fetch_street_payload(slug, explicit=None, timeout=60):
